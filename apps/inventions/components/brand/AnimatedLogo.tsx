@@ -8,16 +8,16 @@ import { ORBIT_D, STAR_D, SYMBOL_VIEWBOX } from "./symbol-paths";
  * The Comet Orbit symbol, animated (D-03). Built from nanashi-symbol-reversed.svg with its exact paths.
  *
  * Loop (8s):
- *  1. The orbit spins in (-70° → 0°) while drawing itself from its thin tail to its thick head.
+ *  1. The orbit draws itself from its thin tail to its thick head.
  *  2. The whole star is born at the centre, spinning in from nothing.
  *  3. It shoots out through the gap, accelerating, and is gone.
  *  4. It comes back in through the gap like a meteor (its long ray trails behind as the tail) and lands.
  *  5. Impact: the ring pulses, the star twinkles and settles. Hold on the static logo (one twinkle).
- *  6. Exit: the star shoots out again while the ring keeps turning and erases itself tail first.
+ *  6. Exit: the star shoots out again while the ring erases itself tail first.
  *
  * The orbit is a filled shape, so "drawing" it reveals the fill through a mask: a wide stroke on its
  * centreline whose dash moves from hidden (1) to shown (0) to erased (-1). The star is never masked.
- * At rest every transform is the identity and the mask covers the ring, so the resting frame is the
+ * The ring never rotates (brand rule). At rest every transform is the identity and the mask covers the ring, so the resting frame is the
  * static logo. Reduced motion: the static frame, no loop.
  *
  * Motion's mini animate() runs the timeline on the browser's own animation engine (about 3 KB).
@@ -34,7 +34,7 @@ const EASE_POP = [0.34, 1.56, 0.64, 1] as const; // slight overshoot
 const REVEAL_D = "M202.48 85 A86 86 0 1 1 171 53.52";
 
 // Transforms always use the same function list so the browser can interpolate between them.
-const orbit = (deg: number, s = 1) => `rotate(${deg}deg) scale(${s})`;
+const orbit = (s: number) => `scale(${s})`;
 const star = (x: number, deg: number, s: number) => `translate(${x}px, ${-x}px) rotate(${deg}deg) scale(${s})`;
 const REST = star(0, 0, 1);
 const ORIGIN = { transformBox: "view-box", transformOrigin: "128px 128px" } as const;
@@ -62,15 +62,11 @@ export function AnimatedLogo({ className, label = "Nanashi" }: { className?: str
         { strokeDashoffset: ["1", "1", "0", "0", "-1", "-1"] },
         { ...loop, times: [0, 0.03, 0.19, 0.75, 0.875, 1], ease: ["linear", EASE_DRAW, "linear", EASE_IN, "linear"] },
       ),
-      // Orbit: spin in while drawing, pulse on the star's impact, keep turning on the way out.
+      // Orbit: a small pulse when the star lands.
       animate(
         ring,
-        { transform: [orbit(-70), orbit(0), orbit(0), orbit(0, 1.045), orbit(0), orbit(0), orbit(40), orbit(40)] },
-        {
-          ...loop,
-          times: [0, 0.19, 0.425, 0.445, 0.48, 0.75, 0.875, 1],
-          ease: [EASE_DRAW, "linear", "easeOut", "easeInOut", "linear", EASE_IN, "linear"],
-        },
+        { transform: [orbit(1), orbit(1), orbit(1.045), orbit(1), orbit(1)] },
+        { ...loop, times: [0, 0.425, 0.445, 0.48, 1], ease: ["linear", "easeOut", "easeInOut", "linear"] },
       ),
       // Star: born spinning → shoots out → meteor back in → land, twinkle → hold (one twinkle) → shoots out.
       animate(
