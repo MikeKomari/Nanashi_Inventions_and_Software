@@ -23,6 +23,3 @@ export const FOUNDER = { name: "Michael Kimeison", url: "https://michaelkimeison
 
 /** Nanashi Inventions lives at the root of the same domain, outside this app's basePath. */
 export const INVENTIONS_HREF = "/";
-
-/** S5 review: page background. "default" = design-system bg, "warm" = paper token. */
-export const PAPER: "default" | "warm" = "default";

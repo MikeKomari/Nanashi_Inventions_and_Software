@@ -7,13 +7,8 @@
   --font-sans: var(--font-jakarta), system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
-/* Page background. S5 review: "bg" (design system) or "paper" (warmer). One line to switch. */
 :root {
-  --page: var(--color-bg);
   --grid-line: color-mix(in srgb, var(--color-border) 55%, transparent);
-}
-:root[data-paper="warm"] {
-  --page: var(--color-paper);
 }
 
 @layer base {
@@ -22,7 +17,7 @@
     scroll-behavior: auto;
   }
   body {
-    background-color: var(--page);
+    background-color: var(--color-bg);
     /* Blueprint paper: faint 1px lines every 32px. */
     background-image:
       linear-gradient(to right, var(--grid-line) 1px, transparent 1px),

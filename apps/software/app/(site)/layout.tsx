@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Sora } from "next/font/google";
-import { asset, PAPER, SITE_ORIGIN } from "@/lib/site";
+import { asset, SITE_ORIGIN } from "@/lib/site";
 import { id as t } from "@/content/site/id";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -19,7 +19,7 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1 };
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id" data-paper={PAPER} className={`${sora.variable} ${jakarta.variable}`} suppressHydrationWarning>
+    <html lang="id" className={`${sora.variable} ${jakarta.variable}`} suppressHydrationWarning>
       <head>
         {/* Marks JS as running so scroll reveals may hide content until it is seen. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
