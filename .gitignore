@@ -1,0 +1,8 @@
+node_modules/
+.next/
+.vercel/
+.env*
+
+# Third-party design references (other people's work): kept locally, never committed.
+apps/*/design-references/*
+!apps/*/design-references/README.md
