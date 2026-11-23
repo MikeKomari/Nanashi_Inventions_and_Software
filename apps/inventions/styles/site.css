@@ -1,0 +1,60 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* Fonts come from next/font (see app/(en)/layout.tsx). */
+@theme inline {
+  --font-display: var(--font-sora), "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-sans: var(--font-jakarta), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, Menlo, monospace;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* Animated logo: hidden until its animation starts, only when JS runs and motion is allowed.
+   A 3s fallback shows the static frame if the script never runs. Reduced motion: static frame. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .nanashi-anim [data-orbit-reveal] {
+    stroke-dashoffset: 1;
+    animation: logo-fallback-reveal 0s 3s forwards;
+  }
+  html.js .nanashi-anim [data-star] {
+    opacity: 0;
+    animation: logo-fallback-show 0s 3s forwards;
+  }
+  @keyframes logo-fallback-reveal {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes logo-fallback-show {
+    to {
+      opacity: 1;
+    }
+  }
+}
