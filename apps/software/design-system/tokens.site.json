@@ -1,0 +1,10 @@
+{
+  "note": "Site-only additions to the Nanashi tokens, allowed by DESIGN.md §1 (Color). tokens.json stays an untouched copy of the design system.",
+  "color": [
+    {
+      "name": "paper",
+      "value": "#FBF7EE",
+      "usage": "Candidate warmer page background, closer to Pleurat's warmth. text 15.8:1, text-muted 6.3:1, primary 6.4:1 on it. Used only if it wins the side-by-side review (S5)."
+    }
+  ]
+}
