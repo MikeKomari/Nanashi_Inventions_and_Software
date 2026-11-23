@@ -1,0 +1,67 @@
+// The five templates, in the order they appear on the site (01–05).
+// A template goes live by setting status "live" and pointing demo at its content file (phase 3).
+
+export type Locale = "id" | "en";
+
+export type TemplateEntry = {
+  number: string;
+  slug: string;
+  status: "live" | "soon";
+  /** Lucide icon name shown on the soft placeholder. */
+  icon: "Coffee" | "UtensilsCrossed" | "Croissant" | "Store" | "Scissors";
+  /** Name used in the WhatsApp message, e.g. "Kafe". */
+  waName: Record<Locale, string>;
+  title: Record<Locale, string>;
+  blurb: Record<Locale, string>;
+};
+
+export const TEMPLATES: TemplateEntry[] = [
+  {
+    number: "01",
+    slug: "kafe",
+    status: "live",
+    icon: "Coffee",
+    waName: { id: "Kafe", en: "Café" },
+    title: { id: "Kafe & coffee shop", en: "Café & coffee shop" },
+    blurb: {
+      id: "Menu dan harga, foto suasana, ulasan, lokasi, dan tombol pesan lewat WhatsApp.",
+      en: "Menu and prices, atmosphere photos, reviews, location and a WhatsApp order button.",
+    },
+  },
+  {
+    number: "02",
+    slug: "warung",
+    status: "soon",
+    icon: "UtensilsCrossed",
+    waName: { id: "Restoran & Warung", en: "Restaurant & Warung" },
+    title: { id: "Restoran & warung", en: "Restaurant & warung" },
+    blurb: { id: "Untuk rumah makan dan warung.", en: "For restaurants and warungs." },
+  },
+  {
+    number: "03",
+    slug: "bakery",
+    status: "soon",
+    icon: "Croissant",
+    waName: { id: "Bakery & Katering", en: "Bakery & Catering" },
+    title: { id: "Bakery, dessert & katering", en: "Bakery, dessert & catering" },
+    blurb: { id: "Untuk toko roti, dessert, dan katering.", en: "For bakeries, dessert shops and caterers." },
+  },
+  {
+    number: "04",
+    slug: "toko",
+    status: "soon",
+    icon: "Store",
+    waName: { id: "Toko UMKM", en: "UMKM Shop" },
+    title: { id: "Toko UMKM", en: "Small business shop" },
+    blurb: { id: "Untuk toko yang menjual produknya sendiri.", en: "For shops selling their own products." },
+  },
+  {
+    number: "05",
+    slug: "jasa",
+    status: "soon",
+    icon: "Scissors",
+    waName: { id: "Jasa", en: "Services" },
+    title: { id: "Jasa: laundry, barbershop, salon", en: "Services: laundry, barbershop, salon" },
+    blurb: { id: "Untuk usaha jasa dengan daftar layanan dan harga.", en: "For service businesses with a price list." },
+  },
+];
