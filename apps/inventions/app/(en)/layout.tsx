@@ -2,6 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Plus_Jakarta_Sans, Sora } from "next/font/google";
 import { SITE_ORIGIN } from "@/lib/site";
 import { COLOR } from "@/styles/tokens";
+import { en as t } from "@/content/i18n/en";
+import { Header } from "@/components/layout/Header";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import "@/styles/site.css";
 
 const sora = Sora({ subsets: ["latin"], weight: ["600"], variable: "--font-sora", display: "swap" });
@@ -21,7 +24,14 @@ export default function EnglishLayout({ children }: { children: React.ReactNode 
       <head>
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>
-      <body>{children}</body>
+      <body>
+        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-sm focus:bg-surface focus:px-3 focus:py-2">
+          {t.nav.skip}
+        </a>
+        <Header t={t} switchHref="/id" />
+        <main id="main">{children}</main>
+        <SmoothScroll />
+      </body>
     </html>
   );
 }
