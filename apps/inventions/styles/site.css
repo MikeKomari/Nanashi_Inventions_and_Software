@@ -39,7 +39,8 @@
 /* Animated logo: hidden until its animation starts, only when JS runs and motion is allowed.
    A 3s fallback shows the static frame if the script never runs. Reduced motion: static frame. */
 @media (prefers-reduced-motion: no-preference) {
-  html.js .nanashi-anim [data-orbit-reveal] {
+  html.js .nanashi-anim [data-orbit-reveal],
+  html.js .nanashi-anim [data-star-ray] {
     stroke-dashoffset: 1;
     animation: logo-fallback-reveal 0s 3s forwards;
   }
