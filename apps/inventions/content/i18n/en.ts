@@ -54,6 +54,8 @@ export const en = {
     lead: "Every invention is held to the same seven rules, one for each star of the Big Dipper, from Dubhe to Alkaid.",
     constellationLabel:
       "The Big Dipper drawn with seven gold stars from the Nanashi logo. Each star lights as its principle scrolls past.",
+    seenIn: "Seen in",
+    openStar: "Show where this principle shows up",
     starNames: ["Dubhe", "Merak", "Phecda", "Megrez", "Alioth", "Mizar", "Alkaid"],
     principles: [
       {
@@ -116,6 +118,7 @@ export const en = {
   },
   invention: {
     back: "All inventions",
+    stackLabel: "Built with",
     nameLabel: "The name",
     demoLabel: "Demo",
     storyLabel: "The story",
@@ -210,6 +213,55 @@ export const en = {
       },
     ] as { q: string; a: Rich }[],
   },
+  press: {
+    metaTitle: "Press kit · Nanashi",
+    metaDescription: "Nanashi logos, ready-to-use descriptions, the story of the name, brand colours and contact.",
+    label: "Press kit",
+    title: "Nanashi, in one place.",
+    lead: "Logos, descriptions and the facts you need to write about Nanashi or introduce it. Use them freely; the logo rules below keep it recognisable.",
+    descriptionsLabel: "Descriptions",
+    descriptions: [
+      { name: "One line", text: "Nanashi is an independent product lab." },
+      {
+        name: "Short",
+        text: "Nanashi is an independent product lab founded by Michael Kimeison. It designs, builds and runs its own software, starting from real problems, guided by seven principles.",
+      },
+      {
+        name: "Long",
+        text: "Nanashi is an independent product lab founded by Michael Kimeison. Its name comes from the Japanese nana hoshi, 七星, seven stars, and each star stands for one principle every invention is built by, from starting with a real problem to keeping your data yours. Two inventions are in production: Chromiq, a design workbench for frontend developers, and Lexi, a vocabulary workspace for Chinese, Japanese and Korean. Nanashi Studio and Nanashi Home are in the lab.",
+      },
+    ],
+    copy: "Copy",
+    copied: "Copied",
+    nameLabel: "The name",
+    nameText: "Nanashi comes from nana hoshi (七星), Japanese for “seven stars”. Say it na-na-shi, all syllables even. It is not 名無し, “nameless”, which sounds the same.",
+    logosLabel: "Logos",
+    logosLead: "SVG files from the Nanashi design system. Use the reversed version on dark backgrounds and the colour version on light ones.",
+    logos: [
+      { file: "nanashi-horizontal-reversed.svg", name: "Horizontal, reversed", tone: "dark" },
+      { file: "nanashi-horizontal-color.svg", name: "Horizontal, colour", tone: "light" },
+      { file: "nanashi-symbol-reversed.svg", name: "Symbol, reversed", tone: "dark" },
+      { file: "nanashi-symbol-color.svg", name: "Symbol, colour", tone: "light" },
+      { file: "nanashi-symbol-small-color.svg", name: "Symbol, small sizes", tone: "light" },
+    ],
+    download: "Download SVG",
+    rulesLabel: "Logo rules",
+    rules: [
+      "The star is always gold.",
+      "Never stretch, rotate, recolour or add glows or shadows to the logo. Light around it is fine.",
+      "Keep clear space of a quarter of the symbol's width on every side.",
+      "Minimum sizes: 120 px wide for the horizontal logo, 24 px for the symbol. Below 24 px, use the small-sizes symbol.",
+    ],
+    colorsLabel: "Brand colours",
+    colors: [
+      { token: "brand-indigo", name: "Nanashi Indigo" },
+      { token: "star", name: "Star Gold" },
+      { token: "accent-violet", name: "Nanashi Violet" },
+      { token: "night", name: "Night" },
+    ],
+    contactLabel: "Contact",
+    contactText: "For interviews, introductions or anything else: one email reaches the founder directly.",
+  },
   softwareBand: {
     label: "Nanashi Software",
     title: "Need a website?",
@@ -221,6 +273,7 @@ export const en = {
     pages: "Pages",
     contact: "Contact",
     founded: "Founded by Michael Kimeison",
+    press: "Press kit",
     email: "Email",
     language: "Language",
     english: "English",

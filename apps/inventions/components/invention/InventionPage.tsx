@@ -52,6 +52,14 @@ export function InventionPage({ t, inv }: { t: Copy; inv: LiveInvention }) {
             </a>
           </Magnetic>
         </div>
+        <div className="ipage-stack">
+          <p className="eyebrow">{c.stackLabel}</p>
+          <ul aria-label={c.stackLabel}>
+            {inv.stack.map((s) => (
+              <li key={s}>{s}</li>
+            ))}
+          </ul>
+        </div>
       </header>
 
       {/* The name */}

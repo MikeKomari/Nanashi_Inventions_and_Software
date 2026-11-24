@@ -44,6 +44,13 @@ export type LiveInvention = Base & {
   gallery: { screen: ScreenName; frame?: "desktop" | "phone" }[];
   /** Slug of its Engineering deep dive. */
   engineering?: { slug: string; title: string };
+  /** "Built with": the stack, from the product's README. */
+  stack: string[];
+  /**
+   * Where this invention shows one of the seven principles: [principle index 0–6, one-line proof].
+   * Shown when a visitor opens a star in the Big Dipper. Facts from the product's own docs only.
+   */
+  shows: [number, string][];
 };
 
 export type LabInvention = Base & { status: "lab" };
@@ -126,6 +133,13 @@ export const INVENTIONS: Invention[] = [
       { screen: "chromiq-workspace-mobile", frame: "phone" },
     ],
     engineering: { slug: "chromiq-url-inspector", title: "How Chromiq's URL inspector loads other websites safely" },
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS v4", "Motion", "Lucide", "Postgres (optional accounts)", "Vitest"],
+    shows: [
+      [1, "Ships in small releases, each one written up in its public changelog."],
+      [3, "Projects save in your browser; an account is optional and only adds sync."],
+      [4, "Grades every colour pair against WCAG and offers a high-contrast reading mode."],
+      [6, "Keeps architecture decision records, a runbook, a failure-modes guide and postmortems."],
+    ],
   },
   {
     slug: "lexi",
@@ -201,6 +215,13 @@ export const INVENTIONS: Invention[] = [
       { screen: "lexi-vocabulary-mobile", frame: "phone" },
     ],
     engineering: { slug: "lexi-copy-paste-enrichment", title: "Why Lexi has no AI connection and uses a copy/paste step instead" },
+    stack: ["Next.js", "React", "TypeScript (strict)", "Tailwind CSS v4", "Motion", "Zod", "IndexedDB", "Postgres (optional accounts)", "Vitest"],
+    shows: [
+      [2, "Its README marks exactly which screens are real and which still show placeholder numbers."],
+      [3, "Words live in IndexedDB on your device; nothing leaves until you choose to sign in."],
+      [5, "No model API: a copy and paste step does the same job, with nothing sent behind your back."],
+      [6, "Its domain, storage and screens are covered by unit tests, and decisions are logged in its spec."],
+    ],
   },
   {
     slug: "studio",
@@ -226,3 +247,11 @@ export const liveInventions = () => INVENTIONS.filter((i): i is LiveInvention =>
 export const getInvention = (slug: string) => liveInventions().find((i) => i.slug === slug);
 /** Position among all inventions, 1-based, as shown on cards ("01"). */
 export const inventionNumber = (slug: string) => String(INVENTIONS.findIndex((i) => i.slug === slug) + 1).padStart(2, "0");
+
+/** For each of the seven principles, the live inventions that show it, with the proof line. */
+export const seenIn = () =>
+  Array.from({ length: 7 }, (_, i) =>
+    liveInventions().flatMap((inv) =>
+      inv.shows.filter(([p]) => p === i).map(([, line]) => ({ slug: inv.slug, name: inv.name, accent: inv.accent, line })),
+    ),
+  );

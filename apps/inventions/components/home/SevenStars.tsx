@@ -3,7 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { STAR_D } from "@/components/brand/symbol-paths";
 import { Reveal, Words } from "@/components/scroll/Reveal";
+import Link from "next/link";
 import type { Copy } from "@/content/i18n/en";
+
+export type SeenIn = { slug: string; name: string; accent: string; line: string }[][];
 
 /**
  * The seven stars (D-09, D-14): the Big Dipper, 北斗七星, drawn with the gold star from the logo.
@@ -36,8 +39,20 @@ const LINES: [number, number][] = [
   [5, 6],
 ];
 
-export function SevenStars({ t }: { t: Copy }) {
+export function SevenStars({ t, seen }: { t: Copy; seen: SeenIn }) {
   const s = t.stars;
+
+  /** A star was clicked: open its principle's "Seen in" list and bring it into view. */
+  function openPrinciple(e: React.MouseEvent, i: number) {
+    const li = document.getElementById(`principle-${i + 1}`);
+    if (!li) return;
+    e.preventDefault();
+    const details = li.querySelector("details");
+    if (details) details.open = true;
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    li.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "center" });
+    li.querySelector<HTMLElement>("summary")?.focus({ preventScroll: true });
+  }
   const listRef = useRef<HTMLOListElement>(null);
   // null = not measured yet: render everything lit (server HTML, no JS, reduced motion).
   const [lit, setLit] = useState<number | null>(null);
@@ -101,14 +116,22 @@ export function SevenStars({ t }: { t: Copy }) {
                 <circle key={`dot-${i}`} cx={x} cy={y} r="2.5" className="dipper-dot" />
               ))}
               {STARS.map(([x, y], i) => (
-                <path
+                <a
                   key={`star-${i}`}
-                  d={STAR_D}
-                  className="dipper-star"
-                  style={{ "--x": x, "--y": y } as React.CSSProperties}
-                  data-on={on(i) ? "" : undefined}
-                  data-active={i === active ? "" : undefined}
-                />
+                  href={`#principle-${i + 1}`}
+                  className="dipper-hit"
+                  aria-label={`${i + 1}. ${s.principles[i]!.title}: ${s.openStar}`}
+                  onClick={(e) => openPrinciple(e, i)}
+                >
+                  <circle cx={x} cy={y} r="24" className="dipper-target" />
+                  <path
+                    d={STAR_D}
+                    className="dipper-star"
+                    style={{ "--x": x, "--y": y } as React.CSSProperties}
+                    data-on={on(i) ? "" : undefined}
+                    data-active={i === active ? "" : undefined}
+                  />
+                </a>
               ))}
               {STARS.map(([x, y], i) => (
                 <text key={`num-${i}`} x={i === 1 ? x - 30 : x + 16} y={i === 0 ? y + 42 : y + 36} className="dipper-num" aria-hidden="true">
@@ -126,6 +149,7 @@ export function SevenStars({ t }: { t: Copy }) {
           {s.principles.map((p, i) => (
             <li
               key={p.title}
+              id={`principle-${i + 1}`}
               data-principle=""
               className="principle"
               data-state={lit === null ? undefined : i === active ? "active" : i < (lit ?? 0) ? "past" : "future"}
@@ -136,6 +160,23 @@ export function SevenStars({ t }: { t: Copy }) {
               </p>
               <h3 className="principle-title">{p.title}</h3>
               <p className="principle-proof">{p.proof}</p>
+              {seen[i] && seen[i].length > 0 && (
+                <details className="principle-seen">
+                  <summary>
+                    {s.seenIn} <span className="principle-seen-names">{seen[i].map((x) => x.name).join(" · ")}</span>
+                  </summary>
+                  <ul>
+                    {seen[i].map((x) => (
+                      <li key={x.slug} data-accent={x.accent}>
+                        <Link href={`/inventions/${x.slug}`} className="principle-seen-link">
+                          {x.name}
+                        </Link>
+                        <span>{x.line}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              )}
             </li>
           ))}
         </ol>
