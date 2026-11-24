@@ -10,7 +10,7 @@ export function Gallery({ c }: { c: KafeContent }) {
         <SectionHead tag={gallery.tag} title={gallery.title} id="suasana-title" />
       </div>
       <ul
-        className={`${container} kafe-scroll-x mt-10 flex gap-3 overflow-x-auto pb-2 sm:gap-5 lg:grid lg:overflow-visible`}
+        className={`${container} kafe-scroll-x mt-10 flex scroll-px-4 gap-3 overflow-x-auto pb-2 sm:scroll-px-6 sm:gap-5 lg:grid lg:overflow-visible`}
         style={{ gridTemplateColumns: `repeat(${Math.min(gallery.photos.length, 4)}, minmax(0, 1fr))` }}
       >
         {gallery.photos.map((p, i) => (

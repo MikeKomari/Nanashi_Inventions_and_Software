@@ -51,7 +51,7 @@ export function Menu({ c }: { c: KafeContent }) {
         {featured.length > 0 && (
           <div className="mt-10">
             <h3 className="font-kafe-body text-sm font-semibold tracking-[0.06em] text-kafe-muted uppercase">{labels.featured}</h3>
-            <ul className="kafe-scroll-x -mx-4 mt-4 flex gap-3 overflow-x-auto px-4 pb-2 sm:-mx-10 sm:px-10 lg:mx-0 lg:grid lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:px-0">
+            <ul className="kafe-scroll-x -mx-4 mt-4 flex scroll-px-4 gap-3 overflow-x-auto px-4 pb-2 sm:-mx-10 sm:scroll-px-10 sm:px-10 lg:mx-0 lg:grid lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:px-0">
               {featured.map((item, i) => (
                 <FeaturedCard key={item.id} item={item} i={i} />
               ))}
