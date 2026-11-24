@@ -1,0 +1,708 @@
+/* Brand-first home sections, invention cards and invention pages (founder, 24 Nov 2026).
+   Colours only through tokens. Motion: transform and opacity only; all of it stops under
+   prefers-reduced-motion (bottom of this file). Builds on the shared classes in home.css. */
+
+/* ── Section rhythm ───────────────────────────────────────────────────────── */
+.name,
+.how,
+.inventions-section,
+.founder {
+  padding-block: clamp(96px, 12vw, 168px);
+}
+
+/* ── The name ─────────────────────────────────────────────────────────────── */
+.name-grid {
+  display: grid;
+  gap: 56px;
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .name-grid {
+    grid-template-columns: 1.05fr 1fr;
+    gap: 80px;
+  }
+}
+.name-note {
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+.name-equation {
+  position: relative;
+  padding: clamp(24px, 4vw, 40px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(120% 80% at 50% 0%, color-mix(in srgb, var(--color-brand-indigo) 26%, transparent), transparent 70%),
+    var(--color-surface);
+}
+.name-words {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 3vw, 32px);
+}
+.name-word {
+  text-align: center;
+}
+.name-kanji {
+  display: block;
+  width: clamp(88px, 16vw, 148px);
+  height: auto;
+  margin-inline: auto;
+  color: var(--color-text);
+}
+.name-reading {
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+}
+.name-meaning {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+.name-plus {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 40px);
+  color: var(--color-star);
+}
+.name-collapse {
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px dashed var(--color-border);
+  text-align: center;
+}
+.name-spoken {
+  font-family: var(--font-mono);
+  font-size: clamp(18px, 2.4vw, 22px);
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+.name-drop {
+  position: relative;
+  display: inline-block;
+  color: var(--color-text-muted);
+}
+.name-drop::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  top: 52%;
+  height: 2px;
+  background: var(--color-star);
+  transform-origin: left;
+}
+.name-arrow {
+  display: block;
+  margin-block: 6px;
+  color: var(--color-text-muted);
+}
+.name-result {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 7vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+.name-logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--color-border);
+  font-size: 15px;
+  color: var(--color-text-muted);
+}
+
+/* ── How Nanashi builds ───────────────────────────────────────────────────── */
+.how-steps {
+  position: relative;
+  display: grid;
+  gap: 36px;
+  margin-top: 64px;
+  list-style: none;
+}
+@media (min-width: 900px) {
+  .how-steps {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  /* The line the dots sit on. */
+  .how-steps::before {
+    content: "";
+    position: absolute;
+    left: 40px;
+    right: 40px;
+    top: 74px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-star), color-mix(in srgb, var(--color-primary) 60%, transparent), transparent);
+    transform-origin: left;
+  }
+}
+.how-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 44px;
+  line-height: 1;
+  color: var(--color-border-strong);
+}
+.how-dot {
+  display: block;
+  width: 11px;
+  height: 11px;
+  margin-block: 14px 20px;
+  border-radius: 50%;
+  background: var(--color-star);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-star) 15%, transparent);
+}
+.how-title {
+  font-size: 20px;
+  line-height: 1.25;
+}
+.how-body {
+  margin-top: 8px;
+  color: var(--color-text-muted);
+}
+
+/* ── Inventions section and page ──────────────────────────────────────────── */
+.inventions-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+}
+.inventions-page {
+  padding-top: clamp(128px, 14vw, 180px);
+  padding-bottom: clamp(96px, 12vw, 160px);
+}
+.inventions-page-grid,
+.inventions-section .igrid {
+  margin-top: 56px;
+}
+.igrid-live,
+.igrid-lab {
+  display: grid;
+  gap: 20px;
+  list-style: none;
+}
+@media (min-width: 900px) {
+  .igrid-live {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .igrid-lab {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+}
+.igrid-lab {
+  margin-top: 20px;
+}
+
+/* ── Invention card ───────────────────────────────────────────────────────── */
+.icard {
+  --mx: 50%;
+  --my: 0%;
+  --rx: 0deg;
+  --ry: 0deg;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  isolation: isolate;
+  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition:
+    transform 450ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    border-color 300ms ease-out;
+}
+.icard[data-hover] {
+  transition:
+    transform 120ms linear,
+    border-color 300ms ease-out;
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--color-border));
+}
+/* Spotlight in the invention's accent that follows the pointer. */
+.icard-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mx) var(--my), color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%);
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+.icard[data-hover] .icard-glow {
+  opacity: 1;
+}
+/* A quiet accent edge at the top, always on. */
+.icard::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 3;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.55;
+}
+.icard-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: radial-gradient(90% 90% at 50% 100%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 70%), var(--color-bg);
+}
+.icard-sm .icard-media {
+  aspect-ratio: 16 / 7;
+}
+.icard-cover {
+  position: absolute;
+  inset: 8% 6% auto;
+  transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.icard-cover {
+  transition:
+    transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 400ms ease-out;
+}
+.icard[data-hover] .icard-cover {
+  transform: translateY(-3%) scale(1.03);
+  opacity: 0;
+}
+.icard-video {
+  position: absolute;
+  inset: 8% 6% auto;
+  width: 88%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 400ms ease-out;
+}
+.icard[data-hover] .icard-video {
+  opacity: 1;
+}
+/* Lab inventions: a small constellation in their accent instead of a screenshot. */
+.icard-sky {
+  position: absolute;
+  inset: 0;
+}
+.icard-star {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 14px var(--accent);
+  left: calc(14% + var(--i) * 11.5%);
+  top: calc(30% + sin(var(--i) * 1.1rad) * 22%);
+  opacity: 0.85;
+}
+.icard-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  padding: clamp(20px, 3vw, 32px);
+}
+.icard-name {
+  font-size: clamp(34px, 4vw, 52px);
+  line-height: 1;
+  color: var(--accent);
+}
+.icard-sm .icard-name {
+  font-size: 26px;
+}
+/* The whole card is clickable through the name's link (accessible name stays the product name). */
+.icard-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+}
+.icard-link:focus-visible {
+  outline: none;
+}
+.icard:has(.icard-link:focus-visible) {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 3px;
+}
+.icard-letters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+.icard-letter b {
+  color: var(--accent);
+  font-weight: 600;
+}
+.icard-letter span {
+  display: inline-block;
+  opacity: 0.55;
+  transition:
+    opacity 300ms ease-out,
+    transform 300ms ease-out;
+  transition-delay: calc(var(--i) * 45ms);
+}
+.icard[data-hover] .icard-letter span {
+  opacity: 1;
+}
+.icard-teaser {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+.icard-line {
+  max-width: 48ch;
+  color: var(--color-text-muted);
+}
+.icard-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+.icard-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+.icard-cta svg {
+  transition: transform 220ms ease-out;
+}
+.icard[data-hover] .icard-cta svg {
+  transform: translateX(4px);
+}
+
+/* ── Engineering spacing on the brand home ───────────────────────────────── */
+.engineering {
+  padding-block: clamp(96px, 12vw, 160px);
+}
+
+/* ── Founder line ─────────────────────────────────────────────────────────── */
+.founder-inner {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  text-align: center;
+}
+.founder-text {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.founder-body {
+  max-width: 46ch;
+  color: var(--color-text-muted);
+}
+.founder-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px 24px;
+  margin-top: 12px;
+}
+
+/* ── Invention page ───────────────────────────────────────────────────────── */
+.ipage {
+  padding-bottom: clamp(64px, 10vw, 128px);
+}
+.ipage-hero {
+  position: relative;
+  padding-top: clamp(120px, 14vw, 176px);
+  padding-bottom: clamp(48px, 7vw, 88px);
+  isolation: isolate;
+}
+.ipage-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 -20% auto;
+  height: 120%;
+  z-index: -1;
+  background: radial-gradient(50% 60% at 30% 30%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
+  pointer-events: none;
+}
+.ipage-back {
+  margin-bottom: 24px;
+}
+.ipage-name {
+  margin-top: 16px;
+  font-size: clamp(4rem, 2rem + 9vw, 9.5rem);
+  line-height: 0.95;
+  color: var(--accent);
+}
+.ipage-line {
+  margin-top: 24px;
+  max-width: 50ch;
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  color: var(--color-text-muted);
+}
+.ipage-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
+  margin-top: 32px;
+}
+.ipage-section {
+  padding-block: clamp(48px, 7vw, 96px);
+}
+.ipage-h2 {
+  margin-top: 16px;
+  max-width: 22ch;
+  font-size: clamp(2rem, 1.2rem + 3vw, 3.5rem);
+  line-height: 1.05;
+}
+.iname-letters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+  list-style: none;
+}
+.iname-letters li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+.iname-letter {
+  font-family: var(--font-display);
+  font-size: 56px;
+  line-height: 1;
+  color: var(--accent);
+}
+.iname-word {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--color-text);
+}
+.iname-teaser {
+  margin-top: 16px;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.2rem + 3vw, 3.5rem);
+  line-height: 1.05;
+  color: var(--accent);
+}
+.iname-body {
+  margin-top: 24px;
+  max-width: 60ch;
+  font-size: 18px;
+  color: var(--color-text-muted);
+}
+.idemo {
+  margin: 24px 0 0;
+}
+.idemo-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--color-border));
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  box-shadow: 0 40px 120px -50px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+.idemo-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+}
+.idemo-caption {
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+.istory {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+  list-style: none;
+}
+@media (min-width: 900px) {
+  .istory {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.istory-item {
+  height: 100%;
+  padding: clamp(20px, 3vw, 32px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+.istory-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+.istory-title {
+  margin-top: 10px;
+  font-size: 24px;
+}
+.istory-text {
+  margin-top: 10px;
+  color: var(--color-text-muted);
+}
+.igallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+  list-style: none;
+}
+.igallery-desktop {
+  grid-column: span 2;
+}
+@media (min-width: 900px) {
+  .igallery {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .igallery-desktop {
+    grid-column: span 3;
+  }
+  .igallery-phone {
+    grid-column: span 2;
+  }
+}
+.ipage-end {
+  display: grid;
+  gap: 16px;
+}
+@media (min-width: 900px) {
+  .ipage-end {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.iend-card {
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+.iend-text {
+  margin-top: 12px;
+  font-size: 18px;
+}
+.iend-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.iend-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.iend-next {
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: var(--accent);
+}
+
+/* ── Motion on scroll (only with motion allowed) ─────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  /* nana hoshi → the "ho" is struck through, fades, then "nanashi" rises. */
+  .name-equation .name-drop::after {
+    transform: scaleX(1);
+    transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1) 500ms;
+  }
+  .name-equation .name-drop {
+    transition: opacity 600ms ease-out 900ms;
+    opacity: 0.35;
+  }
+  .name-equation .name-result {
+    transition:
+      opacity 800ms ease-out 1100ms,
+      transform 800ms cubic-bezier(0.22, 1, 0.36, 1) 1100ms;
+  }
+  .name-equation[data-in-view="false"] .name-drop::after {
+    transform: scaleX(0);
+  }
+  .name-equation[data-in-view="false"] .name-drop {
+    opacity: 1;
+  }
+  .name-equation[data-in-view="false"] .name-result {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  /* How: the line draws, the steps follow one by one. */
+  .how-steps::before {
+    transition: transform 1400ms cubic-bezier(0.22, 1, 0.36, 1) 200ms;
+  }
+  .how-steps[data-in-view="false"]::before {
+    transform: scaleX(0);
+  }
+  .how-step {
+    transition:
+      opacity 700ms ease-out,
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(250ms + var(--i) * 160ms);
+  }
+  .how-steps[data-in-view="false"] .how-step {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  /* Name page: letters drop in one by one. */
+  .iname-letters li {
+    transition:
+      opacity 600ms ease-out,
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(150ms + var(--i) * 70ms);
+  }
+  .iname[data-in-view="false"] .iname-letters li {
+    opacity: 0;
+    transform: translateY(24px) rotate(-4deg);
+  }
+  /* Lab constellation twinkles. */
+  .icard-star {
+    animation: icard-twinkle 3.2s ease-in-out infinite alternate;
+    animation-delay: calc(var(--i) * -0.45s);
+  }
+  @keyframes icard-twinkle {
+    to {
+      opacity: 0.35;
+      transform: scale(0.7);
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .icard,
+  .icard-cover {
+    transform: none !important;
+  }
+  .icard-video {
+    display: none;
+  }
+}

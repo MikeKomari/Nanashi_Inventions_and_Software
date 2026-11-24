@@ -4,7 +4,6 @@ import { NanaHoshi } from "@/components/brand/NanaHoshi";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { CONTACT } from "@/lib/site";
 import type { Copy } from "@/content/i18n/en";
-import { HeroShowcase } from "./HeroShowcase";
 
 /** Splits the headline into words for the word-by-word reveal (CSS only, see .word in home.css). */
 function Words({ text }: { text: string }) {
@@ -18,8 +17,8 @@ function Words({ text }: { text: string }) {
 
 /**
  * Home §1, the stage (D-01, D-02, D-10): the logo alone under a soft indigo light cone with a floor
- * glow and reflection, 七星 · nana hoshi above, the headline and two actions below, then real
- * screenshots of the live products rising under the stage so the first screen already shows work.
+ * glow and reflection, 七星 · nana hoshi above, the headline and two actions below. Brand only
+ * (founder, 24 Nov 2026): the inventions appear further down the page.
  *
  * `logo="3d"` (default) shows the 2.5D Logo3D; `logo="flat"` switches back to the approved flat
  * AnimatedLogo. The founder has not confirmed the 3D look yet.
@@ -60,7 +59,6 @@ export function Stage({ t, logo = "3d" }: { t: Copy; logo?: "3d" | "flat" }) {
           </a>
         </div>
       </div>
-      <HeroShowcase t={t} />
     </section>
   );
 }

@@ -2,6 +2,7 @@
 @import "./tokens.css";
 @import "./scroll.css";
 @import "./home.css";
+@import "./brand.css";
 
 /* Fonts come from next/font (see app/(en)/layout.tsx). */
 @theme inline {
@@ -88,7 +89,7 @@
   border: 1px solid var(--color-border);
   border-radius: 9999px;
   /* Nearly solid, not frosted glass (D-05). */
-  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+  background: var(--color-surface);
   box-shadow: var(--shadow-pop);
   opacity: 0;
   transform: scale(1.02);
