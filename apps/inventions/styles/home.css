@@ -640,6 +640,9 @@
   .chapter-hero-main {
     display: none;
   }
+  .chapter-hero {
+    margin-top: 128px;
+  }
   .chapter-hero-phone {
     display: block;
     width: min(72%, 300px);
@@ -763,8 +766,8 @@
   top: 64px;
   z-index: 5;
   align-self: start;
-  padding: 8px 0 28px;
-  background: linear-gradient(to bottom, var(--color-bg) 82%, transparent);
+  padding: 8px 0 36px;
+  background: linear-gradient(to bottom, var(--color-bg) calc(100% - 28px), transparent);
 }
 .dipper {
   margin: 0;

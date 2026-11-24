@@ -8,6 +8,8 @@ import type { Copy } from "@/content/i18n/en";
 /**
  * Footer (D-17): logo with 七星 · nana hoshi, the page links, email, GitHub, LinkedIn,
  * "Founded by Michael Kimeison" (linked, founder rule) and the EN/ID switch.
+ * Links to pages that are not built yet use prefetch={false} so they do not log 404s; turn
+ * prefetch back on once those pages exist.
  */
 export function Footer({ t, switchHref }: { t: Copy; switchHref: string }) {
   const id = t.locale === "id";
@@ -32,13 +34,13 @@ export function Footer({ t, switchHref }: { t: Copy; switchHref: string }) {
           <h2 className="footer-h">{f.pages}</h2>
           <ul>
             <li>
-              <Link href={`${base}/inventions`} className="footer-link">{t.nav.inventions}</Link>
+              <Link prefetch={false} href={`${base}/inventions`} className="footer-link">{t.nav.inventions}</Link>
             </li>
             <li>
-              <Link href="/engineering" className="footer-link">{t.nav.engineering}</Link>
+              <Link prefetch={false} href="/engineering" className="footer-link">{t.nav.engineering}</Link>
             </li>
             <li>
-              <Link href={`${base}/about`} className="footer-link">{t.nav.about}</Link>
+              <Link prefetch={false} href={`${base}/about`} className="footer-link">{t.nav.about}</Link>
             </li>
           </ul>
         </nav>
@@ -63,7 +65,7 @@ export function Footer({ t, switchHref }: { t: Copy; switchHref: string }) {
               <span className="footer-current" aria-current="true">{f.english}</span>
             </li>
             <li>
-              <Link href={switchHref} hrefLang="id" lang="id" className="footer-link">{f.indonesian}</Link>
+              <Link prefetch={false} href={switchHref} hrefLang="id" lang="id" className="footer-link">{f.indonesian}</Link>
             </li>
           </ul>
         </div>

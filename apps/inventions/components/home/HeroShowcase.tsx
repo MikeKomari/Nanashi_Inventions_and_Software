@@ -22,6 +22,7 @@ export function HeroShowcase({ t }: { t: Copy }) {
     <span className="showcase-tag">
       <span className="dot" aria-hidden="true" />
       {name} <span className="text-text-muted">· {status}</span>
+      <span className="sr-only">, {t.hero.showcaseJump}</span>
     </span>
   );
 
@@ -30,23 +31,23 @@ export function HeroShowcase({ t }: { t: Copy }) {
       <p className="sr-only">{t.hero.showcaseLabel}</p>
       {/* Desktop and tablet */}
       <div className="showcase-desk">
-        <motion.a href="#chromiq" className="showcase-main" data-accent="chromiq" style={{ rotateX, scale }} aria-label={`${chromiq.name}, ${chromiq.status}: see its chapter`}>
-          <Screenshot name="chromiq-workspace-desktop" sizes="(min-width: 1280px) 980px, 78vw" />
+        <motion.a href="#chromiq" className="showcase-main" data-accent="chromiq" style={{ rotateX, scale }}>
+          <Screenshot decorative name="chromiq-workspace-desktop" sizes="(min-width: 1280px) 980px, 78vw" />
           {tag(chromiq.name, chromiq.status)}
         </motion.a>
-        <motion.a href="#lexi" className="showcase-side" data-accent="lexi" style={{ y: sideY }} aria-label={`${lexi.name}, ${lexi.status}: see its chapter`}>
-          <Screenshot name="lexi-vocabulary-desktop" sizes="(min-width: 1280px) 480px, 38vw" />
+        <motion.a href="#lexi" className="showcase-side" data-accent="lexi" style={{ y: sideY }}>
+          <Screenshot decorative name="lexi-vocabulary-desktop" sizes="(min-width: 1280px) 480px, 38vw" />
           {tag(lexi.name, lexi.status)}
         </motion.a>
       </div>
       {/* Phones */}
       <motion.div className="showcase-phones" style={{ y: phoneY }}>
-        <a href="#chromiq" className="showcase-phone" data-accent="chromiq" aria-label={`${chromiq.name}, ${chromiq.status}: see its chapter`}>
-          <Screenshot name="chromiq-workspace-mobile" frame="phone" sizes="46vw" />
+        <a href="#chromiq" className="showcase-phone" data-accent="chromiq">
+          <Screenshot decorative name="chromiq-workspace-mobile" frame="phone" sizes="46vw" />
           {tag(chromiq.name, chromiq.status)}
         </a>
-        <a href="#lexi" className="showcase-phone" data-accent="lexi" aria-label={`${lexi.name}, ${lexi.status}: see its chapter`}>
-          <Screenshot name="lexi-vocabulary-mobile" frame="phone" sizes="46vw" />
+        <a href="#lexi" className="showcase-phone" data-accent="lexi">
+          <Screenshot decorative name="lexi-vocabulary-mobile" frame="phone" sizes="46vw" />
           {tag(lexi.name, lexi.status)}
         </a>
       </motion.div>

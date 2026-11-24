@@ -49,7 +49,7 @@ export const en = {
     about: "About",
     primary: "Main",
     switchLabel: "ID",
-    switchAria: "Baca dalam Bahasa Indonesia",
+    switchAria: "ID, baca dalam Bahasa Indonesia",
     software: "Need a website?",
     softwareTarget: "Nanashi Software",
     skip: "Skip to content",
@@ -61,6 +61,7 @@ export const en = {
     cta: "See the inventions",
     email: "Email Nanashi",
     showcaseLabel: "Live now",
+    showcaseJump: "see its chapter",
   },
   statement: {
     label: "What Nanashi is",

@@ -13,6 +13,8 @@ const pad = (n: number) => String(n).padStart(2, "0");
  * and "Read more"; a big real screenshot with the phone capture floating in front; then numbered
  * points drawn from its README, alternating sides, each with its own screenshot drifting slower
  * than the text (parallax). The accent only colours labels, edges and glows.
+ * Links to pages that are not built yet use prefetch={false} so they do not log 404s; turn
+ * prefetch back on once those pages exist.
  */
 export function ProductChapter({
   t,
@@ -61,7 +63,7 @@ export function ProductChapter({
                   <span className="sr-only">{t.inventions.newTab}</span>
                 </a>
               </Magnetic>
-              <Link href={`/inventions/${product.id}`} className="link-arrow">
+              <Link prefetch={false} href={`/inventions/${product.id}`} className="link-arrow">
                 {product.readMore}
                 <span className="sr-only"> about {product.name}</span>
                 <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />

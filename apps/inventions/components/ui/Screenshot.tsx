@@ -12,12 +12,15 @@ export function Screenshot({
   sizes,
   priority = false,
   className = "",
+  decorative = false,
 }: {
   name: ScreenName;
   frame?: "desktop" | "phone";
   sizes: string;
   priority?: boolean;
   className?: string;
+  /** Inside a link that already names it: empty alt so the link's name stays its visible text. */
+  decorative?: boolean;
 }) {
   const s = SCREENS[name];
   return (
@@ -25,7 +28,7 @@ export function Screenshot({
       <div className="shot-frame">
         <Image
           src={s.src}
-          alt={s.alt}
+          alt={decorative ? "" : s.alt}
           width={s.width}
           height={s.height}
           sizes={sizes}
