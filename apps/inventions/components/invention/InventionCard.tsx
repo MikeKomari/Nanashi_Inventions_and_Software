@@ -6,6 +6,18 @@ import { ArrowRight } from "lucide-react";
 import { Screenshot } from "@/components/ui/Screenshot";
 import type { Invention } from "@/content/inventions";
 
+/** The word with its letter in bold, wherever the letter sits ("eXpression" → e·X·pression). */
+function LetterWord({ letter, word }: { letter: string; word: string }) {
+  const at = Math.max(0, word.toLowerCase().indexOf(letter.toLowerCase()));
+  return (
+    <>
+      {at > 0 && <span>{word.slice(0, at)}</span>}
+      <b>{word.charAt(at).toUpperCase()}</b>
+      <span>{word.slice(at + 1)}</span>
+    </>
+  );
+}
+
 type Labels = { live: string; lab: string; explore: string };
 
 /**
@@ -106,8 +118,7 @@ export function InventionCard({ inv, number, labels, size = "lg" }: { inv: Inven
           <p className="icard-letters" aria-label={inv.meaning.teaser}>
             {letters.map(([l, word], i) => (
               <span key={l + i} className="icard-letter" style={{ "--i": i } as React.CSSProperties}>
-                <b>{l}</b>
-                <span>{word.slice(1)}</span>
+                <LetterWord letter={l} word={word} />
               </span>
             ))}
           </p>

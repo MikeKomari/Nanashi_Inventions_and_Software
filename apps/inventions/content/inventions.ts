@@ -23,7 +23,11 @@ type Base = {
   /** Who it is for, e.g. "For frontend developers". */
   audience: string;
   oneLiner: string;
-  /** Where the name comes from. `letters` spells it out letter by letter when the name is built that way. */
+  /**
+   * Where the name comes from. `letters` spells it out letter by letter when the name is built that
+   * way: [letter, word], where the letter is highlighted at its first occurrence in the word
+   * (so ["X", "eXpression"] highlights the x inside the word).
+   */
   meaning: { teaser: string; body: string; letters?: [string, string][] };
 };
 
@@ -132,10 +136,15 @@ export const INVENTIONS: Invention[] = [
     oneLiner:
       "A vocabulary workspace for Chinese, Japanese and Korean that keeps your data on your device unless you choose to sign in.",
     meaning: {
-      teaser: "Short for lexicon: your own.",
-      // TODO(founder): confirm the name's origin. Lexi's docs describe it as building "a personal
-      // lexicon" but never say where the name comes from.
-      body: "Short for lexicon, the store of words a person knows. Lexi helps you build your own, one concept at a time, across three languages.",
+      teaser: "Language Exploration and eXpression Index.",
+      // Founder, 24 Nov 2026. The X comes from eXpression.
+      body: "LEXI stands for Language Exploration and eXpression Index. The X comes from expression.",
+      letters: [
+        ["L", "Language"],
+        ["E", "Exploration"],
+        ["X", "eXpression"],
+        ["I", "Index"],
+      ],
     },
     url: "https://lexi-beta-nine.vercel.app/inbox",
     tryLabel: "Try Lexi",

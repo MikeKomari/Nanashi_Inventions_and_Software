@@ -4,7 +4,6 @@ import { abs } from "@/lib/site";
 import { Stage } from "@/components/home/Stage";
 import { NameStory } from "@/components/home/NameStory";
 import { SevenStars } from "@/components/home/SevenStars";
-import { HowNanashiBuilds } from "@/components/home/HowNanashiBuilds";
 import { InventionsSection } from "@/components/home/InventionsSection";
 import { Engineering } from "@/components/home/Engineering";
 import { Founder } from "@/components/home/Founder";
@@ -26,7 +25,7 @@ export default function Home() {
       <Stage t={t} logo="3d" />
       <NameStory t={t} />
       <SevenStars t={t} />
-      <HowNanashiBuilds t={t} />
+      {/* <HowNanashiBuilds t={t} /> held back: founder said the wording is wrong (24 Nov 2026). */}
       <InventionsSection t={t} />
       <Engineering t={t} />
       <Founder t={t} />
