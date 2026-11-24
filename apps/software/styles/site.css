@@ -69,6 +69,14 @@
     transform: translateY(16px);
     animation: reveal-fallback 0s 3s forwards;
   }
+  /* Items in a list arrive one after another. */
+  html.js [data-reveal] {
+    transition-delay: calc(var(--i, 0) * 90ms);
+  }
+  /* Gold section labels pop in. */
+  html.js [data-reveal="label"]:not(.in) {
+    transform: translateY(-50%) scale(0.85);
+  }
   @keyframes reveal-fallback {
     to {
       opacity: 1;
@@ -146,4 +154,104 @@ details[open] .faq-icon {
   .faq-icon {
     transition: none;
   }
+}
+
+/* ── Micro-animations (founder request, 24 Nov 2026). transform and opacity only. ── */
+@media (prefers-reduced-motion: no-preference) {
+  /* Hero: headline lines, then the text and buttons, rise in on load. */
+  .hero-in > span,
+  .hero-in-late {
+    animation: rise-in 800ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .hero-in > span:nth-child(2) {
+    animation-delay: 120ms;
+  }
+  .hero-in-late {
+    animation-delay: 260ms;
+  }
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+  }
+
+  @media (hover: hover) {
+    /* WhatsApp buttons lift; the icon gives a small wave. */
+    .wa-btn {
+      transition: transform 200ms ease-out;
+    }
+    .wa-btn:hover {
+      transform: translateY(-2px);
+    }
+    .wa-btn:active {
+      transform: scale(0.97);
+    }
+    .wa-btn:hover .wa-icon {
+      animation: wave 600ms ease-in-out;
+    }
+    @keyframes wave {
+      30% {
+        transform: rotate(-14deg);
+      }
+      60% {
+        transform: rotate(10deg);
+      }
+    }
+    /* Arrow links: the arrow nudges toward where it points. */
+    .nudge svg {
+      transition: transform 200ms ease-out;
+    }
+    .nudge:hover svg {
+      transform: translate(2px, -2px);
+    }
+    /* Template cards: the placeholder icon floats up. */
+    .ph-icon {
+      transition: transform 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    .lift:hover .ph-icon {
+      transform: translateY(-5px) scale(1.06);
+    }
+  }
+
+  /* FAQ: the answer slides in when opened. */
+  details[open] > p {
+    animation: rise-in 320ms ease-out;
+  }
+
+  /* Street lamps keep a slow, gentle flicker after the street has drawn. */
+  .street .glow {
+    animation:
+      glow 600ms ease-out forwards,
+      flicker 3.6s ease-in-out infinite alternate;
+    animation-delay:
+      calc(1300ms + var(--d, 0) * 140ms),
+      calc(2200ms + var(--d, 0) * 500ms);
+  }
+  @keyframes flicker {
+    0%,
+    60% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.55;
+    }
+  }
+}
+
+/* Text links: the underline darkens on hover (colour only, no layout). */
+.ulink {
+  transition: text-decoration-color 200ms ease-out, color 200ms ease-out;
+}
+
+/* Lenis (recommended base styles). */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }

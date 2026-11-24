@@ -3,7 +3,7 @@ export function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="absolute inset-x-0 top-0">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-8">
-        <span className="inline-block -translate-y-1/2 rounded-sm bg-star px-2 py-1 text-[12px] leading-4 font-semibold tracking-[0.06em] text-on-star uppercase">
+        <span data-reveal="label" className="inline-block -translate-y-1/2 rounded-sm bg-star px-2 py-1 text-[12px] leading-4 font-semibold tracking-[0.06em] text-on-star uppercase">
           {children}
         </span>
       </div>

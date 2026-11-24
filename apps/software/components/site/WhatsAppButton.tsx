@@ -20,9 +20,9 @@ export function WhatsAppButton({ message, where, children, size = "lg", classNam
       target="_blank"
       rel="noopener noreferrer"
       data-wa-where={where}
-      className={`press inline-flex items-center justify-center rounded-md bg-success font-semibold text-moon-0 ${sizing} ${className}`}
+      className={`press wa-btn inline-flex items-center justify-center rounded-md bg-success font-semibold text-moon-0 ${sizing} ${className}`}
     >
-      <WhatsAppIcon size={size === "lg" ? 20 : 18} />
+      <WhatsAppIcon size={size === "lg" ? 20 : 18} className="wa-icon" />
       <span>{children}</span>
     </a>
   );

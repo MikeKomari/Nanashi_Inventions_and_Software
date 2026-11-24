@@ -5,6 +5,7 @@ import { id as t } from "@/content/site/id";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { RevealObserver } from "@/components/site/RevealObserver";
+import { SmoothScroll } from "@/components/site/SmoothScroll";
 import "@/styles/site.css";
 
 const sora = Sora({ subsets: ["latin"], weight: ["600"], variable: "--font-sora", display: "swap" });
@@ -32,6 +33,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <main id="main">{children}</main>
         <Footer t={t} />
         <RevealObserver />
+        <SmoothScroll />
       </body>
     </html>
   );

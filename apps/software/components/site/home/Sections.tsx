@@ -15,14 +15,14 @@ export function Hero({ t }: { t: SiteCopy }) {
   return (
     <section className="pt-10 sm:pt-20">
       <div className={`${wrap} grid gap-6 lg:grid-cols-[1.5fr_1fr] lg:items-end lg:gap-16`}>
-        <TwoTone as="h1" a={t.hero.titleA} b={t.hero.titleB} className="text-[34px] leading-[1.1] sm:text-[52px] lg:text-[58px]" />
-        <div className="lg:pb-2">
+        <TwoTone as="h1" a={t.hero.titleA} b={t.hero.titleB} className="hero-in text-[34px] leading-[1.1] sm:text-[52px] lg:text-[58px]" />
+        <div className="hero-in-late lg:pb-2">
           <p className="text-[17px] text-text-muted">{t.hero.lead}</p>
           <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
             <WhatsAppButton where="hero" message={t.hero.ctaMessage}>
               {t.hero.cta}
             </WhatsAppButton>
-            <Link href={t.locale === "id" ? "/template" : "/en/templates"} className="inline-flex min-h-11 items-center font-semibold text-primary underline decoration-primary/30 underline-offset-4 hover:text-primary-hover">
+            <Link href={t.locale === "id" ? "/template" : "/en/templates"} className="ulink inline-flex min-h-11 items-center font-semibold text-primary underline decoration-primary/30 underline-offset-4 hover:text-primary-hover">
               {t.hero.secondary}
             </Link>
           </div>
@@ -40,8 +40,8 @@ export function WhyWebsite({ t }: { t: SiteCopy }) {
   return (
     <section className="relative border-t border-border py-16 sm:py-24" aria-labelledby="why">
       <SectionLabel>{t.why.label}</SectionLabel>
-      <div className={`${wrap} grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16`} data-reveal>
-        <div>
+      <div className={`${wrap} grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16`}>
+        <div data-reveal>
           <h2 id="why" className={h2}>
             <span className="block text-text">{t.why.titleA}</span>
             <span className="block text-text-muted">{t.why.titleB}</span>
@@ -50,7 +50,7 @@ export function WhyWebsite({ t }: { t: SiteCopy }) {
         </div>
         <ol className="divide-y divide-border border-y border-border">
           {t.why.points.map((p, i) => (
-            <li key={p.title} className="grid grid-cols-[2.5rem_1fr] gap-2 py-5">
+            <li key={p.title} data-reveal style={{ "--i": i + 1 } as React.CSSProperties} className="grid grid-cols-[2.5rem_1fr] gap-2 py-5">
               <span className="pt-0.5 text-sm font-semibold text-text-muted tabular-nums">0{i + 1}</span>
               <div>
                 <h3 className="text-lg">{p.title}</h3>
@@ -74,7 +74,7 @@ export function Templates({ t }: { t: SiteCopy }) {
           <TwoTone a={t.templates.titleA} b={t.templates.titleB} className={h2} id="templates-title" />
           <p className="text-text-muted lg:pb-1">{t.templates.intro}</p>
         </div>
-        <div className="mt-10" data-reveal>
+        <div className="mt-10">
           <TemplateGrid t={t} />
         </div>
       </div>
@@ -92,9 +92,9 @@ export function Steps({ t }: { t: SiteCopy }) {
           <span className="block text-text">{t.steps.titleA}</span>
           <span className="block text-text-muted">{t.steps.titleB}</span>
         </h2>
-        <ol className="mt-10 grid border-t border-border md:grid-cols-3 md:border-t-0 md:border-l" data-reveal>
+        <ol className="mt-10 grid border-t border-border md:grid-cols-3 md:border-t-0 md:border-l">
           {t.steps.items.map((s, i) => (
-            <li key={s.title} className="border-b border-border py-6 md:border-t md:border-r md:px-6 md:py-8">
+            <li key={s.title} data-reveal style={{ "--i": i } as React.CSSProperties} className="border-b border-border py-6 md:border-t md:border-r md:px-6 md:py-8">
               <span className="font-display text-[40px] leading-none text-border-strong tabular-nums">0{i + 1}</span>
               <h3 className="mt-4 text-xl">{s.title}</h3>
               <p className="mt-2 text-text-muted">{s.body}</p>
@@ -137,9 +137,9 @@ export function Faq({ t }: { t: SiteCopy }) {
           <span className="block text-text">{t.faq.titleA}</span>
           <span className="block text-text-muted">{t.faq.titleB}</span>
         </h2>
-        <div className="border-t border-border" data-reveal>
-          {t.faq.items.map((item) => (
-            <details key={item.q} className="group border-b border-border">
+        <div className="border-t border-border">
+          {t.faq.items.map((item, i) => (
+            <details key={item.q} data-reveal style={{ "--i": i } as React.CSSProperties} className="group border-b border-border">
               <summary className="flex min-h-14 cursor-pointer items-center justify-between gap-4 py-4 text-[17px] font-semibold">
                 {item.q}
                 <Plus size={20} strokeWidth={2} aria-hidden="true" className="faq-icon shrink-0 text-text-muted" />

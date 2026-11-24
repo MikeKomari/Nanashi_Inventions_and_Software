@@ -12,18 +12,20 @@ function Placeholder({ entry, note }: { entry: TemplateEntry; note: string }) {
   const ratio = entry.status === "soon" ? "aspect-[16/6] sm:aspect-[16/10]" : "aspect-[16/10]";
   return (
     <div className={`flex ${ratio} flex-col items-center justify-center gap-3 rounded-sm border border-dashed border-border bg-surface-raised text-text-muted`}>
-      <Icon size={28} strokeWidth={1.5} aria-hidden="true" />
+      <Icon size={28} strokeWidth={1.5} aria-hidden="true" className="ph-icon" />
       <span className="text-sm">{note}</span>
     </div>
   );
 }
 
-function TemplateCard({ entry, t }: { entry: TemplateEntry; t: SiteCopy }) {
+function TemplateCard({ entry, t, i }: { entry: TemplateEntry; t: SiteCopy; i: number }) {
   const loc = t.locale;
   const live = entry.status === "live";
   const name = entry.waName[loc];
   return (
-    <article className="lift flex flex-col gap-4 bg-surface p-4 sm:p-6">
+    // The reveal sits on a wrapper so its slow, staggered transition never delays the card's hover lift.
+    <div data-reveal style={{ "--i": i } as React.CSSProperties} className="bg-surface">
+    <article className="lift flex h-full flex-col gap-4 bg-surface p-4 sm:p-6">
       <Placeholder entry={entry} note={live ? t.templates.previewPending : t.templates.soon} />
       <div className="flex items-center justify-between text-xs font-semibold tracking-[0.06em] uppercase">
         <span className="text-text-muted tabular-nums">{entry.number}</span>
@@ -39,7 +41,7 @@ function TemplateCard({ entry, t }: { entry: TemplateEntry; t: SiteCopy }) {
         {live && (
           <Link
             href={`/template/${entry.slug}`}
-            className="press inline-flex min-h-11 items-center gap-1 font-semibold text-primary underline decoration-primary/30 underline-offset-4 hover:text-primary-hover"
+            className="press nudge inline-flex min-h-11 items-center gap-1 font-semibold text-primary underline decoration-primary/30 underline-offset-4 hover:text-primary-hover"
           >
             {t.templates.viewDemo}
             <ArrowUpRight size={18} strokeWidth={2} aria-hidden="true" />
@@ -54,6 +56,7 @@ function TemplateCard({ entry, t }: { entry: TemplateEntry; t: SiteCopy }) {
         </WhatsAppButton>
       </div>
     </article>
+    </div>
   );
 }
 
@@ -61,10 +64,10 @@ function TemplateCard({ entry, t }: { entry: TemplateEntry; t: SiteCopy }) {
 export function TemplateGrid({ t }: { t: SiteCopy }) {
   return (
     <div className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-      {TEMPLATES.map((entry) => (
-        <TemplateCard key={entry.number} entry={entry} t={t} />
+      {TEMPLATES.map((entry, i) => (
+        <TemplateCard key={entry.number} entry={entry} t={t} i={i} />
       ))}
-      <a href="#desain-khusus" className="group flex flex-col justify-end gap-2 bg-surface-raised p-4 hover:bg-surface sm:p-6">
+      <a href="#desain-khusus" data-reveal style={{ "--i": TEMPLATES.length } as React.CSSProperties} className="group flex flex-col justify-end gap-2 bg-surface-raised p-4 hover:bg-surface sm:p-6">
         <span className="font-display text-xl text-text">{t.templates.customTitle}</span>
         <span className="text-[15px] text-text-muted">{t.templates.customBody}</span>
         <span className="mt-2 inline-flex min-h-11 items-center gap-1 font-semibold text-primary">
