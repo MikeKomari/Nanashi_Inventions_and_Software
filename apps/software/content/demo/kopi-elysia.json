@@ -1,0 +1,256 @@
+{
+  "template": "kafe",
+  "lang": "id",
+  "business": {
+    "name": "Kopi Elysia",
+    "logo": null,
+    "tagline": "Kedai kopi kecil di Bandung. Kopi susu aren, seduhan manual, dan camilan hangat.",
+    "whatsapp": {
+      "number": "6282283058878",
+      "message": "Halo, saya coba tombol pesan di demo Kopi Elysia."
+    },
+    "address": {
+      "lines": ["Jl. Gula Aren No. 7", "Bandung, Jawa Barat"],
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=Bandung"
+    },
+    "hours": [
+      { "days": "Senin – Jumat", "opens": "07:00", "closes": "22:00" },
+      { "days": "Sabtu – Minggu", "opens": "08:00", "closes": "23:00" }
+    ]
+  },
+  "colors": {
+    "background": "#F7F0E6",
+    "text": "#2B1E17",
+    "textMuted": "#6B5446",
+    "panel": "#E9D9C3",
+    "accent": "#9A4A12",
+    "onAccent": "#FFFFFF",
+    "tag": "#4E6B3F",
+    "onTag": "#FFFFFF",
+    "band": "#2B1E17",
+    "onBand": "#F7F0E6"
+  },
+  "seo": {
+    "title": "Kopi Elysia · Kedai kopi di Bandung",
+    "description": "Kopi susu gula aren, seduhan manual, dan camilan hangat di Bandung. Lihat menu dan harga, lalu pesan lewat WhatsApp."
+  },
+  "labels": {
+    "skipLink": "Langsung ke isi",
+    "nav": { "story": "Cerita", "menu": "Menu", "location": "Lokasi" },
+    "orderShort": "Pesan",
+    "order": "Pesan lewat WhatsApp",
+    "seeMenu": "Lihat menu",
+    "featured": "Paling sering dipesan",
+    "address": "Alamat",
+    "hours": "Jam buka",
+    "openMap": "Buka di Google Maps",
+    "whatsapp": "WhatsApp"
+  },
+  "hero": {
+    "tag": "Andalan kami",
+    "title": "Es kopi susu aren yang manisnya pas, kopinya tetap terasa.",
+    "lead": "Biji kopinya kami sangrai sendiri tiap minggu, gula arennya kami masak sendiri. Mampir, atau pesan dulu lewat WhatsApp.",
+    "photo": {
+      "src": "/demo/kopi-elysia/es-kopi-susu-aren.webp",
+      "alt": "Segelas es kopi susu gula aren di atas tatakan gabus, di meja kayu."
+    },
+    "signatureItem": "es-kopi-susu-aren"
+  },
+  "story": {
+    "tag": "Cerita kami",
+    "title": "Berawal dari satu mesin sangrai kecil.",
+    "paragraphs": [
+      "Kopi Elysia lahir dari keinginan sederhana: punya tempat ngopi dekat rumah yang kopinya enak dan harganya masuk akal. Biji kopi dari kebun di Jawa Barat kami sangrai sedikit demi sedikit, supaya yang sampai di gelasmu selalu segar.",
+      "Sekarang kedai ini jadi tempat mampir sebelum kerja, tempat mengerjakan tugas, dan tempat ngobrol sampai malam. Duduk saja selama yang kamu mau."
+    ],
+    "photo": {
+      "src": "/demo/kopi-elysia/biji-kopi.webp",
+      "alt": "Tumpukan biji kopi sangrai berwarna cokelat tua, dilihat dari dekat."
+    }
+  },
+  "menu": {
+    "tag": "Menu",
+    "title": "Mau minum apa hari ini?",
+    "intro": "Semua kopi bisa dibuat panas atau dingin. Mau kurang manis? Bilang saja ke barista.",
+    "categories": [
+      {
+        "id": "kopi",
+        "name": "Kopi",
+        "items": [
+          {
+            "id": "es-kopi-susu-aren",
+            "name": "Es Kopi Susu Aren",
+            "description": "Espresso, susu segar, dan gula aren cair buatan sendiri.",
+            "price": 28000,
+            "tag": "Favorit",
+            "photo": {
+              "src": "/demo/kopi-elysia/dua-gelas-kopi.webp",
+              "alt": "Dua gelas es kopi susu dengan susu yang berpusar, dikelilingi biji kopi."
+            }
+          },
+          {
+            "id": "kopi-susu-pandan",
+            "name": "Kopi Susu Pandan",
+            "description": "Kopi susu dengan sirup pandan yang wangi, tidak terlalu manis.",
+            "price": 30000
+          },
+          {
+            "id": "seduh-v60",
+            "name": "Seduh Manual V60",
+            "description": "Biji pilihan minggu ini, diseduh satu per satu. Tanya barista soal rasanya.",
+            "price": 32000,
+            "photo": {
+              "src": "/demo/kopi-elysia/seduh-v60.webp",
+              "alt": "Air panas dituang dari teko leher angsa ke penyaring kopi V60 di atas server kaca."
+            }
+          },
+          {
+            "id": "cappuccino",
+            "name": "Cappuccino",
+            "description": "Espresso dengan susu dan busa yang lembut.",
+            "price": 27000
+          },
+          {
+            "id": "americano",
+            "name": "Americano",
+            "description": "Espresso dan air. Ringan, cocok untuk pagi.",
+            "price": 22000
+          },
+          {
+            "id": "kopi-tubruk",
+            "name": "Kopi Tubruk",
+            "description": "Kopi hitam ala rumah, ampasnya mengendap di dasar gelas.",
+            "price": 18000
+          }
+        ]
+      },
+      {
+        "id": "bukan-kopi",
+        "name": "Bukan kopi",
+        "items": [
+          {
+            "id": "es-matcha-latte",
+            "name": "Es Matcha Latte",
+            "description": "Matcha dan susu segar, segar diminum siang hari.",
+            "price": 30000,
+            "tag": "Baru",
+            "photo": {
+              "src": "/demo/kopi-elysia/es-matcha.webp",
+              "alt": "Segelas es matcha latte berwarna hijau muda dengan es batu, terkena cahaya matahari."
+            }
+          },
+          {
+            "id": "cokelat",
+            "name": "Cokelat",
+            "description": "Cokelat hitam yang pekat, panas atau dingin.",
+            "price": 27000
+          },
+          {
+            "id": "teh-rempah",
+            "name": "Teh Rempah",
+            "description": "Teh hitam dengan jahe, kayu manis, dan cengkih.",
+            "price": 22000
+          },
+          {
+            "id": "es-teh-lemon",
+            "name": "Es Teh Lemon",
+            "price": 18000
+          }
+        ]
+      },
+      {
+        "id": "teman-ngopi",
+        "name": "Teman ngopi",
+        "items": [
+          {
+            "id": "croissant-mentega",
+            "name": "Croissant Mentega",
+            "description": "Dipanggang tiap pagi, renyah di luar dan lembut di dalam.",
+            "price": 22000,
+            "photo": {
+              "src": "/demo/kopi-elysia/croissant.webp",
+              "alt": "Croissant berwarna keemasan di atas papan kayu beralas kertas."
+            }
+          },
+          {
+            "id": "roti-bakar-srikaya",
+            "name": "Roti Bakar Srikaya",
+            "description": "Roti tebal dengan selai srikaya dan mentega.",
+            "price": 20000
+          },
+          {
+            "id": "pisang-goreng-keju",
+            "name": "Pisang Goreng Keju",
+            "price": 22000
+          },
+          {
+            "id": "singkong-goreng",
+            "name": "Singkong Goreng",
+            "description": "Renyah, disajikan dengan sambal roa.",
+            "price": 20000
+          }
+        ]
+      }
+    ]
+  },
+  "gallery": {
+    "tag": "Suasana",
+    "title": "Tempat yang enak buat berlama-lama.",
+    "photos": [
+      {
+        "src": "/demo/kopi-elysia/ruang-utama.webp",
+        "alt": "Ruang kedai yang terang dengan meja dan kursi kayu, cahaya masuk dari jendela.",
+        "caption": "Ruang utama, terang dari pagi sampai sore."
+      },
+      {
+        "src": "/demo/kopi-elysia/sudut-jendela.webp",
+        "alt": "Meja kayu panjang di dekat jendela dengan kursi kayu dan vas bunga kecil.",
+        "caption": "Meja dekat jendela, favorit untuk kerja."
+      },
+      {
+        "src": "/demo/kopi-elysia/meja-kayu.webp",
+        "alt": "Meja kecil dan dua kursi kayu di depan dinding berpanel, dengan lampu dinding menyala.",
+        "caption": "Sudut tenang untuk berdua."
+      },
+      {
+        "src": "/demo/kopi-elysia/malam-hari.webp",
+        "alt": "Bagian dalam kedai pada malam hari, meja kayu diterangi lampu kuning yang hangat.",
+        "caption": "Malam hari, lampunya lebih hangat."
+      }
+    ]
+  },
+  "reviews": {
+    "tag": "Kata pelanggan",
+    "title": "Yang sudah mampir duluan.",
+    "items": [
+      {
+        "quote": "Es kopi susu arennya pas banget, manisnya nggak bikin enek. Sekarang tiap pagi mampir dulu sebelum ke kantor.",
+        "name": "Rani"
+      },
+      {
+        "quote": "Tempatnya tenang, colokan banyak, dan wifi-nya lancar. Saya betah ngerjain tugas di sini sampai sore.",
+        "name": "Dimas"
+      },
+      {
+        "quote": "Pisang goreng kejunya juara. Baristanya ramah dan sudah hafal pesanan saya.",
+        "name": "S."
+      }
+    ]
+  },
+  "location": {
+    "tag": "Lokasi",
+    "title": "Mampir ke kedai kami.",
+    "notes": ["Parkir motor tersedia di depan kedai.", "Ruang dalam bebas asap rokok."]
+  },
+  "order": {
+    "title": "Pesan dulu, tinggal ambil.",
+    "body": "Kirim pesananmu lewat WhatsApp. Kami siapkan, kamu tinggal datang tanpa antre.",
+    "photo": {
+      "src": "/demo/kopi-elysia/menuang-susu.webp",
+      "alt": "Susu dituang dari teko kecil ke segelas es kopi hitam."
+    }
+  },
+  "footer": {
+    "note": "Kopi susu aren dan seduhan manual, dibuat dengan sabar."
+  }
+}
