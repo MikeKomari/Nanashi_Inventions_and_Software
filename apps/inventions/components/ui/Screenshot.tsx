@@ -10,14 +10,15 @@ export function Screenshot({
   name,
   frame = "desktop",
   sizes,
-  priority = false,
+  eager = false,
   className = "",
   decorative = false,
 }: {
   name: ScreenName;
   frame?: "desktop" | "phone";
   sizes: string;
-  priority?: boolean;
+  /** Above the fold: load now with high priority instead of lazily. */
+  eager?: boolean;
   className?: string;
   /** Inside a link that already names it: empty alt so the link's name stays its visible text. */
   decorative?: boolean;
@@ -32,7 +33,8 @@ export function Screenshot({
           width={s.width}
           height={s.height}
           sizes={sizes}
-          priority={priority}
+          loading={eager ? "eager" : "lazy"}
+          fetchPriority={eager ? "high" : "auto"}
           className="shot-img"
         />
       </div>

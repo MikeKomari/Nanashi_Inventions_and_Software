@@ -78,12 +78,15 @@ Pages: Home, Inventions, `/inventions/chromiq`, `/inventions/lexi`, Engineering 
 Logo · Inventions · Engineering · About · EN/ID · gold "Need a website? → Nanashi Software" button. At the top of the page it is full-width and transparent; after scrolling it shrinks into a slim floating pill.
 
 ### Home, top to bottom
-1. **Stage.** The animated logo alone under a soft indigo light cone, with a faint reflection on the "floor". Above it: 七星 · nana hoshi. Below: "An independent product lab.", one supporting line, "See the inventions" (primary) and "Email us" (quiet link).
-2. **The seven stars.** Section is tall. The Big Dipper (北斗七星) stays sticky on one side; the seven principles scroll past on the other; each gold star lights as its principle passes.
-3. **Inventions.** One wide row per live product, alternating sides: large real screenshot on one side; name (in accent), one line, status badge, "Try it" and "Read more →" on the other. The screenshot drifts slower than the text (parallax). Studio and Home share one small "Coming soon" row with no screenshots.
-4. **Engineering.** The two latest articles.
-5. **Nanashi Software band.** Full-width, high contrast, links to `/software`.
-6. **Footer.** Logo + 七星 · nana hoshi, page links, email, GitHub, LinkedIn, "Founded by Michael Kimeison" (links to michaelkimeison.com), EN/ID.
+Updated 24 Nov 2026 with the founder (Chromiq-style chapters; supersedes D-08's order).
+1. **Stage.** The logo under a soft indigo light cone, with a floor glow and reflection. Above it: 七星 · nana hoshi. Below: "An independent product lab.", one supporting line, "See the inventions" (primary) and "Email Nanashi" (quiet link). Real screenshots of Chromiq and Lexi rise under the stage so the first screen shows work (phones: the two mobile captures). The logo is the 2.5D `Logo3D` by default (experimental, not yet confirmed); `<Stage logo="flat">` switches back to the flat `AnimatedLogo`.
+2. **Statement.** One large paragraph on what Nanashi is; its words wash from muted to text colour on scroll, the product names into their accents.
+3. **Inventions.** One full chapter per live product (Chromiq, then Lexi): name in accent, one line, status, "Try it" and "Read more →", a big screenshot with the phone capture in front, then 3–4 numbered points ("01 ── 04") from the README, alternating sides, each with its own parallax screenshot. Then one small "Coming soon" row for Studio and Home (no screenshots, no pages).
+4. **The seven stars.** The Big Dipper (北斗七星) stays sticky on one side; the seven principles scroll past; each gold star lights as its principle passes. Phones: constellation on top, principles below.
+5. **Engineering.** Two article teasers linking to `/engineering/<slug>`.
+6. **Closing call to action** and an **FAQ** for investors and recruiters.
+7. **Nanashi Software band** (every page). Light band: text-colour background, night text, violet (`violet-700`) button to `/software`.
+8. **Footer.** Logo + 七星 · nana hoshi, page links, email, GitHub, LinkedIn, "Founded by Michael Kimeison" (links to michaelkimeison.com), EN/ID.
 
 ### Product page
 Hero (name in accent color, large screenshot, "Try it") → Problem → What it does → Under the hood → Result → screenshot gallery → traction block (real numbers or "Pre-launch") → link to its Engineering article. Lighter motion than Home.
@@ -104,7 +107,7 @@ Libraries: **Motion** for animation, **Lenis** for smooth scrolling.
 
 | Element | Behavior |
 |---|---|
-| Hero logo | Infinite loop, 6–8s: the orbit draws itself, the star breaks out and travels along the comet trail, everything settles, repeat. Built as an inline SVG animated with Motion (no GIF, no video, no 3D). The orbit is a filled shape, so "drawing" it means revealing it through a mask whose stroked centerline animates `pathLength` 0→1. The resting frame must match the static logo exactly. |
+| Hero logo | Infinite loop, 6–8s: the orbit draws itself, the star breaks out and travels along the comet trail, everything settles, repeat. Built as an inline SVG animated with Motion (no GIF, no video, no WebGL; the stage may show it as a CSS-3D "2.5D" object, see Home §1). The orbit is a filled shape, so "drawing" it means revealing it through a mask whose stroked centerline animates `pathLength` 0→1. The resting frame must match the static logo exactly. |
 | Big Dipper | Each star fades and scales in as its principle crosses the viewport center. |
 | Invention rows | Screenshot parallax (moves ~15–20% slower than the text). |
 | Headlines | Word-by-word reveal on first view. |
@@ -123,7 +126,7 @@ Libraries: **Motion** for animation, **Lenis** for smooth scrolling.
 On a mid-range phone:
 - Largest Contentful Paint ≤ 2.5s
 - Cumulative Layout Shift ≤ 0.1
-- Home page JavaScript ≤ 150 KB compressed, Motion and Lenis included
+- Home page JavaScript: no hard limit since 24 Nov 2026 (founder); report the size with each change. LCP and CLS limits still hold.
 
 If an effect breaks a limit, simplify the effect. Every page is generated at build time (Next.js static generation).
 
