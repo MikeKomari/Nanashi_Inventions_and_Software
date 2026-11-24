@@ -1,0 +1,310 @@
+// Real screenshots of the two live products (W-15): no mockups, no seeded statistics.
+//
+//   npm run screens            # all screens
+//   npm run screens -- lexi    # one product
+//
+// Writes optimised WebP into public/screens/ and their sizes into content/screens.generated.ts,
+// so next/image always gets explicit dimensions (no layout shift).
+//
+// Playwright is not a dependency of this app: the script uses whichever copy the machine has
+// (`playwright` on NODE_PATH, or `playwright-core` if installed). Set PW_CHROMIUM to a browser
+// binary if Playwright cannot find its own. Images are encoded with sharp, which ships with Next.
+//
+// Lexi keeps its data in the visitor's browser, so a fresh visit shows an empty Inbox. Before the
+// Lexi screenshots, the script types real Chinese words through Lexi's own quick-capture form, then
+// runs Lexi's real enrichment flow: select the captures, copy the prompt, paste a JSON answer that
+// passes Lexi's validator (domain/enrichment.ts), preview it and apply it. Lexi's Dashboard is never
+// captured: it still shows placeholder numbers.
+import { createRequire } from "node:module";
+import { mkdir, writeFile } from "node:fs/promises";
+
+const require = createRequire(import.meta.url);
+const sharp = require("sharp");
+
+function loadPlaywright() {
+  for (const name of ["playwright", "playwright-core"]) {
+    try {
+      return require(name);
+    } catch {
+      // try the next one
+    }
+  }
+  throw new Error("Playwright not found. Install playwright-core or put playwright on NODE_PATH.");
+}
+const { chromium } = loadPlaywright();
+
+const root = new URL("../", import.meta.url);
+const OUT = new URL("public/screens/", root);
+const CHROMIQ = "https://prism-gamma-three.vercel.app";
+const LEXI = "https://lexi-beta-nine.vercel.app";
+
+const DEVICES = {
+  desktop: { viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 },
+  mobile: { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
+};
+
+/** Words typed into Lexi's quick capture. All six are enriched below. */
+const LEXI_WORDS = ["咖啡", "图书馆", "朋友", "天气", "学习", "旅行"];
+
+/**
+ * The enrichment answer pasted into Lexi, keyed by the Chinese word. Readings use Hanyu Pinyin with
+ * tone marks, kana, and Revised Romanisation, as Lexi's prompt asks. Relationships are optional and
+ * left out, so Lexi creates exactly one concept per captured word.
+ */
+const LEXI_ENRICHMENT = {
+  咖啡: {
+    label: "coffee",
+    tags: ["food and drink"],
+    entries: [
+      { language: "zh", writtenForm: "咖啡", reading: "kāfēi", meaning: "coffee", notes: "Measure word: 杯 (bēi) for a cup." },
+      { language: "ja", writtenForm: "コーヒー", reading: "コーヒー", meaning: "coffee", notes: "Written in katakana." },
+      { language: "ko", writtenForm: "커피", reading: "keopi", meaning: "coffee", notes: "Counted with 잔 (jan), a cup." },
+    ],
+    examples: [
+      { language: "zh", text: "我每天早上喝一杯咖啡。", translation: "I drink a cup of coffee every morning." },
+      { language: "ja", text: "毎朝コーヒーを一杯飲みます。", translation: "I drink a cup of coffee every morning." },
+      { language: "ko", text: "저는 매일 아침 커피를 한 잔 마셔요.", translation: "I drink a cup of coffee every morning." },
+    ],
+  },
+  图书馆: {
+    label: "library",
+    tags: ["places"],
+    entries: [
+      { language: "zh", writtenForm: "图书馆", reading: "túshūguǎn", meaning: "library", notes: "馆 marks a building or hall." },
+      { language: "ja", writtenForm: "図書館", reading: "としょかん", meaning: "library", notes: "Same characters, Japanese reading." },
+      { language: "ko", writtenForm: "도서관", reading: "doseogwan", meaning: "library", notes: "Sino-Korean word from 圖書館." },
+    ],
+    examples: [
+      { language: "zh", text: "我常常去图书馆看书。", translation: "I often go to the library to read." },
+      { language: "ja", text: "図書館で本を借りました。", translation: "I borrowed a book from the library." },
+      { language: "ko", text: "도서관에서 공부해요.", translation: "I study at the library." },
+    ],
+  },
+  朋友: {
+    label: "friend",
+    tags: ["people"],
+    entries: [
+      { language: "zh", writtenForm: "朋友", reading: "péngyou", meaning: "friend", notes: "The second syllable is in the neutral tone." },
+      { language: "ja", writtenForm: "友達", reading: "ともだち", meaning: "friend", notes: "Everyday word; 友人 (ゆうじん) is more formal." },
+      { language: "ko", writtenForm: "친구", reading: "chingu", meaning: "friend", notes: "Usually a friend of about the same age." },
+    ],
+    examples: [
+      { language: "zh", text: "他是我最好的朋友。", translation: "He is my best friend." },
+      { language: "ja", text: "週末に友達と映画を見ました。", translation: "I watched a film with a friend at the weekend." },
+      { language: "ko", text: "친구를 만나러 가요.", translation: "I'm going to meet a friend." },
+    ],
+  },
+  天气: {
+    label: "weather",
+    tags: ["daily life"],
+    entries: [
+      { language: "zh", writtenForm: "天气", reading: "tiānqì", meaning: "weather", notes: "Day-to-day conditions, not climate (气候)." },
+      { language: "ja", writtenForm: "天気", reading: "てんき", meaning: "weather", notes: "いい天気 means fine weather." },
+      { language: "ko", writtenForm: "날씨", reading: "nalssi", meaning: "weather", notes: "Native Korean word." },
+    ],
+    examples: [
+      { language: "zh", text: "今天天气很好。", translation: "The weather is nice today." },
+      { language: "ja", text: "今日はいい天気ですね。", translation: "Lovely weather today, isn't it?" },
+      { language: "ko", text: "오늘 날씨가 좋아요.", translation: "The weather is nice today." },
+    ],
+  },
+  学习: {
+    label: "to study",
+    tags: ["school"],
+    entries: [
+      { language: "zh", writtenForm: "学习", reading: "xuéxí", meaning: "to study; to learn", notes: "Also a noun: study, learning." },
+      { language: "ja", writtenForm: "勉強する", reading: "べんきょうする", meaning: "to study", notes: "学習 (がくしゅう) exists but is more formal." },
+      { language: "ko", writtenForm: "공부하다", reading: "gongbu-hada", meaning: "to study", notes: "From 공부 (study) plus 하다 (to do)." },
+    ],
+    examples: [
+      { language: "zh", text: "我在学习中文。", translation: "I am studying Chinese." },
+      { language: "ja", text: "毎日日本語を勉強しています。", translation: "I study Japanese every day." },
+      { language: "ko", text: "저는 한국어를 공부하고 있어요.", translation: "I am studying Korean." },
+    ],
+  },
+  旅行: {
+    label: "to travel",
+    tags: ["travel"],
+    entries: [
+      { language: "zh", writtenForm: "旅行", reading: "lǚxíng", meaning: "to travel; a trip", notes: "旅游 (lǚyóu) leans towards sightseeing." },
+      { language: "ja", writtenForm: "旅行", reading: "りょこう", meaning: "travel; a trip", notes: "旅行する is the verb." },
+      { language: "ko", writtenForm: "여행", reading: "yeohaeng", meaning: "travel; a trip", notes: "여행하다 is the verb." },
+    ],
+    examples: [
+      { language: "zh", text: "我们打算明年去日本旅行。", translation: "We plan to travel to Japan next year." },
+      { language: "ja", text: "夏休みに京都へ旅行しました。", translation: "I took a trip to Kyoto in the summer holidays." },
+      { language: "ko", text: "다음 달에 부산으로 여행을 가요.", translation: "I'm travelling to Busan next month." },
+    ],
+  },
+};
+
+const shots = []; // { name, width, height, alt }
+
+async function save(page, name, alt, { fullPage = false } = {}) {
+  await page.waitForTimeout(600);
+  const png = await page.screenshot({ fullPage, animations: "disabled" });
+  const info = await sharp(png).webp({ quality: 82, effort: 6 }).toFile(new URL(`${name}.webp`, OUT).pathname);
+  shots.push({ name, width: info.width, height: info.height, alt });
+  console.log(`  ${name}.webp  ${info.width}×${info.height}  ${(info.size / 1024).toFixed(0)} KB`);
+}
+
+async function context(browser, device) {
+  return browser.newContext({ ...DEVICES[device], colorScheme: "dark", reducedMotion: "reduce", locale: "en-US" });
+}
+
+async function chromiq(browser, device) {
+  const ctx = await context(browser, device);
+  const page = await ctx.newPage();
+  const suffix = device;
+
+  await page.goto(`${CHROMIQ}/`, { waitUntil: "networkidle" });
+  await save(page, `chromiq-landing-${suffix}`, "Chromiq's landing page: the CHROMIQ wordmark and a field to paste any public site and restyle it live.");
+
+  await page.goto(`${CHROMIQ}/workspace`, { waitUntil: "networkidle" });
+  await page.waitForTimeout(1200);
+  await save(
+    page,
+    `chromiq-workspace-${suffix}`,
+    "The Chromiq workbench: starter systems on the left, a live editorial preview in the middle and the token inspector with type and colour settings on the right.",
+  );
+
+  if (device === "desktop") {
+    // Contrast: open the inspector's Contrast section and preview a colour-vision simulation.
+    const contrast = page.getByRole("button", { name: "Contrast", exact: true });
+    if (await contrast.count()) {
+      await contrast.first().scrollIntoViewIfNeeded();
+      const expanded = await contrast.first().getAttribute("aria-expanded");
+      if (expanded === "false") await contrast.first().click();
+      await contrast.first().evaluate((el) => el.scrollIntoView({ block: "start" }));
+    }
+    const vision = page.getByLabel("Color vision simulation");
+    if (await vision.count()) await vision.selectOption({ index: 2 }).catch(() => {});
+    await save(
+      page,
+      "chromiq-contrast-desktop",
+      "Chromiq's inspector grading each colour pair against WCAG contrast, with a colour-vision simulation applied to the preview.",
+    );
+    if (await vision.count()) await vision.selectOption({ index: 0 }).catch(() => {});
+
+    // Export: the export dialog with generated code.
+    await page.getByRole("button", { name: /^Export/ }).first().click();
+    await page.waitForTimeout(800);
+    await save(page, "chromiq-export-desktop", "Chromiq's export dialog showing CSS custom properties generated from the live token system, with other formats one tab away.");
+    await page.keyboard.press("Escape");
+
+    // Restyle: a scripts-off copy of example.com, loaded through Chromiq's own proxy.
+    await page.goto(`${CHROMIQ}/workspace?restyle=${encodeURIComponent("https://example.com/")}`, { waitUntil: "networkidle" });
+    await page.waitForTimeout(2500);
+    await save(
+      page,
+      "chromiq-restyle-desktop",
+      "Chromiq's restyle view: a scripts-off copy of example.com loaded through Chromiq's proxy, with type, colour, accent and radius controls beside it.",
+    );
+  }
+  await ctx.close();
+}
+
+async function lexi(browser, device) {
+  const ctx = await context(browser, device);
+  await ctx.grantPermissions(["clipboard-read", "clipboard-write"], { origin: LEXI });
+  const page = await ctx.newPage();
+  const suffix = device;
+
+  await page.goto(`${LEXI}/inbox`, { waitUntil: "networkidle" });
+  // First visit: Lexi asks how to greet you. Skipping keeps the default.
+  const skip = page.getByRole("button", { name: "Skip for now" });
+  if (await skip.count()) await skip.click();
+
+  // 1. Capture real words through the quick-capture form, one per line.
+  await page.fill("#capture-text", LEXI_WORDS.join("\n"));
+  await page.getByRole("button", { name: new RegExp(`Add ${LEXI_WORDS.length} items`) }).click();
+  await page.getByText(`${LEXI_WORDS.length} capture items`).waitFor();
+
+  // 2. Select the batch and build Lexi's enrichment prompt.
+  await page.getByLabel(new RegExp(`Select all ${LEXI_WORDS.length} words`)).check();
+  await page.getByRole("button", { name: "Copy enrichment prompt" }).click();
+  const prompt = await page.locator("#prompt-output").inputValue();
+
+  // Bring the captured list into view for the Inbox screenshot.
+  await page.getByText(`${LEXI_WORDS.length} capture items`).evaluate((el) => el.scrollIntoView({ block: "start" }));
+  await save(
+    page,
+    `lexi-inbox-${suffix}`,
+    "Lexi's Inbox with six captured Chinese words, 咖啡, 图书馆, 朋友, 天气, 学习 and 旅行, selected as a batch for enrichment.",
+  );
+
+  // The prompt lists each capture as "N. id: <id>" followed by "word: <text>".
+  const ids = {};
+  for (const m of prompt.matchAll(/id: (\S+)\s+word: (\S+)/g)) ids[m[2]] = m[1];
+  const missing = LEXI_WORDS.filter((w) => !ids[w]);
+  if (missing.length) throw new Error(`Prompt is missing ids for ${missing.join(", ")}`);
+  const answer = {
+    format: "lexi-enrichment",
+    schemaVersion: 1,
+    results: LEXI_WORDS.map((word) => ({ captureId: ids[word], ...LEXI_ENRICHMENT[word] })),
+  };
+
+  // 3. Paste the answer in Enrich, check it, and screenshot the preview before applying.
+  await page.goto(`${LEXI}/enrich`, { waitUntil: "networkidle" });
+  await page.fill("#enrichment-input", JSON.stringify(answer, null, 2));
+  await page.getByRole("button", { name: "Check the response" }).click();
+  const apply = page.getByRole("button", { name: "Apply to my vocabulary" });
+  await apply.waitFor();
+  await page.getByText("3. Review and apply").evaluate((el) => el.scrollIntoView({ block: "center" }));
+  await save(
+    page,
+    `lexi-enrich-${suffix}`,
+    "Lexi's Enrich screen after a pasted answer passed validation: a preview of the six concepts it will create, waiting for Apply.",
+  );
+  await apply.click();
+  await page.getByText(/Applied/).first().waitFor();
+
+  // 4. The vocabulary those steps produced.
+  await page.goto(`${LEXI}/vocabulary`, { waitUntil: "networkidle" });
+  await page.waitForTimeout(1200);
+  await save(
+    page,
+    `lexi-vocabulary-${suffix}`,
+    "Lexi's Vocabulary: each concept with its Chinese, Japanese and Korean entries, readings and meanings.",
+  );
+  await ctx.close();
+}
+
+async function main() {
+  const only = process.argv[2];
+  await mkdir(OUT, { recursive: true });
+  const browser = await chromium.launch(process.env.PW_CHROMIUM ? { executablePath: process.env.PW_CHROMIUM } : {});
+  try {
+    for (const device of ["desktop", "mobile"]) {
+      if (!only || only === "chromiq") {
+        console.log(`Chromiq, ${device}`);
+        await chromiq(browser, device);
+      }
+      if (!only || only === "lexi") {
+        console.log(`Lexi, ${device}`);
+        await lexi(browser, device);
+      }
+    }
+  } finally {
+    await browser.close();
+  }
+
+  if (only) {
+    console.log("Partial run: content/screens.generated.ts left unchanged.");
+    return;
+  }
+  const entries = shots
+    .map((s) => `  ${JSON.stringify(s.name)}: { src: "/screens/${s.name}.webp", width: ${s.width}, height: ${s.height}, alt: ${JSON.stringify(s.alt)} },`)
+    .join("\n");
+  const ts = `// Generated by scripts/screens.mjs (npm run screens). Do not edit.
+export const SCREENS = {
+${entries}
+} as const;
+
+export type ScreenName = keyof typeof SCREENS;
+`;
+  await writeFile(new URL("content/screens.generated.ts", root), ts);
+  console.log(`content/screens.generated.ts: ${shots.length} screens`);
+}
+
+await main();

@@ -1,0 +1,93 @@
+/* Scroll primitives (components/scroll/). Adapted from Chromiq's app/scroll.css (Chromiq ADR-0015):
+   product-agnostic, every colour comes from a custom property. Only transform and opacity move,
+   plus colour for the statement's wash. Everything is still under prefers-reduced-motion. */
+
+/* Lenis (components/scroll/SmoothScroll.tsx) puts these classes on <html> itself. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Reveal: visible by default. The hidden state applies only once the client has mounted
+   (data-in-view="false"), so a page without JavaScript reads top to bottom. */
+[data-reveal] {
+  transition:
+    opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal][data-in-view="false"] {
+  opacity: 0;
+  transform: translateY(28px);
+}
+/* Headings rise word by word (Words in components/scroll/Reveal.tsx). */
+.rw {
+  display: inline-block;
+  white-space: pre;
+  transition:
+    opacity 800ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(120ms + var(--i, 0) * 70ms);
+}
+[data-in-view="false"] .rw {
+  opacity: 0;
+  transform: translateY(0.45em);
+}
+
+/* Colour wash (components/scroll/ColorWashText.tsx). */
+@property --sc-wash-p {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --sc-wash-w {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+.sc-wash {
+  --sc-wash-p: 0;
+  --sc-wash-n: 1;
+  --sc-wash-spread: 4;
+  --sc-wash-from: var(--color-text-muted);
+}
+.sc-wash-word {
+  --sc-wash-w: clamp(
+    0,
+    calc((var(--sc-wash-p) * (var(--sc-wash-n) + var(--sc-wash-spread)) - var(--sc-wash-i)) / var(--sc-wash-spread)),
+    1
+  );
+  color: color-mix(in oklab, var(--sc-wash-to) calc(var(--sc-wash-w) * 100%), var(--sc-wash-from));
+  transition: color 120ms linear;
+}
+
+.magnetic {
+  transition: transform 260ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal][data-in-view="false"],
+  .rw,
+  [data-in-view="false"] .rw {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .sc-wash-word {
+    transition: none;
+  }
+  .magnetic {
+    transition: none;
+    transform: none !important;
+  }
+}

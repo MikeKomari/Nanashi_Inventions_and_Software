@@ -4,7 +4,9 @@ import { SITE_ORIGIN } from "@/lib/site";
 import { COLOR } from "@/styles/tokens";
 import { en as t } from "@/content/i18n/en";
 import { Header } from "@/components/layout/Header";
-import { SmoothScroll } from "@/components/motion/SmoothScroll";
+import { SmoothScroll } from "@/components/scroll/SmoothScroll";
+import { SoftwareBand } from "@/components/layout/SoftwareBand";
+import { Footer } from "@/components/layout/Footer";
 import "@/styles/site.css";
 
 const sora = Sora({ subsets: ["latin"], weight: ["600"], variable: "--font-sora", display: "swap" });
@@ -30,6 +32,8 @@ export default function EnglishLayout({ children }: { children: React.ReactNode 
         </a>
         <Header t={t} switchHref="/id" />
         <main id="main">{children}</main>
+        <SoftwareBand t={t} />
+        <Footer t={t} switchHref="/id" />
         <SmoothScroll />
       </body>
     </html>
