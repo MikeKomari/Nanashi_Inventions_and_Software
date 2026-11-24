@@ -151,7 +151,7 @@ export function InventionPage({ t, inv }: { t: Copy; inv: LiveInvention }) {
         {inv.engineering && (
           <Reveal className="iend-card lift">
             <p className="eyebrow">{c.engineeringLabel}</p>
-            <Link prefetch={false} href={`/engineering/${inv.engineering.slug}`} className="iend-link">
+            <Link href={`/engineering/${inv.engineering.slug}`} className="iend-link">
               {inv.engineering.title}
             </Link>
           </Reveal>

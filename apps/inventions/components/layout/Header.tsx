@@ -30,8 +30,8 @@ export function Header({ t, switchHref }: { t: Copy; switchHref: string }) {
           >
             <Link href={`${base}/inventions`} className={link}>{t.nav.inventions}</Link>
             {/* Engineering is English only (W-10). Not built yet: no prefetch, so no 404 noise. */}
-            <Link prefetch={false} href="/engineering" className={link}>{t.nav.engineering}</Link>
-            <Link prefetch={false} href={`${base}/about`} className={link}>{t.nav.about}</Link>
+            <Link href="/engineering" className={link}>{t.nav.engineering}</Link>
+            <Link href={`${base}/about`} className={link}>{t.nav.about}</Link>
             <Link
               prefetch={false}
               href={switchHref}

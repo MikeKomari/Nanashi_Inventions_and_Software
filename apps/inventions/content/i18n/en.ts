@@ -1,5 +1,6 @@
 // English copy for Nanashi Inventions. Voice (B-06): calm, clear, confident, plain English, short
-// sentences, no hype. One founder (B-03): say "Nanashi"; no "we".
+// sentences, no hype. Say "Nanashi"; no "we". Founded by one person today (B-03), but never framed
+// as "a lab of one": the team is meant to grow (founder, 24 Nov 2026).
 // Home copy is about Nanashi itself and stays general (founder, 24 Nov 2026): product facts live in
 // content/inventions.ts and on each invention's page. No invented numbers (principle 3).
 // id.ts (later) mirrors this shape; the founder reviews both.
@@ -87,8 +88,9 @@ export const en = {
   },
   how: {
     label: "How Nanashi builds",
-    title: "A lab of one, run like a company.",
-    lead: "Nanashi is independent and founded by Michael Kimeison, who designs, builds and runs every invention end to end. The way of working is the same for each one.",
+    // TODO(founder): this section is held back from the home page; the founder will supply the wording.
+    title: "How Nanashi builds.",
+    lead: "The way of working is the same for each invention.",
     steps: [
       { title: "Find the problem", body: "Start with someone who has the problem today, and write down what would make it go away." },
       { title: "Ship the smallest useful thing", body: "Release the one part that already helps, in the browser, with no account needed where possible." },
@@ -131,33 +133,82 @@ export const en = {
     title: "How the inventions are built.",
     lead: "Deep dives into the decisions behind each invention. No posting schedule: an article is written when there is something worth explaining.",
     read: "Read the deep dive",
-    articles: [
-      {
-        slug: "chromiq-url-inspector",
-        product: "Chromiq",
-        accent: "comet",
-        topic: "Security",
-        title: "How Chromiq's URL inspector loads other websites safely",
-        summary:
-          "Chromiq fetches pages you name from its own server. The article walks through how it refuses private addresses, connects only to the address it checked, stops after 8 seconds or 1.5 MB, and turns scripts off before anything is shown.",
-      },
-      {
-        slug: "lexi-copy-paste-enrichment",
-        product: "Lexi",
-        accent: "tide",
-        topic: "Product design",
-        title: "Why Lexi has no AI connection and uses a copy/paste step instead",
-        summary:
-          "Lexi never calls a model. It writes a plain-language prompt you can take to any AI tool, then validates the JSON you paste back, field by field, before anything is saved. The article explains the trade-off.",
-      },
-    ],
   },
   founder: {
     label: "Founder",
     text: "Founded by Michael Kimeison.",
-    body: "Nanashi leads; the founder signs. For investors and recruiters: one email reaches him directly.",
+    body: "For investors and recruiters: one email reaches the founder directly.",
     email: "Email Nanashi",
     about: "About Nanashi",
+  },
+  about: {
+    metaTitle: "About · Nanashi",
+    metaDescription: "The team behind Nanashi, an independent product lab founded by Michael Kimeison, and the seven principles every invention is built by.",
+    label: "About",
+    title: "The people behind Nanashi.",
+    lead: "Nanashi is an independent product lab. It starts small and is built to grow: every invention is held to the same seven principles, whoever builds it.",
+    teamLabel: "Team",
+    teamTitle: "Who builds Nanashi.",
+    members: [
+      {
+        name: "Michael Kimeison",
+        role: "Founder",
+        // TODO(founder): bio facts to follow. Photo: a placeholder image is planned (file not yet supplied).
+        bio: "",
+        initials: "MK",
+        photo: null as string | null,
+        links: [
+          { label: "Website", href: "https://michaelkimeison.com" },
+          { label: "GitHub", href: "https://github.com/MikeKomari" },
+          { label: "LinkedIn", href: "https://www.linkedin.com/in/michkimei" },
+        ],
+      },
+    ],
+    bioPending: "Bio coming soon.",
+    openRole: {
+      tag: "Open role",
+      title: "Your seat at Nanashi",
+      body: "Roles will be listed here when they open. If Nanashi's principles sound like how you work, say hello anyway.",
+      cta: "Email Nanashi",
+    },
+    openRoles: 2,
+    principlesLabel: "Principles",
+    principlesTitle: "Seven stars, seven rules.",
+    principlesLead: "The same seven principles apply to every invention and everyone who builds one.",
+    investorsLabel: "Investors and recruiters",
+    investorsTitle: "Questions, answered plainly.",
+    faq: [
+      {
+        q: "What is Nanashi?",
+        a: "An independent product lab. It builds and runs its own software products, starting from real problems and shipping them small. The name comes from the Japanese nana hoshi, seven stars, which also gives Nanashi its seven principles.",
+      },
+      {
+        q: "Who is behind it?",
+        a: "Nanashi was founded by Michael Kimeison, who leads it today. The team is meant to grow; open roles will be listed on this page.",
+      },
+      {
+        q: "Which inventions are live?",
+        a: [
+          "Two are in production: ",
+          { text: "Chromiq", href: "/inventions/chromiq" },
+          ", a design workbench for frontend developers, and ",
+          { text: "Lexi", href: "/inventions/lexi" },
+          ", a vocabulary workspace for Chinese, Japanese and Korean. Nanashi Studio and Nanashi Home are in the lab.",
+        ],
+      },
+      {
+        q: "Is there traction to share?",
+        a: "No public usage figures yet. Nanashi doesn't publish estimates; real numbers will appear on each invention's page once they exist.",
+      },
+      {
+        q: "How do I get in touch?",
+        a: [
+          "Email ",
+          { text: "michaelk.projects@gmail.com", href: "mailto:michaelk.projects@gmail.com" },
+          ". It goes straight to the founder.",
+        ],
+      },
+    ] as { q: string; a: Rich }[],
   },
   softwareBand: {
     label: "Nanashi Software",

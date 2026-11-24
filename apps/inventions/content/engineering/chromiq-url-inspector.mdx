@@ -1,0 +1,118 @@
+Chromiq's headline feature is simple to describe: paste the address of any public website, and see it restyled with your own colours, type and radius. To do that, Chromiq's server has to fetch the page for you. This article is about why that one step is the most dangerous code in the product, and the five layers that make it safe.
+
+Every file named below is in the Chromiq repository.
+
+## The feature, and the risk inside it
+
+A browser can't simply load another website and read its HTML. The other site's security rules stop it. So Chromiq does the reading on its own server: you type `https://example.com`, the server downloads the page, pulls out its colours, headings and stylesheets, and sends the result back.
+
+That creates a classic security problem called **server-side request forgery** (SSRF). If a server will fetch any address a stranger types, the stranger can point it at addresses that only the server can reach:
+
+- `http://localhost:3000/admin`, a page meant for the server itself;
+- `http://10.0.0.5`, a machine on the private network behind it;
+- `http://169.254.169.254`, the address cloud providers use to hand out a server's own credentials.
+
+None of these are reachable from the open internet. All of them are reachable from inside. The inspector's job is to fetch public pages and nothing else, even when someone is actively trying to trick it.
+
+<Flow
+  label="Every request passes these checks in order. Any of the red steps can refuse it."
+  steps={[
+    { title: "Check the address", body: "http or https, no login in the URL, no private names", kind: "stop" },
+    { title: "Resolve and pin", body: "look up the IP, refuse if any answer is private", kind: "stop" },
+    { title: "Connect to that IP", body: "the exact address that was checked" },
+    { title: "Follow redirects by hand", body: "each hop repeats steps 1–3", kind: "stop" },
+    { title: "Read within budget", body: "8 s and 1.5 MB, measured after decompression", kind: "stop" },
+    { title: "Show without scripts", body: "sanitised HTML in a sandboxed frame", kind: "ok" },
+  ]}
+/>
+
+## Rule one: only public addresses
+
+The first layer lives in `lib/url-safety.ts`. Before anything is fetched, the address has to pass three checks.
+
+**The scheme and shape.** Only `http:` and `https:` are allowed, and an address with a username or password in it (`https://user:pass@host`) is refused outright.
+
+**The name.** `localhost`, anything ending in `.localhost`, `.local` or `.internal` is refused. These names point at private machines by definition.
+
+**The IP address.** If the address is a raw IP, or once a name has been looked up, the IP is compared against every range that isn't the public internet. For IPv4 that means the private networks (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`), loopback (`127.0.0.0/8`), link-local (`169.254.0.0/16`, where the cloud credential address lives), carrier-grade NAT, benchmarking and documentation ranges, multicast and the reserved block. For IPv6 the rule is turned around: only global unicast addresses (`2000::/3`) are allowed at all, minus the documentation and Teredo ranges, and a 6to4 address is unpacked so the IPv4 inside it is checked too.
+
+The last line of the IP check matters more than it looks:
+
+```ts
+export function isPrivateIp(address: string): boolean {
+  const bare = address.trim().replace(/^\[|\]$/g, "");
+  const v4 = parseIpv4(bare);
+  if (v4) return isPrivateIpv4Octets(v4);
+  const v6 = parseIpv6(bare);
+  if (v6) return isPrivateIpv6Bytes(v6);
+  return true; // unparseable: fail closed
+}
+```
+
+If an address can't be understood, it is treated as private. Attackers love strange spellings of IP addresses; anything the parser doesn't recognise is refused rather than waved through.
+
+## The gap between checking and connecting
+
+Checking a name, then connecting to it, sounds safe. It isn't, and the reason has a name: **DNS rebinding**.
+
+A domain's owner controls what its name resolves to, and can change the answer every second. So an attacker can set up `evil.example` to answer "a public IP" when Chromiq checks it, then "`127.0.0.1`" a moment later when Chromiq connects. The check passes; the connection goes somewhere private.
+
+`lib/safe-fetch.ts` closes that gap by making the check and the connection the same step. Node's HTTP client lets you replace the function it uses to look up a name. Chromiq's replacement looks the name up, refuses if *any* of the answers is private, and otherwise hands back the address it just checked:
+
+```ts
+dnsLookup(hostname, { ...options, all: true }, (err, addresses) => {
+  if (err) return callback(err);
+  const list = addresses as LookupAddress[];
+  if (!list.length || list.some((a) => isPrivateIp(a.address))) {
+    const blocked: NodeJS.ErrnoException = new Error("Blocked non-public address");
+    blocked.code = "EBLOCKED";
+    return callback(blocked);
+  }
+  if (options.all) return callback(null, list);
+  callback(null, list[0].address, list[0].family);
+});
+```
+
+Node then connects to exactly that address. There is no second lookup for the attacker to change, so there is no window between "checked" and "connected". Each request also uses its own connection (`agent: false`), so a socket opened for one site is never reused for another.
+
+<Note title="Why check all the answers?">
+A name can resolve to several addresses at once. If only the first were checked, a name that answers "public, private" would pass the check and might connect to the private one.
+</Note>
+
+## Redirects get the same treatment
+
+A public page can answer "go to `http://10.0.0.5` instead". If the HTTP client followed that redirect on its own, every check above would be skipped for the second address.
+
+So `safeFetch` never lets the client follow redirects. When a response is a redirect, it closes it, works out the next address, and goes round the loop again: the address check, the pinned lookup and the connection all run for every hop. The number of hops is capped (three for the inspector, four for the restyle proxy), and a redirect to an address that can't be parsed is refused.
+
+## A budget for time and bytes
+
+A public page can still hurt a server without being private. It can answer very slowly, or send something enormous. So every fetch carries a budget.
+
+- **One deadline for everything.** The inspector allows 8 seconds for the page, counted once across connecting, every redirect and reading the body. A timer keeps running while the body streams, so a server that trickles one byte a second still gets cut off.
+- **A size cap after decompression.** The page is capped at 1.5 MB. The cap is measured on the *decompressed* data: a small compressed file can unpack into gigabytes (a "zip bomb"), so counting the bytes on the wire would miss it. The stream is cut at the cap and marked as truncated.
+- **Limits per visitor and overall.** The inspector takes 30 requests a minute per client and at most 4 at once; past that it answers "busy" with a `Retry-After` header instead of queuing work. Stylesheets get their own smaller budget: up to 6 files, 600 KB each and 2 MB in total.
+
+The restyle proxy, which loads a whole page for live editing, has the same shape with slightly larger numbers: 10 seconds, 2 MB, four redirects, 20 requests a minute per address and 8 at once.
+
+## Showing the page without running it
+
+Fetching safely is half the job. The other half is showing a stranger's HTML inside Chromiq without letting it do anything.
+
+The restyle view gets two independent layers, recorded in Chromiq's architecture decision ADR-0011:
+
+1. **The HTML is sanitised** (`lib/sanitize-html.ts`). Scripts, iframes, objects and embeds are removed with their content; every `on…` event attribute and `srcdoc` is stripped; `javascript:` and `data:text/html` links are removed. The tag parser treats quoted attribute values as whole units, so a `>` hidden inside a quote can't cut a tag short and smuggle the rest past the checks.
+2. **The page is shown in a sandboxed frame** with `sandbox="allow-same-origin"` and, deliberately, without `allow-scripts`. Even if something slipped past the sanitiser, the browser itself would refuse to run it.
+
+The decision record is blunt about the second layer: never add `allow-scripts` to that frame. Combined with `allow-same-origin`, it would let the page script its way out into Chromiq's own origin. When the restyle view was re-audited, 24 known cross-site scripting payloads were fired through the real sanitiser and frame, and none ran.
+
+The trade-off is visible to users: sites that draw everything with JavaScript show up empty or partial. Chromiq says so in the interface ("scripts disabled") rather than running their code.
+
+## What is still open
+
+Two limits are written down rather than hidden.
+
+- **Third-party assets.** Images, fonts and stylesheets in the restyled preview load straight from the original site's servers, which can see the visitor's IP address. The proxy notes say so.
+- **Optional headless capture.** Chromiq can render a page in a real headless browser to measure colours from what was actually painted, but it is off by default (`CHROMIQ_CAPTURE`). A browser does its own name lookups and can't be pinned the way Node can, so a very short-lived DNS answer could, in principle, differ between the check and the connection. Every request the browser makes is still checked, but the gap can only be closed outside the app, by filtering traffic at the network. Where that risk isn't acceptable, the pinned inspector is the default.
+
+The rules are covered by tests that try to break them: `tests/unit/url-safety.test.ts`, `safe-fetch.test.ts` and `sanitize-html.test.ts`, plus an integration test, `tests/integration/capture-ssrf.test.ts`, that runs the redirect and private-address checks against a real Chromium.

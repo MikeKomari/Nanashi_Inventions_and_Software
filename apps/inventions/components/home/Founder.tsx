@@ -20,7 +20,7 @@ export function Founder({ t }: { t: Copy }) {
           <a href={`mailto:${CONTACT.email}`} className="btn-ghost">
             {f.email}
           </a>
-          <Link prefetch={false} href="/about" className="link-arrow">
+          <Link href="/about" className="link-arrow">
             {f.about}
             <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
           </Link>

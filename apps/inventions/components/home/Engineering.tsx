@@ -2,11 +2,9 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal, Words } from "@/components/scroll/Reveal";
 import type { Copy } from "@/content/i18n/en";
+import { ARTICLES } from "@/content/engineering";
 
-/** Home §5: the first two Engineering deep dives (W-06, W-14). The article pages come later.
- * Links to pages that are not built yet use prefetch={false} so they do not log 404s; turn
- * prefetch back on once those pages exist.
- */
+/** Home: the Engineering deep dives (W-06, W-14), from content/engineering. */
 export function Engineering({ t }: { t: Copy }) {
   const e = t.engineering;
   return (
@@ -19,7 +17,7 @@ export function Engineering({ t }: { t: Copy }) {
         <p className="section-lead">{e.lead}</p>
       </Reveal>
       <ul className="wrap articles">
-        {e.articles.map((a, i) => (
+        {ARTICLES.map((a, i) => (
           <li key={a.slug}>
             <Reveal className="article lift" accent={a.accent}>
               <p className="article-meta">
@@ -29,7 +27,7 @@ export function Engineering({ t }: { t: Copy }) {
                 <span>{a.topic}</span>
               </p>
               <h3 className="article-title">
-                <Link prefetch={false} href={`/engineering/${a.slug}`} className="article-link">
+                <Link href={`/engineering/${a.slug}`} className="article-link">
                   {a.title}
                 </Link>
               </h3>
