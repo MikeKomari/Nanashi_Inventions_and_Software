@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import "./tokens.css";
 
+/* Templates have their own Tailwind build (templates/<name>/<name>.css); keep their classes out of this one. */
+@source not "../templates";
+@source not "../app/(demo)";
+
 /* Fonts come from next/font (see app/(site)/layout.tsx). */
 @theme inline {
   --font-display: var(--font-sora), "Plus Jakarta Sans", system-ui, sans-serif;

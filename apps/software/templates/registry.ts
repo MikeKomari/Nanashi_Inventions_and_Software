@@ -1,5 +1,6 @@
 // The five templates, in the order they appear on the site (01–05).
-// A template goes live by setting status "live" and pointing demo at its content file (phase 3).
+// A template goes live by setting status "live" and pointing demo at a content file in content/demo/.
+// Live entries with a demo get a page at /template/<slug> (see templates/demos.tsx).
 
 export type Locale = "id" | "en";
 
@@ -13,6 +14,12 @@ export type TemplateEntry = {
   waName: Record<Locale, string>;
   title: Record<Locale, string>;
   blurb: Record<Locale, string>;
+  demo?: {
+    /** File name in content/demo/ without ".json", e.g. "kopi-elysia". */
+    content: string;
+    /** Screenshot in public/ for the template card (made by `npm run screens`). */
+    screenshot?: string;
+  };
 };
 
 export const TEMPLATES: TemplateEntry[] = [
@@ -27,6 +34,7 @@ export const TEMPLATES: TemplateEntry[] = [
       id: "Menu dan harga, foto suasana, ulasan, lokasi, dan tombol pesan lewat WhatsApp.",
       en: "Menu and prices, atmosphere photos, reviews, location and a WhatsApp order button.",
     },
+    demo: { content: "kopi-elysia", screenshot: "/screens/kafe.webp" },
   },
   {
     number: "02",

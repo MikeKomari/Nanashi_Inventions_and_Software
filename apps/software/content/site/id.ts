@@ -59,6 +59,7 @@ export const id = {
     order: "Pesan via WhatsApp",
     ask: "Tanya template ini",
     previewPending: "Pratinjau menyusul",
+    previewAlt: (name: string) => `Tampilan halaman demo template ${name}`,
     customTitle: "Belum ada yang pas?",
     customBody: "Kami juga bisa membuat website dengan desain khusus untuk usahamu.",
     customLink: "Lihat desain khusus",
@@ -135,6 +136,15 @@ export const id = {
     cta: "Chat lewat WhatsApp",
     ctaMessage: "Halo Nanashi Software, saya mau mulai bikin website untuk usaha saya.",
     emailLead: "Lebih suka email?",
+  },
+  demo: {
+    /** Slim Nanashi bar on top of every template demo. */
+    bar: (name: string) => `Ini demo template ${name}`,
+    cta: "Pesan template ini",
+    home: "Nanashi Software",
+    /** Small credit in the template's footer. */
+    credit: "Dibuat oleh Nanashi Software",
+    titleSuffix: (name: string) => `Demo template ${name}`,
   },
   footer: {
     tagline: "Website untuk kafe, warung, dan UMKM di Indonesia.",
