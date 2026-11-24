@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "./tokens.css";
+@import "./scroll.css";
+@import "./home.css";
 
 /* Fonts come from next/font (see app/(en)/layout.tsx). */
 @theme inline {
@@ -11,6 +13,8 @@
 @layer base {
   html {
     color-scheme: dark;
+    /* Anchors land below the fixed header. */
+    scroll-padding-top: 96px;
     -webkit-text-size-adjust: 100%;
   }
   body {
@@ -20,6 +24,10 @@
     font-size: 16px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+  }
+  /* Glows may spill past the edges; clip (not hidden) keeps sticky positioning working. */
+  main {
+    overflow-x: clip;
   }
   h1,
   h2,
@@ -79,8 +87,8 @@
   z-index: -1;
   border: 1px solid var(--color-border);
   border-radius: 9999px;
-  background: color-mix(in srgb, var(--color-surface) 82%, transparent);
-  backdrop-filter: blur(10px);
+  /* Nearly solid, not frosted glass (D-05). */
+  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
   box-shadow: var(--shadow-pop);
   opacity: 0;
   transform: scale(1.02);
@@ -105,87 +113,157 @@ html[data-scrolled] .header-bar::before {
   }
 }
 
-/* ── Stage (home §1). Knobs: cone width/strength, floor glow, reflection strength. ── */
-.stage {
-  --cone-strength: 48%;
-  --floor-strength: 70%;
-  --reflection: 0.14;
-  --reflection-height: clamp(48px, 12vw, 80px);
+/* ── Nanashi Software band (every page, W-08): light and high contrast. ── */
+.band {
+  background: var(--color-text);
+  color: var(--color-night);
 }
-.stage-logo {
-  width: clamp(180px, 48vw, 300px);
-  height: auto;
+.band :focus-visible {
+  outline-color: var(--color-violet-700);
 }
-.stage-cone {
-  position: absolute;
-  inset: 0 auto auto 50%;
-  z-index: -1;
-  width: min(1100px, 170vw);
-  height: 78%;
-  transform: translateX(-50%);
-  /* Blur the clipped cone (on the parent) so its edges are soft. */
-  filter: blur(36px);
+.band-inner {
+  display: grid;
+  gap: 32px;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding: clamp(64px, 9vw, 112px) 16px;
 }
-.stage-cone::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  clip-path: polygon(44% 0, 56% 0, 100% 100%, 0 100%);
-  background: linear-gradient(
-    to bottom,
-    color-mix(in srgb, var(--color-brand-indigo) 10%, transparent),
-    color-mix(in srgb, var(--color-brand-indigo) var(--cone-strength), transparent) 72%,
-    transparent
-  );
-}
-.stage-floor {
-  position: absolute;
-  left: 50%;
-  bottom: -18px;
-  width: 170%;
-  height: 56px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background: radial-gradient(
-    closest-side,
-    color-mix(in srgb, var(--color-brand-indigo) var(--floor-strength), transparent),
-    transparent
-  );
-}
-/* Floor reflection: a flipped copy of the logo, clipped and fading out downwards. */
-.stage-reflection {
-  position: absolute;
-  inset: 100% 0 auto 0;
-  height: var(--reflection-height);
-  overflow: hidden;
-  opacity: var(--reflection);
-  pointer-events: none;
-  -webkit-mask-image: linear-gradient(to bottom, black, transparent);
-  mask-image: linear-gradient(to bottom, black, transparent);
-}
-.stage-reflection svg {
-  display: block;
-  transform: scaleY(-1);
-}
-
-.stage-title {
-  margin-top: calc(var(--reflection-height) + 4px);
-}
-
-/* Headline word-by-word reveal on first view (transform + opacity only). */
-@media (prefers-reduced-motion: no-preference) {
-  .word {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(0.35em);
-    animation: word-in 700ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
-    animation-delay: calc(150ms + var(--i, 0) * 80ms);
-    white-space: pre;
+@media (min-width: 640px) {
+  .band-inner {
+    padding-inline: 32px;
   }
-  @keyframes word-in {
-    to {
-      opacity: 1;
-      transform: none;
-    }
+}
+@media (min-width: 900px) {
+  .band-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 64px;
+    padding-inline: 40px;
+  }
+}
+.band-label {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-moon-600);
+}
+.band-title {
+  margin: 14px 0 0;
+  font-size: clamp(2.4rem, 1.5rem + 3.4vw, 4.5rem);
+  line-height: 1;
+  color: var(--color-night);
+}
+.band-body {
+  margin: 18px 0 0;
+  max-width: 52ch;
+  font-size: 18px;
+  color: var(--color-moon-700);
+}
+.band-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 0 28px;
+  border-radius: var(--radius-md);
+  background: var(--color-violet-700);
+  color: var(--color-moon-0);
+  font-size: 17px;
+  font-weight: 600;
+  white-space: nowrap;
+  justify-self: start;
+  transition: background-color 200ms ease-out;
+}
+.band-cta:hover {
+  background: var(--color-violet-600);
+}
+.band-cta svg {
+  transition: transform 220ms ease-out;
+}
+.band-cta:hover svg {
+  transform: translateX(4px);
+}
+
+/* ── Footer (D-17) ── */
+.footer {
+  border-top: 1px solid var(--color-border);
+}
+.footer-inner {
+  display: grid;
+  gap: 40px;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding: 72px 16px 40px;
+}
+@media (min-width: 640px) {
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+    padding-inline: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  .footer-inner {
+    grid-template-columns: 2fr 1fr 1.3fr 1fr;
+    padding-inline: 40px;
+  }
+}
+.footer-h {
+  margin: 0 0 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.footer ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.footer-link,
+.footer-current {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--color-text);
+}
+.footer-link {
+  text-underline-offset: 4px;
+}
+.footer-link:hover {
+  text-decoration: underline;
+}
+.footer-current {
+  color: var(--color-text-muted);
+}
+.footer-legal {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 16px 40px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+@media (min-width: 640px) {
+  .footer-legal {
+    padding-inline: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  .footer-legal {
+    padding-inline: 40px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .band-cta,
+  .band-cta svg {
+    transition: none;
+  }
+  .band-cta:hover svg {
+    transform: none;
   }
 }
