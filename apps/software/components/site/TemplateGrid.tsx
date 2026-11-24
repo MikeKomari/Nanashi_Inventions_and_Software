@@ -1,10 +1,28 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, ArrowUpRight, Coffee, Croissant, Scissors, Store, UtensilsCrossed } from "lucide-react";
 import { TEMPLATES, type TemplateEntry } from "@/templates/registry";
 import type { SiteCopy } from "@/content/site/id";
+import { asset } from "@/lib/site";
 import { WhatsAppButton } from "./WhatsAppButton";
 
 const ICONS = { Coffee, Croissant, Scissors, Store, UtensilsCrossed } as const;
+
+/** Real screenshot of the live demo (made by `npm run screens`). */
+function Screenshot({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="overflow-hidden rounded-sm border border-border bg-surface-raised">
+      <Image
+        src={asset(src)}
+        alt={alt}
+        width={1200}
+        height={750}
+        sizes="(min-width: 1200px) 350px, (min-width: 1024px) 30vw, (min-width: 640px) 46vw, 92vw"
+        className="block aspect-[16/10] h-auto w-full"
+      />
+    </div>
+  );
+}
 
 /** Soft placeholder: no fake screenshot. Used for "Segera hadir" and until a demo screenshot exists. */
 function Placeholder({ entry, note }: { entry: TemplateEntry; note: string }) {
@@ -26,7 +44,11 @@ function TemplateCard({ entry, t, i }: { entry: TemplateEntry; t: SiteCopy; i: n
     // The reveal sits on a wrapper so its slow, staggered transition never delays the card's hover lift.
     <div data-reveal style={{ "--i": i } as React.CSSProperties} className="bg-surface">
     <article className="lift flex h-full flex-col gap-4 bg-surface p-4 sm:p-6">
-      <Placeholder entry={entry} note={live ? t.templates.previewPending : t.templates.soon} />
+      {live && entry.demo?.screenshot ? (
+        <Screenshot src={entry.demo.screenshot} alt={t.templates.previewAlt(name)} />
+      ) : (
+        <Placeholder entry={entry} note={live ? t.templates.previewPending : t.templates.soon} />
+      )}
       <div className="flex items-center justify-between text-xs font-semibold tracking-[0.06em] uppercase">
         <span className="text-text-muted tabular-nums">{entry.number}</span>
         <span className={`rounded-full border px-2 py-0.5 ${live ? "border-success text-success" : "border-border text-text-muted"}`}>
