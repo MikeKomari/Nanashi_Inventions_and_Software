@@ -4,12 +4,8 @@ import type { CSSProperties } from "react";
 import { Figtree, Fraunces } from "next/font/google";
 import type { KafeContent } from "./schema";
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  axes: ["SOFT", "opsz"],
-  variable: "--font-fraunces",
-  display: "swap",
-});
+// Weight axis only: the SOFT and opsz axes would triple the font file (37 KB → 118 KB) and slow the hero.
+const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-figtree", display: "swap" });
 
 export const kafeFontClassName = `${fraunces.variable} ${figtree.variable}`;

@@ -30,7 +30,7 @@ export function Hero({ c, signature, orderHref }: { c: KafeContent; signature: K
           <div className="kafe-stage-photo relative z-10 mx-auto w-[68%]">
             <Photo
               photo={c.hero.photo}
-              preload
+              lcp
               sizes="(min-width: 1180px) 400px, (min-width: 1024px) 35vw, 62vw"
               className="aspect-[4/5] rounded-kafe-sm shadow-[0_24px_48px_-24px_rgb(0_0_0/0.45)]"
             />
@@ -47,7 +47,7 @@ export function Hero({ c, signature, orderHref }: { c: KafeContent; signature: K
         </div>
 
         <div className="lg:order-1">
-          <h1 id="hero-title" className="kafe-rise text-[36px] sm:text-[52px] lg:text-[58px]">
+          <h1 id="hero-title" className="kafe-rise text-[34px] sm:text-[52px] lg:text-[58px]">
             {c.hero.title}
           </h1>
           <p className="kafe-rise mt-5 max-w-[34rem] text-[17px] text-kafe-muted sm:text-lg" style={{ "--i": 1 } as React.CSSProperties}>

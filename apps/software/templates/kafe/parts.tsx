@@ -75,12 +75,13 @@ export function Photo({
   photo,
   sizes,
   className = "",
-  preload = false,
+  lcp = false,
 }: {
   photo: KafePhoto;
   sizes: string;
   className?: string;
-  preload?: boolean;
+  /** The page's Largest Contentful Paint image: fetched first, never lazy. */
+  lcp?: boolean;
 }) {
   return (
     <div className={`relative overflow-hidden ${className}`}>
@@ -89,7 +90,8 @@ export function Photo({
         alt={photo.alt}
         fill
         sizes={sizes}
-        preload={preload}
+        loading={lcp ? "eager" : "lazy"}
+        fetchPriority={lcp ? "high" : "auto"}
         className="object-cover"
       />
     </div>

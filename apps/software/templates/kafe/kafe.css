@@ -54,7 +54,6 @@
     letter-spacing: -0.015em;
     line-height: 1.1;
     text-wrap: balance;
-    font-variation-settings: "SOFT" 50, "opsz" 72;
   }
   p {
     text-wrap: pretty;
@@ -70,7 +69,7 @@
    (container query units) and the longest word (--longest), so any business name fits. */
 .kafe-wordmark,
 .kafe-stage-photo {
-  --wm: min(calc(94cqw / (var(--longest) * 0.64)), 12rem);
+  --wm: min(calc(92cqw / (var(--longest) * 0.68)), 12rem);
 }
 .kafe-wordmark {
   font-family: var(--kafe-font-display);
@@ -81,7 +80,6 @@
   text-transform: uppercase;
   color: transparent;
   -webkit-text-stroke: 1.5px var(--kafe-accent);
-  font-variation-settings: "SOFT" 100, "opsz" 144;
 }
 /* The photo starts halfway down the second line of the wordmark. */
 .kafe-stage-photo {
