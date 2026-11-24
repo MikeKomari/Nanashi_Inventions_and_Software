@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { AnimatedLogo } from "@/components/brand/AnimatedLogo";
+import { Logo3D } from "@/components/brand/Logo3D";
 
 // Review page for the animated logo (phase 2, first deliverable). Not indexed, not in the sitemap.
 export const metadata: Metadata = {
@@ -15,17 +16,21 @@ export default function DevLogo() {
         <p className="font-mono text-xs tracking-[0.12em] text-text-muted uppercase">Review · /dev/logo</p>
         <h1 className="mt-2 text-3xl">Animated Comet Orbit</h1>
         <p className="mt-2 max-w-prose text-text-muted">
-          Left: the animated logo, a 7 second loop. Right: the static file it must settle on,
-          nanashi-symbol-reversed.svg. With reduced motion turned on, the left one shows the static frame.
+          Left: the 2.5D Logo3D (tilts towards the pointer, sways when idle). Middle: the flat animated logo, an 8 second loop. Right: the static file both must settle on,
+          nanashi-symbol-reversed.svg. With reduced motion turned on, both show the static frame.
         </p>
       </header>
-      <div className="grid gap-10 sm:grid-cols-2">
+      <div className="stage grid gap-10 sm:grid-cols-3">
         <figure className="flex flex-col items-center gap-4">
-          <AnimatedLogo className="size-64 sm:size-80" />
+          <Logo3D />
+          <figcaption className="mt-20 font-mono text-xs text-text-muted">&lt;Logo3D /&gt; (home stage default)</figcaption>
+        </figure>
+        <figure className="flex flex-col items-center gap-4">
+          <AnimatedLogo className="size-[264px]" />
           <figcaption className="font-mono text-xs text-text-muted">&lt;AnimatedLogo /&gt;</figcaption>
         </figure>
         <figure className="flex flex-col items-center gap-4">
-          <Image src="/brand/nanashi-symbol-reversed.svg" alt="Static Nanashi symbol" width={320} height={320} unoptimized priority className="size-64 sm:size-80" />
+          <Image src="/brand/nanashi-symbol-reversed.svg" alt="Static Nanashi symbol" width={320} height={320} unoptimized priority className="size-[264px]" />
           <figcaption className="font-mono text-xs text-text-muted">nanashi-symbol-reversed.svg</figcaption>
         </figure>
       </div>
