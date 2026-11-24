@@ -19,3 +19,20 @@ Each was downloaded from `images.pexels.com`, then resized to fit within 1600 ×
 | `meja-kayu.webp` | Atmosphere | sohaib Mohammed | https://www.pexels.com/photo/cozy-wooden-cafe-interior-in-yalova-30488731/ |
 | `malam-hari.webp` | Atmosphere | Gül Işık | https://www.pexels.com/photo/cafe-interior-at-night-20418284/ |
 | `menuang-susu.webp` | Order band | Skyler Ewing | https://www.pexels.com/photo/a-person-pouring-milk-on-a-glass-of-iced-coffee-9281134/ |
+
+## Kriuk Kirana (04 Toko UMKM)
+
+Kriuk Kirana is a made-up, temporary demo business. The photos show generic chips and ingredients, no brands or packaging logos, and no identifiable people (one shows hands and a torso, no face). Downloaded from `images.pexels.com` on 24 Nov 2026, resized to fit 1600 × 2000 px, WebP quality 75. Photographer names marked "see source" could not be confirmed from this session (www.pexels.com was not reachable); check the source page before any real client use.
+
+| File in `public/demo/kriuk-kirana/` | Used for | Photographer | Source |
+|---|---|---|---|
+| `hero-keripik.webp` | Hero | see source | https://www.pexels.com/photo/delicious-crunchy-potato-chips-15010284/ |
+| `singkong-original.webp` | Product: Singkong Original | see source | https://www.pexels.com/photo/potato-chips-479628/ |
+| `singkong-balado.webp` | Product: Singkong Balado, order band | see source | https://www.pexels.com/photo/potato-chips-in-a-bowl-and-glass-of-juice-8023869/ |
+| `pisang-manis.webp` | Product: Pisang Manis | Saveurs Secretes | https://www.pexels.com/photo/a-basket-of-dried-banana-chips-9191924/ |
+| `kentang-kriuk.webp` | Product: Kentang Kriuk | see source | https://www.pexels.com/photo/close-up-photo-of-chips-13060679/ |
+| `kupas-singkong.webp` | Story | see source | https://www.pexels.com/photo/close-up-photo-of-peeling-of-cassava-9568902/ |
+| `singkong-segar.webp` | Story card | see source | https://www.pexels.com/photo/cassava-root-crops-in-close-up-photography-7543161/ |
+| `cabai-segar.webp` | Story card | John Bastian | https://www.pexels.com/photo/red-chili-lot-on-brown-wooden-table-9185580/ |
+| `cabai-kering.webp` | Story card | Wenxin Liu | https://www.pexels.com/photo/phot-of-dried-red-chili-peppers-7517290/ |
+| `kemasan-terbuka.webp` | Story card | see source | https://www.pexels.com/photo/close-up-shot-of-potato-chips-13060695/ |

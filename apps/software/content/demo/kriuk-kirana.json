@@ -1,0 +1,243 @@
+{
+  "template": "toko",
+  "lang": "id",
+  "business": {
+    "name": "Kriuk Kirana",
+    "logo": null,
+    "tagline": "Keripik rumahan dari singkong, pisang dan kentang pilihan. Digoreng tiap pagi, dikemas rapat, dikirim ke seluruh Indonesia.",
+    "whatsapp": {
+      "number": "6282283058878",
+      "message": "Halo, saya coba tombol pesan di demo Kriuk Kirana."
+    },
+    "address": {
+      "lines": [
+        "Jl. Renyah Raya No. 21",
+        "Yogyakarta"
+      ],
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=Yogyakarta"
+    },
+    "hours": [
+      {
+        "days": "Senin – Sabtu",
+        "opens": "08:00",
+        "closes": "17:00"
+      },
+      {
+        "days": "Minggu",
+        "opens": "09:00",
+        "closes": "14:00"
+      }
+    ]
+  },
+  "colors": {
+    "background": "#FFF4E4",
+    "text": "#15291D",
+    "textMuted": "#4F5B4A",
+    "panel": "#FFFFFF",
+    "soft": "#FFE2BD",
+    "hero": "#123D2B",
+    "onHero": "#FFA247",
+    "heroText": "#FFF4E4",
+    "accent": "#123D2B",
+    "onAccent": "#FFF4E4",
+    "sticker": "#FFA247",
+    "onSticker": "#15291D",
+    "band": "#C8401C",
+    "onBand": "#FFF4E4"
+  },
+  "seo": {
+    "title": "Kriuk Kirana: keripik singkong, pisang dan kentang rumahan",
+    "description": "Keripik rumahan yang digoreng tiap pagi. Pesan lewat WhatsApp, dikirim ke seluruh Indonesia."
+  },
+  "labels": {
+    "skipLink": "Langsung ke isi",
+    "nav": {
+      "products": "Produk",
+      "story": "Cerita",
+      "howTo": "Cara pesan"
+    },
+    "orderShort": "Pesan",
+    "order": "Pesan lewat WhatsApp",
+    "orderProduct": "Pesan",
+    "address": "Dapur kami",
+    "hours": "Jam buka",
+    "openMap": "Buka di Google Maps",
+    "whatsapp": "WhatsApp",
+    "instagram": "Instagram"
+  },
+  "hero": {
+    "titleLines": [
+      "Renyahnya",
+      "bikin nagih"
+    ],
+    "photo": {
+      "src": "/demo/kriuk-kirana/hero-keripik.webp",
+      "alt": "Keripik tipis keemasan bertumpuk di atas piring batu gelap."
+    },
+    "facts": [
+      {
+        "title": "Digoreng tiap pagi",
+        "body": "Bahan segar, minyak baru, tanpa pengawet."
+      },
+      {
+        "title": "Pesan lewat WhatsApp",
+        "body": "Pilih rasa, kirim pesan, kami siapkan hari itu juga."
+      },
+      {
+        "title": "Dikirim dari Yogyakarta",
+        "body": "Ke seluruh Indonesia, dikemas rapat biar tetap renyah."
+      }
+    ]
+  },
+  "statement": {
+    "tag": "Camilan rumahan",
+    "title": "Satu gigitan, langsung kriuk sampai suapan terakhir",
+    "stickers": [
+      "Tanpa pengawet",
+      "Pedasnya pas"
+    ]
+  },
+  "products": {
+    "tag": "Produk kami",
+    "title": "Pilih rasa favoritmu",
+    "orderMessage": "Halo, saya coba pesan {product} di demo Kriuk Kirana.",
+    "items": [
+      {
+        "id": "singkong-original",
+        "name": "Keripik Singkong Original",
+        "size": "200 g",
+        "price": 18000,
+        "photo": {
+          "src": "/demo/kriuk-kirana/singkong-original.webp",
+          "alt": "Tumpukan keripik bergelombang berwarna kuning keemasan."
+        },
+        "description": "Gurih asin, tipis, renyah."
+      },
+      {
+        "id": "singkong-balado",
+        "name": "Keripik Singkong Balado",
+        "size": "200 g",
+        "price": 20000,
+        "tag": "Terlaris",
+        "photo": {
+          "src": "/demo/kriuk-kirana/singkong-balado.webp",
+          "alt": "Keripik oranye berbumbu di mangkuk bergaris biru."
+        },
+        "description": "Bumbu cabai merah, manis pedas."
+      },
+      {
+        "id": "pisang-manis",
+        "name": "Keripik Pisang Manis",
+        "size": "250 g",
+        "price": 22000,
+        "photo": {
+          "src": "/demo/kriuk-kirana/pisang-manis.webp",
+          "alt": "Keripik pisang bulat keemasan di keranjang anyaman."
+        },
+        "description": "Pisang kepok, manis alami."
+      },
+      {
+        "id": "kentang-kriuk",
+        "name": "Keripik Kentang Kriuk",
+        "size": "150 g",
+        "price": 24000,
+        "tag": "Baru",
+        "photo": {
+          "src": "/demo/kriuk-kirana/kentang-kriuk.webp",
+          "alt": "Keripik kentang bergelombang dari dekat."
+        },
+        "description": "Bergelombang, tebal, asin gurih."
+      }
+    ]
+  },
+  "launch": {
+    "tag": "Baru",
+    "text": "Keripik Kentang Kriuk sudah bisa dipesan",
+    "product": "kentang-kriuk"
+  },
+  "story": {
+    "tag": "Cerita kami",
+    "title": "Dari kebun ke wajan, lalu ke rumahmu",
+    "body": [
+      "Kriuk Kirana mulai dari dapur kecil dan satu wajan besar. Singkong dan pisang kami ambil dari petani sekitar, dikupas dan diiris tipis di hari yang sama.",
+      "Setiap kemasan ditutup rapat begitu keripiknya dingin, jadi yang sampai ke tanganmu masih sama renyahnya dengan yang baru keluar dari wajan."
+    ],
+    "photo": {
+      "src": "/demo/kriuk-kirana/kupas-singkong.webp",
+      "alt": "Tangan mengupas singkong segar dengan pisau."
+    },
+    "cards": [
+      {
+        "src": "/demo/kriuk-kirana/singkong-segar.webp",
+        "alt": "Tumpukan singkong segar dengan kulit cokelat.",
+        "title": "Singkong segar dari petani sekitar"
+      },
+      {
+        "src": "/demo/kriuk-kirana/cabai-segar.webp",
+        "alt": "Cabai merah segar bertumpuk.",
+        "title": "Cabai merah untuk bumbu balado"
+      },
+      {
+        "src": "/demo/kriuk-kirana/cabai-kering.webp",
+        "alt": "Cabai merah kering dari dekat.",
+        "title": "Bumbu diracik sendiri, tanpa penyedap buatan"
+      },
+      {
+        "src": "/demo/kriuk-kirana/kemasan-terbuka.webp",
+        "alt": "Kemasan foil terbuka berisi keripik bergelombang.",
+        "title": "Dikemas rapat begitu keripik dingin"
+      }
+    ]
+  },
+  "reviews": {
+    "tag": "Kata pelanggan",
+    "title": "Habis sebelum sempat difoto",
+    "items": [
+      {
+        "quote": "Baladonya pedas manis, pas banget buat teman nonton. Sekali pesan langsung tiga bungkus.",
+        "name": "Rina"
+      },
+      {
+        "quote": "Keripik pisangnya nggak keras dan nggak berminyak. Anak-anak suka.",
+        "name": "Bagus"
+      },
+      {
+        "quote": "Dikirim ke Medan, sampai masih renyah. Kemasannya rapi.",
+        "name": "D."
+      }
+    ]
+  },
+  "howTo": {
+    "tag": "Cara pesan",
+    "title": "Pesan semudah kirim chat",
+    "steps": [
+      {
+        "title": "Pilih rasa",
+        "body": "Lihat produk di atas, tentukan rasa dan jumlahnya."
+      },
+      {
+        "title": "Kirim pesan",
+        "body": "Tekan tombol Pesan. Pesanmu langsung terisi di WhatsApp."
+      },
+      {
+        "title": "Terima di rumah",
+        "body": "Kami kirim ongkos kirim dan total, lalu paket berangkat."
+      }
+    ],
+    "notes": [
+      "Pengiriman ke seluruh Indonesia lewat ekspedisi pilihanmu.",
+      "Ambil sendiri di dapur kami juga bisa, kabari dulu lewat WhatsApp."
+    ]
+  },
+  "order": {
+    "title": "Lagi pengen ngemil?",
+    "body": "Kirim pesan sekarang, keripikmu kami goreng besok pagi.",
+    "photo": {
+      "src": "/demo/kriuk-kirana/singkong-balado.webp",
+      "alt": "Keripik singkong balado berwarna oranye di mangkuk."
+    }
+  },
+  "footer": {
+    "note": "Kriuk Kirana adalah usaha contoh untuk demo template."
+  }
+}

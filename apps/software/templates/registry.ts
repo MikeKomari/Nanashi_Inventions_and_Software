@@ -1,6 +1,6 @@
 // The five templates, in the order they appear on the site (01–05).
 // A template goes live by setting status "live" and pointing demo at a content file in content/demo/.
-// Live entries with a demo get a page at /template/<slug> (see templates/demos.tsx).
+// Each live demo has its own route folder app/(demo)/template/<slug>/ (see templates/shared/demo.tsx).
 
 export type Locale = "id" | "en";
 
@@ -57,11 +57,15 @@ export const TEMPLATES: TemplateEntry[] = [
   {
     number: "04",
     slug: "toko",
-    status: "soon",
+    status: "live",
     icon: "Store",
     waName: { id: "Toko UMKM", en: "UMKM Shop" },
     title: { id: "Toko UMKM", en: "Small business shop" },
-    blurb: { id: "Untuk toko yang menjual produknya sendiri.", en: "For shops selling their own products." },
+    blurb: {
+      id: "Etalase produk dengan harga, cerita usaha, ulasan, cara pesan, dan tombol pesan per produk lewat WhatsApp.",
+      en: "A product showcase with prices, your story, reviews, how to order and a WhatsApp button per product.",
+    },
+    demo: { content: "kriuk-kirana", screenshot: "/screens/toko.webp" },
   },
   {
     number: "05",

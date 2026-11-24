@@ -1,0 +1,181 @@
+/* 04 Toko UMKM template: its own Tailwind build and theme. Loaded only by the toko demo route's root
+   layout, never with styles/site.css or another template's CSS. Only this folder is scanned for classes.
+   Colours come from the shop's content file as CSS variables (--toko-*) set on <body> (see theme.ts).
+   Theme names carry a "toko-" prefix so they can never collide with another template's build. */
+@import "tailwindcss" source(none);
+@source "./";
+
+@theme inline {
+  --color-*: initial;
+  --color-toko-bg: var(--toko-background);
+  --color-toko-text: var(--toko-text);
+  --color-toko-muted: var(--toko-text-muted);
+  --color-toko-panel: var(--toko-panel);
+  --color-toko-soft: var(--toko-soft);
+  --color-toko-hero: var(--toko-hero);
+  --color-toko-on-hero: var(--toko-on-hero);
+  --color-toko-hero-text: var(--toko-hero-text);
+  --color-toko-accent: var(--toko-accent);
+  --color-toko-on-accent: var(--toko-on-accent);
+  --color-toko-sticker: var(--toko-sticker);
+  --color-toko-on-sticker: var(--toko-on-sticker);
+  --color-toko-band: var(--toko-band);
+  --color-toko-on-band: var(--toko-on-band);
+
+  --font-toko-display: var(--toko-font-display);
+  --font-toko-body: var(--toko-font-body);
+
+  --radius-toko: 26px;
+  --radius-toko-sm: 16px;
+}
+
+:root {
+  --toko-font-display: var(--font-anton), Impact, "Arial Narrow", sans-serif;
+  --toko-font-body: var(--font-outfit), system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--toko-background);
+    color: var(--toko-text);
+    font-family: var(--toko-font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 2px solid var(--toko-accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+/* Giant condensed headlines (Anton). Sizes clamp from phone to desktop. */
+.toko-display {
+  font-family: var(--toko-font-display);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+}
+.toko-display-xl {
+  font-size: clamp(3.2rem, 13.5vw, 11.5rem);
+}
+.toko-display-lg {
+  font-size: clamp(2.6rem, 8.5vw, 6.5rem);
+}
+.toko-display-md {
+  font-size: clamp(2rem, 5.5vw, 3.75rem);
+}
+
+@utility toko-scroll-x {
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & > * {
+    scroll-snap-align: start;
+  }
+}
+
+/* Motion: fade and rise, transform and opacity only (plus the squiggle's one-time draw), nothing under
+   reduced motion. Hidden only once JS has marked the page (html.js), with a 3s fallback. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal] {
+    transition:
+      opacity 700ms ease-out,
+      transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: calc(var(--i, 0) * 80ms);
+  }
+  html.js [data-reveal]:not(.is-in) {
+    opacity: 0;
+    transform: translateY(22px);
+    animation: toko-show 0s 3s forwards;
+  }
+  @keyframes toko-show {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Hero headline lines slam up one by one on load; the photo (LCP) is never hidden. */
+  .toko-rise {
+    animation: toko-rise 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--i, 0) * 120ms);
+  }
+  @keyframes toko-rise {
+    from {
+      opacity: 0;
+      transform: translateY(40%);
+    }
+  }
+
+  /* The squiggle draws itself once (paint-only stroke-dashoffset). */
+  .toko-squiggle path {
+    stroke-dasharray: 1 1;
+    stroke-dashoffset: 1;
+    animation: toko-draw 1.6s 500ms cubic-bezier(0.45, 0, 0.2, 1) forwards;
+  }
+  @keyframes toko-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Stickers wobble gently, forever, like they were slapped on. */
+  .toko-sticker {
+    animation: toko-wobble 4s ease-in-out infinite alternate;
+  }
+  @keyframes toko-wobble {
+    from {
+      transform: rotate(var(--rot, -8deg)) translateY(0);
+    }
+    to {
+      transform: rotate(calc(var(--rot, -8deg) * -0.4)) translateY(-4px);
+    }
+  }
+
+  /* The ticker strip scrolls sideways. */
+  .toko-ticker {
+    animation: toko-ticker 28s linear infinite;
+  }
+  @keyframes toko-ticker {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (hover: hover) {
+    .toko-lift {
+      transition: transform 220ms ease-out;
+    }
+    .toko-lift:hover {
+      transform: translateY(-4px);
+    }
+    .toko-lift:active {
+      transform: scale(0.97);
+    }
+    .toko-zoom img {
+      transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    .toko-zoom:hover img {
+      transform: scale(1.05) rotate(-1deg);
+    }
+  }
+}
+.toko-sticker {
+  transform: rotate(var(--rot, -8deg));
+}
