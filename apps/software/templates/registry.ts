@@ -65,7 +65,7 @@ export const TEMPLATES: TemplateEntry[] = [
       id: "Etalase produk dengan harga, cerita usaha, ulasan, cara pesan, dan tombol pesan per produk lewat WhatsApp.",
       en: "A product showcase with prices, your story, reviews, how to order and a WhatsApp button per product.",
     },
-    demo: { content: "kriuk-kirana", screenshot: "/screens/toko.webp" },
+    demo: { content: "kriuk-kiana", screenshot: "/screens/toko.webp" },
   },
   {
     number: "05",

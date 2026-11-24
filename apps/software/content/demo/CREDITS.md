@@ -20,11 +20,11 @@ Each was downloaded from `images.pexels.com`, then resized to fit within 1600 ×
 | `malam-hari.webp` | Atmosphere | Gül Işık | https://www.pexels.com/photo/cafe-interior-at-night-20418284/ |
 | `menuang-susu.webp` | Order band | Skyler Ewing | https://www.pexels.com/photo/a-person-pouring-milk-on-a-glass-of-iced-coffee-9281134/ |
 
-## Kriuk Kirana (04 Toko UMKM)
+## Kriuk Kiana (04 Toko UMKM)
 
-Kriuk Kirana is a made-up, temporary demo business. The photos show generic chips and ingredients, no brands or packaging logos, and no identifiable people (one shows hands and a torso, no face). Downloaded from `images.pexels.com` on 24 Nov 2026, resized to fit 1600 × 2000 px, WebP quality 75. Photographer names marked "see source" could not be confirmed from this session (www.pexels.com was not reachable); check the source page before any real client use.
+Kriuk Kiana is a made-up, temporary demo business. The photos show generic chips and ingredients, no brands or packaging logos, and no identifiable people (one shows hands and a torso, no face). Downloaded from `images.pexels.com` on 24 Nov 2026, resized to fit 1600 × 2000 px, WebP quality 75. Photographer names marked "see source" could not be confirmed from this session (www.pexels.com was not reachable); check the source page before any real client use.
 
-| File in `public/demo/kriuk-kirana/` | Used for | Photographer | Source |
+| File in `public/demo/kriuk-kiana/` | Used for | Photographer | Source |
 |---|---|---|---|
 | `hero-keripik.webp` | Hero | see source | https://www.pexels.com/photo/delicious-crunchy-potato-chips-15010284/ |
 | `singkong-original.webp` | Product: Singkong Original | see source | https://www.pexels.com/photo/potato-chips-479628/ |

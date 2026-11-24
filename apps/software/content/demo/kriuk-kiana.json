@@ -2,12 +2,12 @@
   "template": "toko",
   "lang": "id",
   "business": {
-    "name": "Kriuk Kirana",
+    "name": "Kriuk Kiana",
     "logo": null,
     "tagline": "Keripik rumahan dari singkong, pisang dan kentang pilihan. Digoreng tiap pagi, dikemas rapat, dikirim ke seluruh Indonesia.",
     "whatsapp": {
       "number": "6282283058878",
-      "message": "Halo, saya coba tombol pesan di demo Kriuk Kirana."
+      "message": "Halo, saya coba tombol pesan di demo Kriuk Kiana."
     },
     "address": {
       "lines": [
@@ -46,7 +46,7 @@
     "onBand": "#FFF4E4"
   },
   "seo": {
-    "title": "Kriuk Kirana: keripik singkong, pisang dan kentang rumahan",
+    "title": "Kriuk Kiana: keripik singkong, pisang dan kentang rumahan",
     "description": "Keripik rumahan yang digoreng tiap pagi. Pesan lewat WhatsApp, dikirim ke seluruh Indonesia."
   },
   "labels": {
@@ -71,7 +71,7 @@
       "bikin nagih"
     ],
     "photo": {
-      "src": "/demo/kriuk-kirana/hero-keripik.webp",
+      "src": "/demo/kriuk-kiana/hero-keripik.webp",
       "alt": "Keripik tipis keemasan bertumpuk di atas piring batu gelap."
     },
     "facts": [
@@ -100,7 +100,7 @@
   "products": {
     "tag": "Produk kami",
     "title": "Pilih rasa favoritmu",
-    "orderMessage": "Halo, saya coba pesan {product} di demo Kriuk Kirana.",
+    "orderMessage": "Halo, saya coba pesan {product} di demo Kriuk Kiana.",
     "items": [
       {
         "id": "singkong-original",
@@ -108,7 +108,7 @@
         "size": "200 g",
         "price": 18000,
         "photo": {
-          "src": "/demo/kriuk-kirana/singkong-original.webp",
+          "src": "/demo/kriuk-kiana/singkong-original.webp",
           "alt": "Tumpukan keripik bergelombang berwarna kuning keemasan."
         },
         "description": "Gurih asin, tipis, renyah."
@@ -120,7 +120,7 @@
         "price": 20000,
         "tag": "Terlaris",
         "photo": {
-          "src": "/demo/kriuk-kirana/singkong-balado.webp",
+          "src": "/demo/kriuk-kiana/singkong-balado.webp",
           "alt": "Keripik oranye berbumbu di mangkuk bergaris biru."
         },
         "description": "Bumbu cabai merah, manis pedas."
@@ -131,7 +131,7 @@
         "size": "250 g",
         "price": 22000,
         "photo": {
-          "src": "/demo/kriuk-kirana/pisang-manis.webp",
+          "src": "/demo/kriuk-kiana/pisang-manis.webp",
           "alt": "Keripik pisang bulat keemasan di keranjang anyaman."
         },
         "description": "Pisang kepok, manis alami."
@@ -143,7 +143,7 @@
         "price": 24000,
         "tag": "Baru",
         "photo": {
-          "src": "/demo/kriuk-kirana/kentang-kriuk.webp",
+          "src": "/demo/kriuk-kiana/kentang-kriuk.webp",
           "alt": "Keripik kentang bergelombang dari dekat."
         },
         "description": "Bergelombang, tebal, asin gurih."
@@ -159,31 +159,31 @@
     "tag": "Cerita kami",
     "title": "Dari kebun ke wajan, lalu ke rumahmu",
     "body": [
-      "Kriuk Kirana mulai dari dapur kecil dan satu wajan besar. Singkong dan pisang kami ambil dari petani sekitar, dikupas dan diiris tipis di hari yang sama.",
+      "Kriuk Kiana mulai dari dapur kecil dan satu wajan besar. Singkong dan pisang kami ambil dari petani sekitar, dikupas dan diiris tipis di hari yang sama.",
       "Setiap kemasan ditutup rapat begitu keripiknya dingin, jadi yang sampai ke tanganmu masih sama renyahnya dengan yang baru keluar dari wajan."
     ],
     "photo": {
-      "src": "/demo/kriuk-kirana/kupas-singkong.webp",
+      "src": "/demo/kriuk-kiana/kupas-singkong.webp",
       "alt": "Tangan mengupas singkong segar dengan pisau."
     },
     "cards": [
       {
-        "src": "/demo/kriuk-kirana/singkong-segar.webp",
+        "src": "/demo/kriuk-kiana/singkong-segar.webp",
         "alt": "Tumpukan singkong segar dengan kulit cokelat.",
         "title": "Singkong segar dari petani sekitar"
       },
       {
-        "src": "/demo/kriuk-kirana/cabai-segar.webp",
+        "src": "/demo/kriuk-kiana/cabai-segar.webp",
         "alt": "Cabai merah segar bertumpuk.",
         "title": "Cabai merah untuk bumbu balado"
       },
       {
-        "src": "/demo/kriuk-kirana/cabai-kering.webp",
+        "src": "/demo/kriuk-kiana/cabai-kering.webp",
         "alt": "Cabai merah kering dari dekat.",
         "title": "Bumbu diracik sendiri, tanpa penyedap buatan"
       },
       {
-        "src": "/demo/kriuk-kirana/kemasan-terbuka.webp",
+        "src": "/demo/kriuk-kiana/kemasan-terbuka.webp",
         "alt": "Kemasan foil terbuka berisi keripik bergelombang.",
         "title": "Dikemas rapat begitu keripik dingin"
       }
@@ -233,11 +233,11 @@
     "title": "Lagi pengen ngemil?",
     "body": "Kirim pesan sekarang, keripikmu kami goreng besok pagi.",
     "photo": {
-      "src": "/demo/kriuk-kirana/singkong-balado.webp",
+      "src": "/demo/kriuk-kiana/singkong-balado.webp",
       "alt": "Keripik singkong balado berwarna oranye di mangkuk."
     }
   },
   "footer": {
-    "note": "Kriuk Kirana adalah usaha contoh untuk demo template."
+    "note": "Kriuk Kiana adalah usaha contoh untuk demo template."
   }
 }
