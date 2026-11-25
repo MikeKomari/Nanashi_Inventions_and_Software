@@ -1,6 +1,6 @@
 "use client";
 
-// Adapted from Chromiq's components/scroll/use-in-view.ts (Chromiq ADR-0015).
+// Adapted from CHROMIQ's components/scroll/use-in-view.ts (CHROMIQ ADR-0015).
 
 import { useEffect, useRef, useState } from "react";
 

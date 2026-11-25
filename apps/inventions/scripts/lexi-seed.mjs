@@ -1,12 +1,12 @@
-// Shared by scripts/screens.mjs and scripts/videos.mjs: the real Chinese words typed into Lexi and
+// Shared by scripts/screens.mjs and scripts/videos.mjs: the real Chinese words typed into LEXI and
 // the enrichment answer pasted back (readings: Hanyu Pinyin with tone marks, kana, Revised Romanisation).
-/** Words typed into Lexi's quick capture. All six are enriched below. */
+/** Words typed into LEXI's quick capture. All six are enriched below. */
 export const LEXI_WORDS = ["咖啡", "图书馆", "朋友", "天气", "学习", "旅行"];
 
 /**
- * The enrichment answer pasted into Lexi, keyed by the Chinese word. Readings use Hanyu Pinyin with
- * tone marks, kana, and Revised Romanisation, as Lexi's prompt asks. Relationships are optional and
- * left out, so Lexi creates exactly one concept per captured word.
+ * The enrichment answer pasted into LEXI, keyed by the Chinese word. Readings use Hanyu Pinyin with
+ * tone marks, kana, and Revised Romanisation, as LEXI's prompt asks. Relationships are optional and
+ * left out, so LEXI creates exactly one concept per captured word.
  */
 export const LEXI_ENRICHMENT = {
   咖啡: {

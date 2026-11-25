@@ -1,6 +1,6 @@
 "use client";
 
-// Adapted from Chromiq's components/scroll/color-wash-text.tsx (Chromiq ADR-0015). Changed for
+// Adapted from CHROMIQ's components/scroll/color-wash-text.tsx (CHROMIQ ADR-0015). Changed for
 // Nanashi: target colours come from a default plus per-word highlights instead of a spectrum.
 
 import { useEffect, useMemo, useRef } from "react";

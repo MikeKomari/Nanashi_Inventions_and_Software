@@ -1,6 +1,6 @@
 "use client";
 
-// Adapted from Chromiq's components/scroll/parallax.tsx (Chromiq ADR-0015).
+// Adapted from CHROMIQ's components/scroll/parallax.tsx (CHROMIQ ADR-0015).
 
 import type { CSSProperties, ReactNode } from "react";
 import { useRef } from "react";

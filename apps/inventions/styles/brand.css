@@ -1417,3 +1417,25 @@
     animation-delay: calc(var(--i) * -0.4s);
   }
 }
+.team-facts {
+  display: grid;
+  gap: 8px;
+  margin: 6px 0 10px;
+}
+.team-facts div {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 10px;
+  font-size: 14px;
+}
+.team-facts dt {
+  padding-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-star);
+}
+.team-facts dd {
+  color: var(--color-text);
+}

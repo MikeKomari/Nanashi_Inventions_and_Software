@@ -7,9 +7,9 @@
 // into public/videos/<product>.mp4 and <product>-poster.webp. Needs ffmpeg on PATH.
 // Playwright: whichever copy the machine has (`playwright` or `playwright-core`); PW_CHROMIUM picks a binary.
 //
-// Lexi keeps its data in the visitor's browser, so the Lexi video shows the real first-run flow:
+// LEXI keeps its data in the visitor's browser, so the LEXI video shows the real first-run flow:
 // words typed into Quick capture, the enrichment prompt copied, an answer pasted back, checked,
-// applied, and the resulting vocabulary. Lexi's Dashboard (placeholder numbers) is never shown.
+// applied, and the resulting vocabulary. LEXI's Dashboard (placeholder numbers) is never shown.
 import { createRequire } from "node:module";
 import { execFileSync } from "node:child_process";
 import { mkdir, mkdtemp, readdir, rm } from "node:fs/promises";
@@ -122,7 +122,7 @@ async function lexi(page) {
   await page.getByText(`${LEXI_WORDS.length} capture items`).evaluate((el) => el.scrollIntoView({ behavior: "smooth", block: "start" }));
   await pause(page, 1500);
 
-  // 2. Select the batch and copy Lexi's enrichment prompt.
+  // 2. Select the batch and copy LEXI's enrichment prompt.
   await page.getByLabel(new RegExp(`Select all ${LEXI_WORDS.length} words`)).check();
   await pause(page, 700);
   await page.getByRole("button", { name: "Copy enrichment prompt" }).click();
@@ -164,13 +164,13 @@ async function main() {
   const browser = await chromium.launch(process.env.PW_CHROMIUM ? { executablePath: process.env.PW_CHROMIUM } : {});
   try {
     if (!only || only === "chromiq") {
-      console.log("Chromiq");
+      console.log("CHROMIQ");
       const r = await record(browser, "chromiq", chromiq);
       encode("chromiq", r);
       await rm(r.dir, { recursive: true, force: true });
     }
     if (!only || only === "lexi") {
-      console.log("Lexi");
+      console.log("LEXI");
       const r = await record(browser, "lexi", lexi, LEXI);
       encode("lexi", r);
       await rm(r.dir, { recursive: true, force: true });

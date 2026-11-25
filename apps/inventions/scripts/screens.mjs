@@ -10,10 +10,10 @@
 // (`playwright` on NODE_PATH, or `playwright-core` if installed). Set PW_CHROMIUM to a browser
 // binary if Playwright cannot find its own. Images are encoded with sharp, which ships with Next.
 //
-// Lexi keeps its data in the visitor's browser, so a fresh visit shows an empty Inbox. Before the
-// Lexi screenshots, the script types real Chinese words through Lexi's own quick-capture form, then
-// runs Lexi's real enrichment flow: select the captures, copy the prompt, paste a JSON answer that
-// passes Lexi's validator (domain/enrichment.ts), preview it and apply it. Lexi's Dashboard is never
+// LEXI keeps its data in the visitor's browser, so a fresh visit shows an empty Inbox. Before the
+// LEXI screenshots, the script types real Chinese words through LEXI's own quick-capture form, then
+// runs LEXI's real enrichment flow: select the captures, copy the prompt, paste a JSON answer that
+// passes LEXI's validator (domain/enrichment.ts), preview it and apply it. LEXI's Dashboard is never
 // captured: it still shows placeholder numbers.
 import { createRequire } from "node:module";
 import { mkdir, writeFile } from "node:fs/promises";
@@ -64,14 +64,14 @@ async function chromiq(browser, device) {
   const suffix = device;
 
   await page.goto(`${CHROMIQ}/`, { waitUntil: "networkidle" });
-  await save(page, `chromiq-landing-${suffix}`, "Chromiq's landing page: the CHROMIQ wordmark and a field to paste any public site and restyle it live.");
+  await save(page, `chromiq-landing-${suffix}`, "CHROMIQ's landing page: the CHROMIQ wordmark and a field to paste any public site and restyle it live.");
 
   await page.goto(`${CHROMIQ}/workspace`, { waitUntil: "networkidle" });
   await page.waitForTimeout(1200);
   await save(
     page,
     `chromiq-workspace-${suffix}`,
-    "The Chromiq workbench: starter systems on the left, a live editorial preview in the middle and the token inspector with type and colour settings on the right.",
+    "The CHROMIQ workbench: starter systems on the left, a live editorial preview in the middle and the token inspector with type and colour settings on the right.",
   );
 
   if (device === "desktop") {
@@ -88,23 +88,23 @@ async function chromiq(browser, device) {
     await save(
       page,
       "chromiq-contrast-desktop",
-      "Chromiq's inspector grading each colour pair against WCAG contrast, with a colour-vision simulation applied to the preview.",
+      "CHROMIQ's inspector grading each colour pair against WCAG contrast, with a colour-vision simulation applied to the preview.",
     );
     if (await vision.count()) await vision.selectOption({ index: 0 }).catch(() => {});
 
     // Export: the export dialog with generated code.
     await page.getByRole("button", { name: /^Export/ }).first().click();
     await page.waitForTimeout(800);
-    await save(page, "chromiq-export-desktop", "Chromiq's export dialog showing CSS custom properties generated from the live token system, with other formats one tab away.");
+    await save(page, "chromiq-export-desktop", "CHROMIQ's export dialog showing CSS custom properties generated from the live token system, with other formats one tab away.");
     await page.keyboard.press("Escape");
 
-    // Restyle: a scripts-off copy of example.com, loaded through Chromiq's own proxy.
+    // Restyle: a scripts-off copy of example.com, loaded through CHROMIQ's own proxy.
     await page.goto(`${CHROMIQ}/workspace?restyle=${encodeURIComponent("https://example.com/")}`, { waitUntil: "networkidle" });
     await page.waitForTimeout(2500);
     await save(
       page,
       "chromiq-restyle-desktop",
-      "Chromiq's restyle view: a scripts-off copy of example.com loaded through Chromiq's proxy, with type, colour, accent and radius controls beside it.",
+      "CHROMIQ's restyle view: a scripts-off copy of example.com loaded through CHROMIQ's proxy, with type, colour, accent and radius controls beside it.",
     );
   }
   await ctx.close();
@@ -117,7 +117,7 @@ async function lexi(browser, device) {
   const suffix = device;
 
   await page.goto(`${LEXI}/inbox`, { waitUntil: "networkidle" });
-  // First visit: Lexi asks how to greet you. Skipping keeps the default.
+  // First visit: LEXI asks how to greet you. Skipping keeps the default.
   const skip = page.getByRole("button", { name: "Skip for now" });
   if (await skip.count()) await skip.click();
 
@@ -126,7 +126,7 @@ async function lexi(browser, device) {
   await page.getByRole("button", { name: new RegExp(`Add ${LEXI_WORDS.length} items`) }).click();
   await page.getByText(`${LEXI_WORDS.length} capture items`).waitFor();
 
-  // 2. Select the batch and build Lexi's enrichment prompt.
+  // 2. Select the batch and build LEXI's enrichment prompt.
   await page.getByLabel(new RegExp(`Select all ${LEXI_WORDS.length} words`)).check();
   await page.getByRole("button", { name: "Copy enrichment prompt" }).click();
   const prompt = await page.locator("#prompt-output").inputValue();
@@ -136,7 +136,7 @@ async function lexi(browser, device) {
   await save(
     page,
     `lexi-inbox-${suffix}`,
-    "Lexi's Inbox with six captured Chinese words, 咖啡, 图书馆, 朋友, 天气, 学习 and 旅行, selected as a batch for enrichment.",
+    "LEXI's Inbox with six captured Chinese words, 咖啡, 图书馆, 朋友, 天气, 学习 and 旅行, selected as a batch for enrichment.",
   );
 
   // The prompt lists each capture as "N. id: <id>" followed by "word: <text>".
@@ -160,7 +160,7 @@ async function lexi(browser, device) {
   await save(
     page,
     `lexi-enrich-${suffix}`,
-    "Lexi's Enrich screen after a pasted answer passed validation: a preview of the six concepts it will create, waiting for Apply.",
+    "LEXI's Enrich screen after a pasted answer passed validation: a preview of the six concepts it will create, waiting for Apply.",
   );
   await apply.click();
   await page.getByText(/Applied/).first().waitFor();
@@ -171,7 +171,7 @@ async function lexi(browser, device) {
   await save(
     page,
     `lexi-vocabulary-${suffix}`,
-    "Lexi's Vocabulary: each concept with its Chinese, Japanese and Korean entries, readings and meanings.",
+    "LEXI's Vocabulary: each concept with its Chinese, Japanese and Korean entries, readings and meanings.",
   );
   await ctx.close();
 }
@@ -183,11 +183,11 @@ async function main() {
   try {
     for (const device of ["desktop", "mobile"]) {
       if (!only || only === "chromiq") {
-        console.log(`Chromiq, ${device}`);
+        console.log(`CHROMIQ, ${device}`);
         await chromiq(browser, device);
       }
       if (!only || only === "lexi") {
-        console.log(`Lexi, ${device}`);
+        console.log(`LEXI, ${device}`);
         await lexi(browser, device);
       }
     }

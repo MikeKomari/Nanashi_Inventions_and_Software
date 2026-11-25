@@ -60,7 +60,7 @@ export type Invention = LiveInvention | LabInvention;
 export const INVENTIONS: Invention[] = [
   {
     slug: "chromiq",
-    name: "Chromiq",
+    name: "CHROMIQ",
     status: "live",
     accent: "comet",
     audience: "For frontend developers",
@@ -80,7 +80,7 @@ export const INVENTIONS: Invention[] = [
       ],
     },
     url: "https://prism-gamma-three.vercel.app/",
-    tryLabel: "Try Chromiq",
+    tryLabel: "Try CHROMIQ",
     cover: "chromiq-workspace-desktop",
     phone: "chromiq-workspace-mobile",
     video: {
@@ -92,16 +92,16 @@ export const INVENTIONS: Invention[] = [
       problem:
         "A design system usually starts as a picture: swatches and type samples in a design file. Whether those colours pass contrast, or how the type holds up on a real page, only shows once someone writes the code.",
       whatItDoes:
-        "Chromiq puts the token system and live pages side by side. Change a colour role, the type pairing, spacing or radius, and six preview surfaces move together. Paste a public site to try new tokens on a real layout.",
+        "CHROMIQ puts the token system and live pages side by side. Change a colour role, the type pairing, spacing or radius, and six preview surfaces move together. Paste a public site to try new tokens on a real layout.",
       underTheHood:
-        "One token model drives every surface. Contrast is graded against WCAG as you edit. The URL inspector runs on Chromiq's own server and refuses private addresses, stops after 8 seconds or 1.5 MB, and turns scripts off.",
+        "One token model drives every surface. Contrast is graded against WCAG as you edit. The URL inspector runs on CHROMIQ's own server and refuses private addresses, stops after 8 seconds or 1.5 MB, and turns scripts off.",
       result:
         "In production and free to use in the browser, with no account needed. You leave with CSS, a Tailwind v4 theme, shadcn/ui variables, design tokens or a written DESIGN.md.",
     },
     points: [
       {
         title: "Start from a real site.",
-        body: "Paste a public address. Chromiq fetches it on its own server, strips the scripts and loads the copy through its proxy, so you can try new type, colour, accent and radius on a real layout and copy the override CSS. The original site is never touched.",
+        body: "Paste a public address. CHROMIQ fetches it on its own server, strips the scripts and loads the copy through its proxy, so you can try new type, colour, accent and radius on a real layout and copy the override CSS. The original site is never touched.",
         facts: ["Server-validated URL inspector", "SSRF-safe", "8 s timeout", "1.5 MB cap"],
         screen: "chromiq-restyle-desktop",
       },
@@ -132,7 +132,7 @@ export const INVENTIONS: Invention[] = [
       { screen: "chromiq-landing-mobile", frame: "phone" },
       { screen: "chromiq-workspace-mobile", frame: "phone" },
     ],
-    engineering: { slug: "chromiq-url-inspector", title: "How Chromiq's URL inspector loads other websites safely" },
+    engineering: { slug: "chromiq-url-inspector", title: "How CHROMIQ's URL inspector loads other websites safely" },
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS v4", "Motion", "Lucide", "Postgres (optional accounts)", "Vitest"],
     shows: [
       [1, "Ships in small releases, each one written up in its public changelog."],
@@ -143,7 +143,7 @@ export const INVENTIONS: Invention[] = [
   },
   {
     slug: "lexi",
-    name: "Lexi",
+    name: "LEXI",
     status: "live",
     accent: "tide",
     audience: "For language learners",
@@ -161,7 +161,7 @@ export const INVENTIONS: Invention[] = [
       ],
     },
     url: "https://lexi-beta-nine.vercel.app/inbox",
-    tryLabel: "Try Lexi",
+    tryLabel: "Try LEXI",
     cover: "lexi-vocabulary-desktop",
     phone: "lexi-vocabulary-mobile",
     video: {
@@ -173,9 +173,9 @@ export const INVENTIONS: Invention[] = [
       problem:
         "Learners of Chinese, Japanese and Korean collect words everywhere: a sign, a show, a chat. They end up in notes and spreadsheets, and the same idea in three languages lives in three places.",
       whatItDoes:
-        "Lexi captures words first and sorts them later. Each concept holds its Chinese, Japanese and Korean entries with readings, meanings, notes and examples, and concepts link to each other.",
+        "LEXI captures words first and sorts them later. Each concept holds its Chinese, Japanese and Korean entries with readings, meanings, notes and examples, and concepts link to each other.",
       underTheHood:
-        "Live data sits in IndexedDB in your browser. There is no model API: Lexi writes a prompt you can take to any AI tool, then checks the JSON you paste back, field by field, before anything is saved.",
+        "Live data sits in IndexedDB in your browser. There is no model API: LEXI writes a prompt you can take to any AI tool, then checks the JSON you paste back, field by field, before anything is saved.",
       result:
         "In production and usable without an account. Signed out, nothing leaves your device; an optional account adds sync between devices and stops when you log out.",
     },
@@ -188,7 +188,7 @@ export const INVENTIONS: Invention[] = [
       },
       {
         title: "Enrichment without an AI connection.",
-        body: "Lexi writes a plain-language prompt for the batch. Take it to any AI tool you like, then paste the JSON answer back. Lexi checks every field before anything is written, shows a preview, and applies it in one step.",
+        body: "LEXI writes a plain-language prompt for the batch. Take it to any AI tool you like, then paste the JSON answer back. LEXI checks every field before anything is written, shows a preview, and applies it in one step.",
         facts: ["No model API", "No API keys", "Field-level validation"],
         screen: "lexi-enrich-desktop",
       },
@@ -214,7 +214,7 @@ export const INVENTIONS: Invention[] = [
       { screen: "lexi-enrich-mobile", frame: "phone" },
       { screen: "lexi-vocabulary-mobile", frame: "phone" },
     ],
-    engineering: { slug: "lexi-copy-paste-enrichment", title: "Why Lexi has no AI connection and uses a copy/paste step instead" },
+    engineering: { slug: "lexi-copy-paste-enrichment", title: "Why LEXI has no AI connection and uses a copy/paste step instead" },
     stack: ["Next.js", "React", "TypeScript (strict)", "Tailwind CSS v4", "Motion", "Zod", "IndexedDB", "Postgres (optional accounts)", "Vitest"],
     shows: [
       [2, "Its README marks exactly which screens are real and which still show placeholder numbers."],

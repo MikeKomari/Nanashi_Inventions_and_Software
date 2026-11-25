@@ -1,7 +1,7 @@
 "use client";
 
-// Adapted from Chromiq's components/scroll/smooth-scroll.tsx (same founder; Chromiq ADR-0015 kept
-// those primitives free of Chromiq imports so a second project could reuse them).
+// Adapted from CHROMIQ's components/scroll/smooth-scroll.tsx (same founder; CHROMIQ ADR-0015 kept
+// those primitives free of CHROMIQ imports so a second project could reuse them).
 
 import { useEffect } from "react";
 import Lenis from "lenis";
@@ -23,7 +23,7 @@ export function SmoothScroll() {
     const start = () => {
       if (lenis) return;
       // A lerp tracks the wheel closely and settles in proportion to the distance left.
-      // Chromiq measured 0.08 as a clear glide that still stops where the gesture asked.
+      // CHROMIQ measured 0.08 as a clear glide that still stops where the gesture asked.
       lenis = new Lenis({ lerp: 0.08, anchors: true, syncTouch: false, touchMultiplier: 1 });
       const tick = (time: number) => {
         lenis?.raf(time);

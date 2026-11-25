@@ -1,4 +1,4 @@
-/* Scroll primitives (components/scroll/). Adapted from Chromiq's app/scroll.css (Chromiq ADR-0015):
+/* Scroll primitives (components/scroll/). Adapted from CHROMIQ's app/scroll.css (CHROMIQ ADR-0015):
    product-agnostic, every colour comes from a custom property. Only transform and opacity move,
    plus colour for the statement's wash. Everything is still under prefers-reduced-motion. */
 

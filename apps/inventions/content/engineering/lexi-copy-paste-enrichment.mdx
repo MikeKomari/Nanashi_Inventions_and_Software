@@ -1,46 +1,46 @@
-Lexi helps learners of Chinese, Japanese and Korean build their own vocabulary. You capture a word in a second; later, Lexi turns it into a full entry in three languages. A language model is very good at that second step. Lexi still never calls one. This article explains why, and how the copy/paste step that replaces the model call works.
+LEXI helps learners of Chinese, Japanese and Korean build their own vocabulary. You capture a word in a second; later, LEXI turns it into a full entry in three languages. A language model is very good at that second step. LEXI still never calls one. This article explains why, and how the copy/paste step that replaces the model call works.
 
-File names below are in the Lexi repository; decisions are numbered as in its technical specification, `TSD.md`.
+File names below are in the LEXI repository; decisions are numbered as in its technical specification, `TSD.md`.
 
 ## The job: turn a word into an entry
 
-Lexi works in two stages on purpose. First you capture: type or paste 咖啡, 图书馆, 朋友 into the Inbox, one per line, and move on. Later you enrich: Lexi turns each capture into a **concept** that holds a Chinese, a Japanese and a Korean entry, each with its written form, its reading (pinyin with tone marks, kana, Revised Romanisation), a meaning, notes, example sentences, and links to related words.
+LEXI works in two stages on purpose. First you capture: type or paste 咖啡, 图书馆, 朋友 into the Inbox, one per line, and move on. Later you enrich: LEXI turns each capture into a **concept** that holds a Chinese, a Japanese and a Korean entry, each with its written form, its reading (pinyin with tone marks, kana, Revised Romanisation), a meaning, notes, example sentences, and links to related words.
 
 Writing all of that by hand is slow. A large language model can draft it in seconds. The question is where that model call should happen.
 
 ## Why not just call a model
 
-The obvious design is a button: "Enrich", which sends the words to an AI API and saves what comes back. Lexi's specification rules it out from the first page: Lexi "should remain useful without a server, account, or model API."
+The obvious design is a button: "Enrich", which sends the words to an AI API and saves what comes back. LEXI's specification rules it out from the first page: LEXI "should remain useful without a server, account, or model API."
 
 Three things follow from that rule.
 
 - **Your words are yours.** Vocabulary can say a lot about a person: their job, their partner's language, where they are moving. The specification is explicit that this data "may be private and must not be transmitted silently". A button that quietly sends your list to a third party is exactly what that sentence forbids.
-- **No key to keep.** A model API needs a secret key. In a browser-only app that key would either be visible to every visitor or need a server to hide it, and Lexi's live data is designed to sit in your browser, in IndexedDB, with no server required.
-- **Any model you like.** Learners already use different AI tools. A boundary that works with any of them doesn't tie Lexi to one provider's prices, limits or outages.
+- **No key to keep.** A model API needs a secret key. In a browser-only app that key would either be visible to every visitor or need a server to hide it, and LEXI's live data is designed to sit in your browser, in IndexedDB, with no server required.
+- **Any model you like.** Learners already use different AI tools. A boundary that works with any of them doesn't tie LEXI to one provider's prices, limits or outages.
 
 When optional accounts were added later (decision D-031), the rule was restated: the account adds sync between devices, and "AI APIs remain excluded".
 
 ## The boundary, step by step
 
-Instead of an API call, Lexi draws a visible line between your data and any AI tool, and lets you carry the work across it.
+Instead of an API call, LEXI draws a visible line between your data and any AI tool, and lets you carry the work across it.
 
 <Flow
   label="The enrichment boundary. Only steps 2 and 4 cross it, and both are things you do."
   steps={[
     { title: "Select a batch", body: "pick captured words in the Inbox" },
-    { title: "Copy the prompt", body: "Lexi writes it; you choose where it goes" },
+    { title: "Copy the prompt", body: "LEXI writes it; you choose where it goes" },
     { title: "Run it anywhere", body: "any AI tool, or none at all" },
-    { title: "Paste the answer", body: "JSON goes back into Lexi" },
+    { title: "Paste the answer", body: "JSON goes back into LEXI" },
     { title: "Validate and preview", body: "every field checked, nothing saved yet", kind: "stop" },
     { title: "Apply", body: "one transaction, on your confirmation", kind: "ok" },
   ]}
 />
 
-The only things that leave Lexi are the words you selected, and only because you copied them. Nothing is sent in the background.
+The only things that leave LEXI are the words you selected, and only because you copied them. Nothing is sent in the background.
 
 ## A prompt written for people and models
 
-The prompt Lexi writes is plain prose, not a blob of JSON (decision D-016). It describes the task in sentences, lists the words with their capture IDs, names every field it needs, says which pronunciation script to use for each language, lists the allowed relationship types, and ends with the exact JSON shape the answer must take.
+The prompt LEXI writes is plain prose, not a blob of JSON (decision D-016). It describes the task in sentences, lists the words with their capture IDs, names every field it needs, says which pronunciation script to use for each language, lists the allowed relationship types, and ends with the exact JSON shape the answer must take.
 
 Two reasons are recorded for that choice. A model follows a described task and a word list more reliably than a serialised payload, and pasting a page of JSON into a chat box is awkward for a person. Only the answer is JSON, because the answer has to be parsed.
 
@@ -53,8 +53,8 @@ To make links between words useful, the prompt includes up to 300 Chinese words 
 Whatever you paste is treated as untrusted input. The specification says so in as many words, and `domain/enrichment.ts` does the checking before anything is written.
 
 1. **The envelope.** The answer must say it is a `lexi-enrichment` document, `schemaVersion` 1. A different format or a newer version is refused with a specific error (`LEXI-JSON-001`, `LEXI-JSON-002`) rather than guessed at.
-2. **The captures.** Every result must point at a capture ID that exists in your Lexi. An answer can't invent a word you never captured.
-3. **Every field.** Each result needs at least one language entry; language codes must be supported ones; relationship types must exist in Lexi's registry. The checks are written with zod, so a failure names the exact field and row.
+2. **The captures.** Every result must point at a capture ID that exists in your LEXI. An answer can't invent a word you never captured.
+3. **Every field.** Each result needs at least one language entry; language codes must be supported ones; relationship types must exist in LEXI's registry. The checks are written with zod, so a failure names the exact field and row.
 
 One small decision says a lot about designing for models rather than against them:
 
@@ -68,14 +68,14 @@ const modelText = z.preprocess((value) => (value === null ? "" : value), z.strin
 
 Strict where it protects your data, forgiving where it costs nothing.
 
-If the answer passes, Lexi shows a preview: how many concepts, entries, examples and links it will create. Nothing is saved until you press Apply. Then `applyEnrichment` in `application/enrichment.ts` writes everything inside one IndexedDB `readwrite` transaction, so a batch is saved completely or not at all.
+If the answer passes, LEXI shows a preview: how many concepts, entries, examples and links it will create. Nothing is saved until you press Apply. Then `applyEnrichment` in `application/enrichment.ts` writes everything inside one IndexedDB `readwrite` transaction, so a batch is saved completely or not at all.
 
 <Note title="Matching words without merging the wrong ones">
-When an enriched word arrives, Lexi decides whether it is new or one you already have. It matches by written form, per language, never by the English meaning alone: synonyms share glosses like "to know", and 丈夫 means "husband" in Chinese but "sturdy" in Japanese. It also never adds a second entry in a language a concept already has (D-019).
+When an enriched word arrives, LEXI decides whether it is new or one you already have. It matches by written form, per language, never by the English meaning alone: synonyms share glosses like "to know", and 丈夫 means "husband" in Chinese but "sturdy" in Japanese. It also never adds a second entry in a language a concept already has (D-019).
 </Note>
 
 ## What it costs
 
-The copy/paste step is not free. It is an extra few seconds: copy, switch to your AI tool, paste, come back. The quality of the draft depends on the tool you choose, and Lexi can't retry automatically when an answer is wrong. It can only tell you exactly what is wrong.
+The copy/paste step is not free. It is an extra few seconds: copy, switch to your AI tool, paste, come back. The quality of the draft depends on the tool you choose, and LEXI can't retry automatically when an answer is wrong. It can only tell you exactly what is wrong.
 
-In return, Lexi needs no API key, no server for enrichment and no provider. It keeps working when any one AI service is down or changes its terms. And at every point you can see exactly what leaves your device, because you are the one who carries it.
+In return, LEXI needs no API key, no server for enrichment and no provider. It keeps working when any one AI service is down or changes its terms. And at every point you can see exactly what leaves your device, because you are the one who carries it.

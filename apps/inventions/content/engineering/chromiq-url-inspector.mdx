@@ -1,10 +1,10 @@
-Chromiq's headline feature is simple to describe: paste the address of any public website, and see it restyled with your own colours, type and radius. To do that, Chromiq's server has to fetch the page for you. This article is about why that one step is the most dangerous code in the product, and the five layers that make it safe.
+CHROMIQ's headline feature is simple to describe: paste the address of any public website, and see it restyled with your own colours, type and radius. To do that, CHROMIQ's server has to fetch the page for you. This article is about why that one step is the most dangerous code in the product, and the five layers that make it safe.
 
-Every file named below is in the Chromiq repository.
+Every file named below is in the CHROMIQ repository.
 
 ## The feature, and the risk inside it
 
-A browser can't simply load another website and read its HTML. The other site's security rules stop it. So Chromiq does the reading on its own server: you type `https://example.com`, the server downloads the page, pulls out its colours, headings and stylesheets, and sends the result back.
+A browser can't simply load another website and read its HTML. The other site's security rules stop it. So CHROMIQ does the reading on its own server: you type `https://example.com`, the server downloads the page, pulls out its colours, headings and stylesheets, and sends the result back.
 
 That creates a classic security problem called **server-side request forgery** (SSRF). If a server will fetch any address a stranger types, the stranger can point it at addresses that only the server can reach:
 
@@ -55,9 +55,9 @@ If an address can't be understood, it is treated as private. Attackers love stra
 
 Checking a name, then connecting to it, sounds safe. It isn't, and the reason has a name: **DNS rebinding**.
 
-A domain's owner controls what its name resolves to, and can change the answer every second. So an attacker can set up `evil.example` to answer "a public IP" when Chromiq checks it, then "`127.0.0.1`" a moment later when Chromiq connects. The check passes; the connection goes somewhere private.
+A domain's owner controls what its name resolves to, and can change the answer every second. So an attacker can set up `evil.example` to answer "a public IP" when CHROMIQ checks it, then "`127.0.0.1`" a moment later when CHROMIQ connects. The check passes; the connection goes somewhere private.
 
-`lib/safe-fetch.ts` closes that gap by making the check and the connection the same step. Node's HTTP client lets you replace the function it uses to look up a name. Chromiq's replacement looks the name up, refuses if *any* of the answers is private, and otherwise hands back the address it just checked:
+`lib/safe-fetch.ts` closes that gap by making the check and the connection the same step. Node's HTTP client lets you replace the function it uses to look up a name. CHROMIQ's replacement looks the name up, refuses if *any* of the answers is private, and otherwise hands back the address it just checked:
 
 ```ts
 dnsLookup(hostname, { ...options, all: true }, (err, addresses) => {
@@ -97,22 +97,22 @@ The restyle proxy, which loads a whole page for live editing, has the same shape
 
 ## Showing the page without running it
 
-Fetching safely is half the job. The other half is showing a stranger's HTML inside Chromiq without letting it do anything.
+Fetching safely is half the job. The other half is showing a stranger's HTML inside CHROMIQ without letting it do anything.
 
-The restyle view gets two independent layers, recorded in Chromiq's architecture decision ADR-0011:
+The restyle view gets two independent layers, recorded in CHROMIQ's architecture decision ADR-0011:
 
 1. **The HTML is sanitised** (`lib/sanitize-html.ts`). Scripts, iframes, objects and embeds are removed with their content; every `on…` event attribute and `srcdoc` is stripped; `javascript:` and `data:text/html` links are removed. The tag parser treats quoted attribute values as whole units, so a `>` hidden inside a quote can't cut a tag short and smuggle the rest past the checks.
 2. **The page is shown in a sandboxed frame** with `sandbox="allow-same-origin"` and, deliberately, without `allow-scripts`. Even if something slipped past the sanitiser, the browser itself would refuse to run it.
 
-The decision record is blunt about the second layer: never add `allow-scripts` to that frame. Combined with `allow-same-origin`, it would let the page script its way out into Chromiq's own origin. When the restyle view was re-audited, 24 known cross-site scripting payloads were fired through the real sanitiser and frame, and none ran.
+The decision record is blunt about the second layer: never add `allow-scripts` to that frame. Combined with `allow-same-origin`, it would let the page script its way out into CHROMIQ's own origin. When the restyle view was re-audited, 24 known cross-site scripting payloads were fired through the real sanitiser and frame, and none ran.
 
-The trade-off is visible to users: sites that draw everything with JavaScript show up empty or partial. Chromiq says so in the interface ("scripts disabled") rather than running their code.
+The trade-off is visible to users: sites that draw everything with JavaScript show up empty or partial. CHROMIQ says so in the interface ("scripts disabled") rather than running their code.
 
 ## What is still open
 
 Two limits are written down rather than hidden.
 
 - **Third-party assets.** Images, fonts and stylesheets in the restyled preview load straight from the original site's servers, which can see the visitor's IP address. The proxy notes say so.
-- **Optional headless capture.** Chromiq can render a page in a real headless browser to measure colours from what was actually painted, but it is off by default (`CHROMIQ_CAPTURE`). A browser does its own name lookups and can't be pinned the way Node can, so a very short-lived DNS answer could, in principle, differ between the check and the connection. Every request the browser makes is still checked, but the gap can only be closed outside the app, by filtering traffic at the network. Where that risk isn't acceptable, the pinned inspector is the default.
+- **Optional headless capture.** CHROMIQ can render a page in a real headless browser to measure colours from what was actually painted, but it is off by default (`CHROMIQ_CAPTURE`). A browser does its own name lookups and can't be pinned the way Node can, so a very short-lived DNS answer could, in principle, differ between the check and the connection. Every request the browser makes is still checked, but the gap can only be closed outside the app, by filtering traffic at the network. Where that risk isn't acceptable, the pinned inspector is the default.
 
 The rules are covered by tests that try to break them: `tests/unit/url-safety.test.ts`, `safe-fetch.test.ts` and `sanitize-html.test.ts`, plus an integration test, `tests/integration/capture-ssrf.test.ts`, that runs the redirect and private-address checks against a real Chromium.

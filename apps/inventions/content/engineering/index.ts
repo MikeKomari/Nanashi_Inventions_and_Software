@@ -21,11 +21,11 @@ export type Article = {
 export const ARTICLES: Article[] = [
   {
     slug: "chromiq-url-inspector",
-    title: "How Chromiq's URL inspector loads other websites safely",
+    title: "How CHROMIQ's URL inspector loads other websites safely",
     summary:
-      "Chromiq fetches pages you name from its own server. This is how it refuses private addresses, connects only to the address it checked, stops after 8 seconds or 1.5 MB, and turns scripts off before anything is shown.",
+      "CHROMIQ fetches pages you name from its own server. This is how it refuses private addresses, connects only to the address it checked, stops after 8 seconds or 1.5 MB, and turns scripts off before anything is shown.",
     invention: "chromiq",
-    product: "Chromiq",
+    product: "CHROMIQ",
     accent: "comet",
     topic: "Security",
     date: "2026-11-24",
@@ -43,11 +43,11 @@ export const ARTICLES: Article[] = [
   },
   {
     slug: "lexi-copy-paste-enrichment",
-    title: "Why Lexi has no AI connection and uses a copy/paste step instead",
+    title: "Why LEXI has no AI connection and uses a copy/paste step instead",
     summary:
-      "Lexi never calls a model. It writes a plain-language prompt you can take to any AI tool, then validates the JSON you paste back, field by field, before anything is saved. This is the trade-off, and how the boundary works.",
+      "LEXI never calls a model. It writes a plain-language prompt you can take to any AI tool, then validates the JSON you paste back, field by field, before anything is saved. This is the trade-off, and how the boundary works.",
     invention: "lexi",
-    product: "Lexi",
+    product: "LEXI",
     accent: "tide",
     topic: "Product design",
     date: "2026-11-24",

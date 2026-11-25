@@ -6,6 +6,7 @@ type Member = {
   name: string;
   role: string;
   bio: string;
+  facts?: { label: string; value: string }[];
   initials: string;
   photo: string | null;
   photoAlt?: string;
@@ -31,6 +32,16 @@ export function TeamCard({ m, bioPending }: { m: Member; bioPending: string }) {
           <FounderLinked text={m.name} />
         </h3>
         <p className="team-bio">{m.bio || bioPending}</p>
+        {m.facts && m.facts.length > 0 && (
+          <dl className="team-facts">
+            {m.facts.map((f) => (
+              <div key={f.label}>
+                <dt>{f.label}</dt>
+                <dd>{f.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
         <ul className="team-links">
           {m.links.map((l) => (
             <li key={l.href}>

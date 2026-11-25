@@ -156,9 +156,15 @@ export const en = {
       {
         name: "Michael Kimeison",
         role: "Founder",
-        // TODO(founder): bio facts to follow. The photo is a temporary placeholder (an anime still the
+        // Facts from the founder (25 Nov 2026). The photo is a temporary placeholder (an anime still the
         // founder chose); replace it with a real portrait before launch: it is not Nanashi's image.
-        bio: "",
+        bio: "Curious well beyond tech: business, psychology and game theory are as interesting as code.",
+        facts: [
+          { label: "Speaks", value: "5 languages: English, Indonesian, Japanese, Chinese and Korean" },
+          { label: "Watches", value: "Anime, K-pop and Chinese dramas" },
+          { label: "Reads into", value: "Business, psychology and game theory" },
+          { label: "Weakness", value: "Acronyms. See CHROMIQ and LEXI." },
+        ],
         initials: "MK",
         photo: "/team/founder-placeholder.webp" as string | null,
         photoAlt: "Placeholder portrait: an illustrated figure in a red hoodie (a real photo will replace it)",
@@ -195,9 +201,9 @@ export const en = {
         q: "Which inventions are live?",
         a: [
           "Two are in production: ",
-          { text: "Chromiq", href: "/inventions/chromiq" },
+          { text: "CHROMIQ", href: "/inventions/chromiq" },
           ", a design workbench for frontend developers, and ",
-          { text: "Lexi", href: "/inventions/lexi" },
+          { text: "LEXI", href: "/inventions/lexi" },
           ", a vocabulary workspace for Chinese, Japanese and Korean. Nanashi Studio and Nanashi Home are in the lab.",
         ],
       },
@@ -230,7 +236,7 @@ export const en = {
       },
       {
         name: "Long",
-        text: "Nanashi is an independent product lab founded by Michael Kimeison. Its name comes from the Japanese nana hoshi, 七星, seven stars, and each star stands for one principle every invention is built by, from starting with a real problem to keeping your data yours. Two inventions are in production: Chromiq, a design workbench for frontend developers, and Lexi, a vocabulary workspace for Chinese, Japanese and Korean. Nanashi Studio and Nanashi Home are in the lab.",
+        text: "Nanashi is an independent product lab founded by Michael Kimeison. Its name comes from the Japanese nana hoshi, 七星, seven stars, and each star stands for one principle every invention is built by, from starting with a real problem to keeping your data yours. Two inventions are in production: CHROMIQ, a design workbench for frontend developers, and LEXI, a vocabulary workspace for Chinese, Japanese and Korean. Nanashi Studio and Nanashi Home are in the lab.",
       },
     ],
     copy: "Copy",
