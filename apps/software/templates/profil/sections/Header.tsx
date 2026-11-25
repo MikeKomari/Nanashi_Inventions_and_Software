@@ -11,8 +11,8 @@ export type MenuLink = { href: string; label: string };
 export function Header({ c, links, waHref }: { c: ProfilContent; links: MenuLink[]; waHref: string }) {
   const link = "inline-flex min-h-11 items-center px-1 text-[15px] hover:underline underline-offset-4";
   return (
-    <header className="relative z-30 flex items-center justify-between gap-3 rounded-full bg-profil-panel py-1.5 pr-1.5 pl-5 shadow-[0_6px_24px_-12px_rgba(0,0,0,0.25)]">
-      <a href="#top" className="min-h-11 content-center text-lg font-extrabold tracking-tight">
+    <header className="relative z-30 grid grid-cols-[1fr_auto_1fr] items-center gap-3 rounded-full bg-profil-panel p-1.5 shadow-[0_6px_24px_-12px_rgba(0,0,0,0.25)]">
+      <a href="#top" className="min-h-11 content-center justify-self-start pl-3.5 text-lg font-extrabold tracking-tight">
         {c.person.short}
       </a>
       {links.length > 0 && (
@@ -24,14 +24,15 @@ export function Header({ c, links, waHref }: { c: ProfilContent; links: MenuLink
           ))}
         </nav>
       )}
-      <div className="flex items-center gap-1.5">
+      {/* Side columns share the leftover width equally, so the links sit at the true centre of the bar. */}
+      <div className="col-start-3 flex items-center gap-1.5 justify-self-end">
         {/* Wrappers carry the breakpoints: the button itself is always inline-flex. */}
-        <span className="hidden sm:contents">
+        <span className="hidden lg:contents">
           <WaButton href={waHref} size="sm">
             {c.cta.label}
           </WaButton>
         </span>
-        <span className="contents sm:hidden">
+        <span className="contents lg:hidden">
           <WaButton href={waHref} size="sm">
             {c.cta.short}
           </WaButton>
