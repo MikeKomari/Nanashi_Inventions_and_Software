@@ -198,6 +198,9 @@ export const id = {
     pages: "Halaman",
     contact: "Kontak",
     inventions: "Nanashi Inventions",
+    /** "Dibuat oleh tim di balik CHROMIQ dan LEXI." The two names link to their Inventions pages. */
+    builtBy: "Dibuat oleh tim di balik",
+    builtByAnd: "dan",
   },
 };
 
