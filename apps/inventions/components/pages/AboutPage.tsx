@@ -1,5 +1,8 @@
 import { Mail } from "lucide-react";
 import type { Copy } from "@/content/i18n/en";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbs } from "@/lib/seo";
+import { lp } from "@/lib/i18n";
 import { CONTACT } from "@/lib/site";
 import { NanaHoshi } from "@/components/brand/NanaHoshi";
 import { Reveal, Words } from "@/components/scroll/Reveal";
@@ -11,6 +14,7 @@ export function AboutPage({ t }: { t: Copy }) {
   const a = t.about;
   return (
     <div className="about">
+      <JsonLd data={breadcrumbs([["Nanashi", lp(t.locale, "/")], [t.about.label, lp(t.locale, "/about")]])} />
       <Reveal className="wrap about-hero">
         <p className="eyebrow">{a.label}</p>
         <h1 className="section-title">

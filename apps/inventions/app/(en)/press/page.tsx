@@ -7,6 +7,8 @@ import { COLOR } from "@/styles/tokens";
 import { Reveal, Words } from "@/components/scroll/Reveal";
 import { FounderLinked } from "@/components/ui/RichText";
 import { CopyButton } from "@/components/ui/CopyButton";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbs } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: t.press.metaTitle,
@@ -19,6 +21,7 @@ export default function PressPage() {
   const p = t.press;
   return (
     <div className="press">
+      <JsonLd data={breadcrumbs([["Nanashi", "/"], [p.label, "/press"]])} />
       <Reveal className="wrap">
         <p className="eyebrow">{p.label}</p>
         <h1 className="section-title">

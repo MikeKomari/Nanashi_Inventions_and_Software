@@ -5,6 +5,8 @@ import { abs } from "@/lib/site";
 import { en as t } from "@/content/i18n/en";
 import { ARTICLES } from "@/content/engineering";
 import { Reveal, Words } from "@/components/scroll/Reveal";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbs } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Engineering · Nanashi",
@@ -19,6 +21,7 @@ export default function EngineeringIndex() {
   const e = t.engineering;
   return (
     <div className="eng-index">
+      <JsonLd data={breadcrumbs([["Nanashi", "/"], ["Engineering", "/engineering"]])} />
       <Reveal className="wrap">
         <p className="eyebrow">{e.label}</p>
         <h1 className="section-title">

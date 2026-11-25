@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   // Engineering articles are MDX files in content/engineering/, imported as components.
   pageExtensions: ["ts", "tsx", "md", "mdx"],
+  // One 404 page for the whole site: needed because English and Indonesian have separate root layouts.
+  experimental: { globalNotFound: true },
   poweredByHeader: false,
   async rewrites() {
     if (!softwareOrigin) return [];

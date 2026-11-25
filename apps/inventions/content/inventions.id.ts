@@ -35,7 +35,7 @@ export const INVENTIONS_ID: Record<string, InventionText> = {
       underTheHood:
         "Satu model token menggerakkan semua tampilan. Kontras dinilai terhadap WCAG selagi kamu mengedit. Pemeriksa URL berjalan di server CHROMIQ sendiri: menolak alamat privat, berhenti setelah 8 detik atau 1,5 MB, dan mematikan script.",
       result:
-        "Sudah berjalan dan gratis dipakai di browser, tanpa perlu akun. Hasilnya bisa dibawa pulang sebagai CSS, tema Tailwind v4, variabel shadcn/ui, design token, atau DESIGN.md tertulis.",
+        "Sudah berjalan dan bisa dipakai di browser tanpa perlu akun. Hasilnya bisa dibawa pulang sebagai CSS, tema Tailwind v4, variabel shadcn/ui, design token, atau DESIGN.md tertulis.",
     },
     points: [
       {

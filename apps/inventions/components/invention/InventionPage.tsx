@@ -7,6 +7,8 @@ import { inventionNumber, liveInventions, type LiveInvention } from "@/content/i
 import type { Copy } from "@/content/i18n/en";
 import { lp } from "@/lib/i18n";
 import { Points } from "./Points";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbs, softwareApplication } from "@/lib/seo";
 
 /**
  * One live invention (W-05, D-15): hero with the name in its accent → where the name comes from →
@@ -25,6 +27,22 @@ export function InventionPage({ t, inv }: { t: Copy; inv: LiveInvention }) {
   ] as const;
   return (
     <article className="ipage" data-accent={inv.accent}>
+      <JsonLd
+        data={[
+          softwareApplication({
+            name: inv.name,
+            description: inv.oneLiner,
+            url: inv.url,
+            page: lp(t.locale, `/inventions/${inv.slug}`),
+            category: inv.category,
+          }),
+          breadcrumbs([
+            ["Nanashi", lp(t.locale, "/")],
+            [t.inventions.pageTitle, lp(t.locale, "/inventions")],
+            [inv.name, lp(t.locale, `/inventions/${inv.slug}`)],
+          ]),
+        ]}
+      />
       {/* Hero */}
       <header className="ipage-hero wrap">
         <Link href={lp(t.locale, "/inventions")} className="link-quiet ipage-back">

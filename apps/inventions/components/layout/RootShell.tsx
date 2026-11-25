@@ -6,6 +6,8 @@ import { SoftwareBand } from "@/components/layout/SoftwareBand";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/scroll/SmoothScroll";
 import { TrackClicks } from "@/components/layout/TrackClicks";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { organization } from "@/lib/seo";
 
 const sora = Sora({ subsets: ["latin"], weight: ["600"], variable: "--font-sora", display: "swap" });
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap" });
@@ -30,6 +32,7 @@ export function RootShell({ t, children }: { t: Copy; children: React.ReactNode 
         <Footer t={t} />
         <SmoothScroll />
         <TrackClicks />
+        <JsonLd data={organization()} />
         {/* Cookieless page views and the two events above; no personal data (see /privacy). */}
         <Analytics />
       </body>

@@ -1,4 +1,7 @@
 import type { Copy } from "@/content/i18n/en";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbs } from "@/lib/seo";
+import { lp } from "@/lib/i18n";
 import { Reveal, Words } from "@/components/scroll/Reveal";
 import { RichText } from "@/components/ui/RichText";
 
@@ -7,6 +10,7 @@ export function PrivacyPage({ t }: { t: Copy }) {
   const p = t.privacy;
   return (
     <div className="privacy">
+      <JsonLd data={breadcrumbs([["Nanashi", lp(t.locale, "/")], [t.privacy.label, lp(t.locale, "/privacy")]])} />
       <Reveal className="wrap">
         <p className="eyebrow">{p.label}</p>
         <h1 className="section-title">

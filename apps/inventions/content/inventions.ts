@@ -46,6 +46,8 @@ export type LiveInvention = Base & {
   gallery: { screen: ScreenName; frame?: "desktop" | "phone" }[];
   /** Slug of its Engineering deep dive. */
   engineering?: { slug: string; title: string };
+  /** schema.org applicationCategory, for structured data. */
+  category: string;
   /** "Built with": the stack, from the product's README. */
   stack: string[];
   /**
@@ -98,7 +100,7 @@ export const INVENTIONS: Invention[] = [
       underTheHood:
         "One token model drives every surface. Contrast is graded against WCAG as you edit. The URL inspector runs on CHROMIQ's own server and refuses private addresses, stops after 8 seconds or 1.5 MB, and turns scripts off.",
       result:
-        "In production and free to use in the browser, with no account needed. You leave with CSS, a Tailwind v4 theme, shadcn/ui variables, design tokens or a written DESIGN.md.",
+        "In production and usable in the browser with no account needed. You leave with CSS, a Tailwind v4 theme, shadcn/ui variables, design tokens or a written DESIGN.md.",
     },
     points: [
       {
@@ -135,6 +137,7 @@ export const INVENTIONS: Invention[] = [
       { screen: "chromiq-workspace-mobile", frame: "phone" },
     ],
     engineering: { slug: "chromiq-url-inspector", title: "How CHROMIQ's URL inspector loads other websites safely" },
+    category: "DeveloperApplication",
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS v4", "Motion", "Lucide", "Postgres (optional accounts)", "Vitest"],
     shows: [
       [1, "Ships in small releases, each one written up in its public changelog."],
@@ -217,6 +220,7 @@ export const INVENTIONS: Invention[] = [
       { screen: "lexi-vocabulary-mobile", frame: "phone" },
     ],
     engineering: { slug: "lexi-copy-paste-enrichment", title: "Why LEXI has no AI connection and uses a copy/paste step instead" },
+    category: "EducationalApplication",
     stack: ["Next.js", "React", "TypeScript (strict)", "Tailwind CSS v4", "Motion", "Zod", "IndexedDB", "Postgres (optional accounts)", "Vitest"],
     shows: [
       [2, "Its README marks exactly which screens are real and which still show placeholder numbers."],

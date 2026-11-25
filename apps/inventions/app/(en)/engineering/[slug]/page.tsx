@@ -6,6 +6,8 @@ import { abs } from "@/lib/site";
 import { slugify } from "@/lib/slug";
 import { ARTICLES, getArticle } from "@/content/engineering";
 import { getInvention } from "@/content/inventions";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { blogPosting, breadcrumbs } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -36,6 +38,12 @@ export default async function ArticlePage({ params }: Props) {
   const { Body } = a;
   return (
     <article className="art" data-accent={a.accent}>
+      <JsonLd
+        data={[
+          blogPosting({ title: a.title, description: a.summary, date: a.date, path: `/engineering/${a.slug}` }),
+          breadcrumbs([["Nanashi", "/"], ["Engineering", "/engineering"], [a.title, `/engineering/${a.slug}`]]),
+        ]}
+      />
       <header className="wrap art-head">
         <Link href="/engineering" className="link-quiet">
           <ArrowLeft size={16} strokeWidth={2} aria-hidden="true" />
