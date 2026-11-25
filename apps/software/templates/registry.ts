@@ -1,4 +1,4 @@
-// The five templates, in the order they appear on the site (01–05).
+// The templates, in the order they appear on the site (01–06).
 // A template goes live by setting status "live" and pointing demo at a content file in content/demo/.
 // Each live demo has its own route folder app/(demo)/template/<slug>/ (see templates/shared/demo.tsx).
 
@@ -9,7 +9,7 @@ export type TemplateEntry = {
   slug: string;
   status: "live" | "soon";
   /** Lucide icon name shown on the soft placeholder. */
-  icon: "Coffee" | "UtensilsCrossed" | "Croissant" | "Store" | "Scissors";
+  icon: "Coffee" | "UtensilsCrossed" | "Croissant" | "Store" | "Scissors" | "UserRound";
   /** Name used in the WhatsApp message, e.g. "Kafe". */
   waName: Record<Locale, string>;
   title: Record<Locale, string>;
@@ -75,5 +75,18 @@ export const TEMPLATES: TemplateEntry[] = [
     waName: { id: "Jasa", en: "Services" },
     title: { id: "Jasa: laundry, barbershop, salon", en: "Services: laundry, barbershop, salon" },
     blurb: { id: "Untuk usaha jasa dengan daftar layanan dan harga.", en: "For service businesses with a price list." },
+  },
+  {
+    number: "06",
+    slug: "profil",
+    status: "live",
+    icon: "UserRound",
+    waName: { id: "Profil Pribadi", en: "Personal Profile" },
+    title: { id: "Profil pribadi & portofolio", en: "Personal profile & portfolio" },
+    blurb: {
+      id: "Wajah kamu sebagai pembuka, lalu bagian yang kamu pilih: layanan, pengalaman, panggung, liputan, atau karya.",
+      en: "Your face up front, then only the sections you need: services, experience, speaking, press or work.",
+    },
+    demo: { content: "kyouka-bella", screenshot: "/screens/profil.webp" },
   },
 ];

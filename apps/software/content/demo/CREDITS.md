@@ -36,3 +36,11 @@ Kriuk Kiana is a made-up, temporary demo business. The photos show generic chips
 | `cabai-segar.webp` | Story card | John Bastian | https://www.pexels.com/photo/red-chili-lot-on-brown-wooden-table-9185580/ |
 | `cabai-kering.webp` | Story card | Wenxin Liu | https://www.pexels.com/photo/phot-of-dried-red-chili-peppers-7517290/ |
 | `kemasan-terbuka.webp` | Story card | see source | https://www.pexels.com/photo/close-up-shot-of-potato-chips-13060695/ |
+
+## Kyouka Bella (06 Profil Pribadi)
+
+Kyouka Bella is a made-up placeholder person. Her portrait is AI-generated (Figma AI image generation, 25 Nov 2026): it shows no real person and comes from no stock library or reference site. The plain white background was removed by script to make a transparent cut-out, saved as WebP (quality 80).
+
+| File in `public/demo/kyouka-bella/` | Used for | Source |
+|---|---|---|
+| `kyouka-cutout.webp` | Hero portrait | AI-generated for this demo |
