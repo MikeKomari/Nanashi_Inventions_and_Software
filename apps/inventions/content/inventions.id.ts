@@ -13,6 +13,8 @@ export type InventionText = {
   story?: { problem: string; whatItDoes: string; underTheHood: string; result: string };
   points?: PointText[];
   shows?: string[];
+  /** Same order as the English changelog; the date comes from there. */
+  changelog?: { title: string; body: string }[];
 };
 
 export const INVENTIONS_ID: Record<string, InventionText> = {
@@ -64,6 +66,24 @@ export const INVENTIONS_ID: Record<string, InventionText> = {
       "Menilai setiap pasangan warna terhadap WCAG dan punya mode baca kontras tinggi.",
       "Menyimpan catatan keputusan arsitektur, runbook, panduan mode kegagalan, dan postmortem.",
     ],
+    changelog: [
+      {
+        title: "Ubah tampilan situs sungguhan.",
+        body: "Tempel alamat publik, dan CHROMIQ memuat salinannya tanpa script lewat servernya sendiri. Alamat privat ditolak, dan setiap pengambilan berhenti setelah 8 detik atau 1,5 MB.",
+      },
+      {
+        title: "Cek kontras selagi Anda mengedit.",
+        body: "Setiap pasangan warna dinilai terhadap WCAG, lengkap dengan perbaikan sekali klik dan lima simulasi buta warna.",
+      },
+      {
+        title: "Lebih banyak pilihan ekspor.",
+        body: "Ekspor ke CSS, tema Tailwind v4, variabel shadcn/ui, W3C design token, atau DESIGN.md tertulis. Pasangan yang gagal ditandai sebelum apa pun diunduh.",
+      },
+      {
+        title: "Akun opsional.",
+        body: "Proyek tetap tersimpan di browser Anda. Akun bersifat opsional dan hanya menambah sinkronisasi.",
+      },
+    ],
   },
   lexi: {
     audience: "Untuk pelajar bahasa",
@@ -113,6 +133,24 @@ export const INVENTIONS_ID: Record<string, InventionText> = {
       "Kata tersimpan di IndexedDB di perangkatmu; tidak ada yang keluar sampai kamu memilih untuk masuk.",
       "Tanpa API model: satu langkah salin dan tempel mengerjakan hal yang sama, tanpa ada yang terkirim diam-diam.",
       "Domain, penyimpanan, dan layarnya diuji dengan unit test, dan keputusannya dicatat di spesifikasinya.",
+    ],
+    changelog: [
+      {
+        title: "Akun opsional dengan sinkronisasi.",
+        body: "Masuk untuk memakai kata yang sama di perangkat lain. Selama tidak masuk, tidak ada yang keluar dari browser Anda, dan API AI tetap tidak dipakai (D-031).",
+      },
+      {
+        title: "Kata terkait saat enrichment.",
+        body: "Prompt-nya menyertakan hingga 300 kata Mandarin yang sudah Anda punya dan meminta dua sampai lima hubungan untuk setiap kata (D-020).",
+      },
+      {
+        title: "Prompt enrichment berbahasa biasa.",
+        body: "LEXI menulis prompt dalam bentuk kalimat, bukan JSON, lalu memeriksa jawaban yang Anda tempel kembali kolom demi kolom sebelum apa pun disimpan (D-016).",
+      },
+      {
+        title: "Catat satu daftar sekaligus.",
+        body: "Tempel satu kata per baris ke inbox. Kata yang sama dilewati, jadi tidak ada yang tersimpan dua kali.",
+      },
     ],
   },
   studio: {

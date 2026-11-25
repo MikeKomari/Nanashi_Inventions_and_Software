@@ -15,10 +15,14 @@ import { breadcrumbs, softwareApplication } from "@/lib/seo";
  * the demo video → the story (problem → what it does → under the hood → result) → numbered points →
  * real screenshots → traction → its Engineering deep dive → next invention.
  */
+const DATE_LOCALE = { en: "en-GB", id: "id-ID" } as const;
+
 export function InventionPage({ t, inv }: { t: Copy; inv: LiveInvention }) {
   const c = t.invention;
   const all = liveInventions(t.locale);
   const next = all[(all.findIndex((i) => i.slug === inv.slug) + 1) % all.length]!;
+  const date = (iso: string) =>
+    new Date(iso).toLocaleDateString(DATE_LOCALE[t.locale], { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
   const story = [
     ["problem", inv.story.problem],
     ["whatItDoes", inv.story.whatItDoes],
@@ -180,6 +184,31 @@ export function InventionPage({ t, inv }: { t: Copy; inv: LiveInvention }) {
           ))}
         </ul>
       </section>
+
+      {/* What's new */}
+      {inv.changelog && inv.changelog.length > 0 && (
+        <section className="ipage-section wrap" aria-labelledby="changelog-title">
+          <Reveal>
+            <p className="eyebrow">{c.changelogLabel}</p>
+            <h2 id="changelog-title" className="ipage-h2">
+              <Words text={c.changelogTitle} />
+            </h2>
+          </Reveal>
+          <ol className="ichangelog">
+            {inv.changelog.map((e) => (
+              <li key={e.date + e.title}>
+                <Reveal className="ichangelog-item" amount={0.3}>
+                  <time className="ichangelog-date" dateTime={e.date}>
+                    {date(e.date)}
+                  </time>
+                  <h3 className="ichangelog-title">{e.title}</h3>
+                  <p className="ichangelog-body">{e.body}</p>
+                </Reveal>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
 
       {/* Traction + engineering + next */}
       <section className="ipage-section wrap ipage-end">

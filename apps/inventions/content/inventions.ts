@@ -55,7 +55,14 @@ export type LiveInvention = Base & {
    * Shown when a visitor opens a star in the Big Dipper. Facts from the product's own docs only.
    */
   shows: [number, string][];
+  /**
+   * "What's new": dated entries, newest first. Facts from the product's own repo, docs or this
+   * site's articles only (principle 3). Dates are ISO (yyyy-mm-dd).
+   */
+  changelog?: ChangelogEntry[];
 };
+
+export type ChangelogEntry = { date: string; title: string; body: string };
 
 export type LabInvention = Base & { status: "lab" };
 
@@ -145,6 +152,32 @@ export const INVENTIONS: Invention[] = [
       [4, "Grades every colour pair against WCAG and offers a high-contrast reading mode."],
       [6, "Keeps architecture decision records, a runbook, a failure-modes guide and postmortems."],
     ],
+    // TODO(founder): confirm. The CHROMIQ repo was not readable when this was written, so these come
+    // from facts already on this site (above and content/engineering/chromiq-url-inspector.mdx), and
+    // every entry is dated 24 Nov 2026, the date those facts were published here. Swap in real
+    // release dates and order from CHROMIQ's own changelog.
+    changelog: [
+      {
+        date: "2026-11-24",
+        title: "Restyle a real site.",
+        body: "Paste a public address and CHROMIQ loads a script-free copy through its own server. Private addresses are refused, and each fetch stops after 8 seconds or 1.5 MB.",
+      },
+      {
+        date: "2026-11-24",
+        title: "Contrast checks while you edit.",
+        body: "Every colour pair is graded against WCAG, with a one-click fix and five colour-vision simulations.",
+      },
+      {
+        date: "2026-11-24",
+        title: "More ways to export.",
+        body: "Export CSS, a Tailwind v4 theme, shadcn/ui variables, W3C design tokens or a written DESIGN.md. Failing pairs are flagged before anything downloads.",
+      },
+      {
+        date: "2026-11-24",
+        title: "Optional accounts.",
+        body: "Projects still save in your browser. An account is optional and only adds sync.",
+      },
+    ],
   },
   {
     slug: "lexi",
@@ -228,6 +261,32 @@ export const INVENTIONS: Invention[] = [
       [5, "No model API: a copy and paste step does the same job, with nothing sent behind your back."],
       [6, "Its domain, storage and screens are covered by unit tests, and decisions are logged in its spec."],
     ],
+    // TODO(founder): confirm. The LEXI repo was not readable when this was written, so these come
+    // from facts already on this site (above and content/engineering/lexi-copy-paste-enrichment.mdx;
+    // decision numbers from LEXI's TSD.md), and every entry is dated 24 Nov 2026, the date those
+    // facts were published here. Swap in real release dates from LEXI's own history.
+    changelog: [
+      {
+        date: "2026-11-24",
+        title: "Optional accounts with sync.",
+        body: "Sign in to keep the same words on another device. Signed out, nothing leaves your browser, and AI APIs stay excluded (D-031).",
+      },
+      {
+        date: "2026-11-24",
+        title: "Related words in enrichment.",
+        body: "The prompt includes up to 300 Chinese words you already have and asks for two to five relationships per word (D-020).",
+      },
+      {
+        date: "2026-11-24",
+        title: "A plain-language enrichment prompt.",
+        body: "LEXI writes the prompt as sentences, not JSON, and checks the answer you paste back field by field before anything is saved (D-016).",
+      },
+      {
+        date: "2026-11-24",
+        title: "Capture a whole list at once.",
+        body: "Paste one word per line into the inbox. Duplicates are skipped, so nothing is saved twice.",
+      },
+    ],
   },
   {
     slug: "studio",
@@ -265,6 +324,7 @@ export function inventionsFor(locale: Locale = "en"): Invention[] {
       story: tr.story ?? inv.story,
       points: inv.points.map((pt, i) => ({ ...pt, ...tr.points?.[i], facts: tr.points?.[i]?.facts ?? pt.facts })),
       shows: inv.shows.map(([p, line], i) => [p, tr.shows?.[i] ?? line] as [number, string]),
+      changelog: inv.changelog?.map((e, i) => ({ ...e, ...tr.changelog?.[i] })),
     } as LiveInvention;
   });
 }
