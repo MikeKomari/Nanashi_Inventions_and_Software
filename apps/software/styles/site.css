@@ -162,10 +162,18 @@ details[open] .faq-icon {
 
 /* ── Micro-animations (founder request, 24 Nov 2026). transform and opacity only. ── */
 @media (prefers-reduced-motion: no-preference) {
-  /* Hero: headline lines, then the text and buttons, rise in on load. */
-  .hero-in > span,
+  /* Hero: headline lines rise in on load, then the text and buttons fade up. The headline only moves
+     (no fade): it is the page's largest text, and a fade from invisible delays when it counts as shown. */
+  .hero-in > span {
+    animation: rise-only 800ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
   .hero-in-late {
     animation: rise-in 800ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  @keyframes rise-only {
+    from {
+      transform: translateY(18px);
+    }
   }
   .hero-in > span:nth-child(2) {
     animation-delay: 120ms;

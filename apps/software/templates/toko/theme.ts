@@ -1,11 +1,13 @@
 // Fonts and colours of the 04 Toko UMKM template. Anton (giant condensed headlines) and Outfit (text),
-// loaded only where this module is imported: the toko demo route. Never Sora or Plus Jakarta Sans here.
+// used only on the toko demo route. Never Sora or Plus Jakarta Sans here.
 import type { CSSProperties } from "react";
+// preload: false — the bundler puts every template's @font-face in one shared CSS file, so preloading
+// would make each demo download the other template's fonts too. Unused faces are never downloaded.
 import { Anton, Outfit } from "next/font/google";
 import type { TokoContent } from "./schema";
 
-const anton = Anton({ subsets: ["latin"], weight: "400", variable: "--font-anton", display: "swap" });
-const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: "swap" });
+const anton = Anton({ subsets: ["latin"], weight: "400", variable: "--font-anton", display: "swap", preload: false });
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: "swap", preload: false });
 
 export const tokoFontClassName = `${anton.variable} ${outfit.variable}`;
 
