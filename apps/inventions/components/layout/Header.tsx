@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import type { Copy } from "@/content/i18n/en";
 import { HeaderShrink } from "./HeaderShrink";
+import { LangLink } from "./LangLink";
 
 /**
  * Logo · Inventions · Engineering · About (true centre) · ID · small outlined "Nanashi Software" pill.
@@ -12,7 +13,7 @@ import { HeaderShrink } from "./HeaderShrink";
  * Founder decision (24 Nov 2026): the Software button is a small gold outline that fills on hover,
  * replacing W-08's solid high-contrast button. The full-width Software band stays the loud one.
  */
-export function Header({ t, switchHref }: { t: Copy; switchHref: string }) {
+export function Header({ t }: { t: Copy }) {
   const id = t.locale === "id";
   const base = id ? "/id" : "";
   const link = "inline-flex min-h-11 items-center text-[15px] text-text-muted transition-colors hover:text-text";
@@ -32,26 +33,14 @@ export function Header({ t, switchHref }: { t: Copy; switchHref: string }) {
             {/* Engineering is English only (W-10). Not built yet: no prefetch, so no 404 noise. */}
             <Link href="/engineering" className={link}>{t.nav.engineering}</Link>
             <Link href={`${base}/about`} className={link}>{t.nav.about}</Link>
-            <Link
-              prefetch={false}
-              href={switchHref}
-              hrefLang={id ? "en" : "id"}
-              aria-label={t.nav.switchAria}
-              className={`${link} ml-auto min-w-11 justify-center font-mono text-[13px] tracking-[0.08em] sm:hidden`}
-            >
+            <LangLink to={id ? "en" : "id"} ariaLabel={t.nav.switchAria} className={`${link} ml-auto min-w-11 justify-center font-mono text-[13px] tracking-[0.08em] sm:hidden`}>
               {t.nav.switchLabel}
-            </Link>
+            </LangLink>
           </nav>
           <div className="flex items-center gap-4 justify-self-end">
-            <Link
-              prefetch={false}
-              href={switchHref}
-              hrefLang={id ? "en" : "id"}
-              aria-label={t.nav.switchAria}
-              className={`${link} hidden min-w-11 justify-center font-mono text-[13px] tracking-[0.08em] sm:inline-flex`}
-            >
+            <LangLink to={id ? "en" : "id"} ariaLabel={t.nav.switchAria} className={`${link} hidden min-w-11 justify-center font-mono text-[13px] tracking-[0.08em] sm:inline-flex`}>
               {t.nav.switchLabel}
-            </Link>
+            </LangLink>
             {/* Plain <a>: /software is the separate Nanashi Software app behind a rewrite.
                 The visible pill is 34px tall; the padding around it keeps a 44px touch target. */}
             <a href="/software" className="group inline-flex min-h-11 items-center">

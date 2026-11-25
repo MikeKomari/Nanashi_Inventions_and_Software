@@ -270,6 +270,44 @@ export const en = {
     contactLabel: "Contact",
     contactText: "For interviews, introductions or anything else: one email reaches the founder directly.",
   },
+  privacy: {
+    metaTitle: "Privacy · Nanashi",
+    metaDescription: "What the Nanashi Inventions website collects about you: very little. Cookieless visit counts, no accounts, no forms.",
+    label: "Privacy",
+    title: "What this site knows about you.",
+    lead: "Very little, on purpose. This page covers the Nanashi Inventions website; each invention has its own rules.",
+    updated: "Last updated 25 November 2026",
+    sections: [
+      {
+        title: "Visit counts, without cookies",
+        body: "This site uses Vercel Web Analytics to count page views and two kinds of click: the “Try” button on each invention and email links. It sets no cookies and stores nothing that identifies you. Visitors are told apart only by an anonymous value that is discarded after a day, so Nanashi sees totals, never people.",
+      },
+      {
+        title: "No accounts, no forms",
+        body: "There is nothing to sign up for and nothing to fill in. The site never asks for your name, email address or anything else.",
+      },
+      {
+        title: "If you email Nanashi",
+        body: "Your message and address are used only to reply to you. They are not shared or added to any list. Ask, and they will be deleted.",
+      },
+      {
+        title: "Hosting",
+        body: "The site is served by Vercel. Like any web host, Vercel keeps short-lived technical logs (such as IP address, browser and time of request) to keep the service secure and running, under its own privacy policy.",
+      },
+      {
+        title: "Fonts, images and videos",
+        body: "Fonts, screenshots and demo videos are served from this site itself. There are no third-party trackers, ads or embedded social media.",
+      },
+      {
+        title: "The inventions",
+        body: "CHROMIQ, LEXI and Nanashi Software are separate websites with their own data rules. For example, LEXI keeps your words in your browser unless you choose to sign in.",
+      },
+      {
+        title: "Questions",
+        body: "Write to michaelk.projects@gmail.com. If this page changes, the date at the top changes with it.",
+      },
+    ],
+  },
   softwareBand: {
     label: "Nanashi Software",
     title: "Need a website?",
@@ -282,6 +320,7 @@ export const en = {
     contact: "Contact",
     founded: "Founded by Michael Kimeison",
     press: "Press kit",
+    privacy: "Privacy",
     email: "Email",
     language: "Language",
     english: "English",

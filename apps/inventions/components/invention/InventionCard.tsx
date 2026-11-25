@@ -28,7 +28,20 @@ type Labels = { live: string; lab: string; explore: string };
  * screenshot for the real demo video, loaded only when first hovered. On touch screens, without
  * JavaScript and under reduced motion it is a calm, static card. Only transform and opacity animate.
  */
-export function InventionCard({ inv, number, labels, size = "lg" }: { inv: Invention; number: string; labels: Labels; size?: CardSize }) {
+export function InventionCard({
+  inv,
+  number,
+  labels,
+  size = "lg",
+  href,
+}: {
+  inv: Invention;
+  number: string;
+  labels: Labels;
+  size?: CardSize;
+  /** Its page, in the reader's language. */
+  href: string;
+}) {
   const ref = useRef<HTMLElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const live = inv.status === "live";
@@ -115,7 +128,7 @@ export function InventionCard({ inv, number, labels, size = "lg" }: { inv: Inven
         </p>
         <h3 className="icard-name">
           {live ? (
-            <Link href={`/inventions/${inv.slug}`} className="icard-link">
+            <Link href={href} className="icard-link">
               {inv.name}
             </Link>
           ) : (

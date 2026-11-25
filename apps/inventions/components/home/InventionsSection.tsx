@@ -4,6 +4,7 @@ import { Reveal, Words } from "@/components/scroll/Reveal";
 import { InventionGrid } from "@/components/invention/InventionGrid";
 import { INVENTIONS } from "@/content/inventions";
 import type { Copy } from "@/content/i18n/en";
+import { lp } from "@/lib/i18n";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -27,7 +28,7 @@ export function InventionsSection({ t }: { t: Copy }) {
           </h2>
           <p className="section-lead">{i.lead}</p>
         </div>
-        <Link href="/inventions" className="link-arrow">
+        <Link href={lp(t.locale, "/inventions")} className="link-arrow">
           {i.all}
           <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
         </Link>

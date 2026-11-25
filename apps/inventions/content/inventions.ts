@@ -4,6 +4,8 @@
 // Order = display order. Live inventions get a page; "lab" ones get a card only (W-03).
 
 import type { ScreenName } from "@/content/screens.generated";
+import type { Locale } from "@/lib/i18n";
+import { INVENTIONS_ID } from "./inventions.id";
 
 export type Accent = "comet" | "tide" | "nova" | "orbit";
 
@@ -243,15 +245,36 @@ export const INVENTIONS: Invention[] = [
   },
 ];
 
-export const liveInventions = () => INVENTIONS.filter((i): i is LiveInvention => i.status === "live");
-export const getInvention = (slug: string) => liveInventions().find((i) => i.slug === slug);
+/** Every invention with its reader-facing text in the given language (facts and links unchanged). */
+export function inventionsFor(locale: Locale = "en"): Invention[] {
+  if (locale === "en") return INVENTIONS;
+  return INVENTIONS.map((inv) => {
+    const tr = INVENTIONS_ID[inv.slug];
+    if (!tr) return inv;
+    const base = { ...inv, audience: tr.audience, oneLiner: tr.oneLiner, meaning: { ...inv.meaning, ...tr.meaning } };
+    if (inv.status !== "live") return base as Invention;
+    return {
+      ...base,
+      status: "live",
+      tryLabel: tr.tryLabel ?? inv.tryLabel,
+      video: { ...inv.video, caption: tr.videoCaption ?? inv.video.caption },
+      story: tr.story ?? inv.story,
+      points: inv.points.map((pt, i) => ({ ...pt, ...tr.points?.[i], facts: tr.points?.[i]?.facts ?? pt.facts })),
+      shows: inv.shows.map(([p, line], i) => [p, tr.shows?.[i] ?? line] as [number, string]),
+    } as LiveInvention;
+  });
+}
+
+export const liveInventions = (locale: Locale = "en") =>
+  inventionsFor(locale).filter((i): i is LiveInvention => i.status === "live");
+export const getInvention = (slug: string, locale: Locale = "en") => liveInventions(locale).find((i) => i.slug === slug);
 /** Position among all inventions, 1-based, as shown on cards ("01"). */
 export const inventionNumber = (slug: string) => String(INVENTIONS.findIndex((i) => i.slug === slug) + 1).padStart(2, "0");
 
 /** For each of the seven principles, the live inventions that show it, with the proof line. */
-export const seenIn = () =>
+export const seenIn = (locale: Locale = "en") =>
   Array.from({ length: 7 }, (_, i) =>
-    liveInventions().flatMap((inv) =>
+    liveInventions(locale).flatMap((inv) =>
       inv.shows.filter(([p]) => p === i).map(([, line]) => ({ slug: inv.slug, name: inv.name, accent: inv.accent, line })),
     ),
   );

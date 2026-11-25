@@ -4,6 +4,7 @@ import { Reveal } from "@/components/scroll/Reveal";
 import { FounderLinked } from "@/components/ui/RichText";
 import { CONTACT } from "@/lib/site";
 import type { Copy } from "@/content/i18n/en";
+import { lp } from "@/lib/i18n";
 
 /** Home §7: the short founder line (B-05: Nanashi leads, the founder is the small credit). */
 export function Founder({ t }: { t: Copy }) {
@@ -20,7 +21,7 @@ export function Founder({ t }: { t: Copy }) {
           <a href={`mailto:${CONTACT.email}`} className="btn-ghost">
             {f.email}
           </a>
-          <Link href="/about" className="link-arrow">
+          <Link href={lp(t.locale, "/about")} className="link-arrow">
             {f.about}
             <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
           </Link>

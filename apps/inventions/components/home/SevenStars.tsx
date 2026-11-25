@@ -5,6 +5,7 @@ import { STAR_D } from "@/components/brand/symbol-paths";
 import { Reveal, Words } from "@/components/scroll/Reveal";
 import Link from "next/link";
 import type { Copy } from "@/content/i18n/en";
+import { lp } from "@/lib/i18n";
 
 export type SeenIn = { slug: string; name: string; accent: string; line: string }[][];
 
@@ -190,7 +191,7 @@ export function SevenStars({ t, seen }: { t: Copy; seen: SeenIn }) {
                       <ul>
                         {seen[i].map((x) => (
                           <li key={x.slug} data-accent={x.accent}>
-                            <Link href={`/inventions/${x.slug}`} className="principle-seen-link">
+                            <Link href={lp(t.locale, `/inventions/${x.slug}`)} className="principle-seen-link">
                               {x.name}
                             </Link>
                             <span>{x.line}</span>

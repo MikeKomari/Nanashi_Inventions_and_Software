@@ -5,6 +5,7 @@ import { Reveal, Words } from "@/components/scroll/Reveal";
 import { Screenshot } from "@/components/ui/Screenshot";
 import { inventionNumber, liveInventions, type LiveInvention } from "@/content/inventions";
 import type { Copy } from "@/content/i18n/en";
+import { lp } from "@/lib/i18n";
 import { Points } from "./Points";
 
 /**
@@ -14,7 +15,7 @@ import { Points } from "./Points";
  */
 export function InventionPage({ t, inv }: { t: Copy; inv: LiveInvention }) {
   const c = t.invention;
-  const all = liveInventions();
+  const all = liveInventions(t.locale);
   const next = all[(all.findIndex((i) => i.slug === inv.slug) + 1) % all.length]!;
   const story = [
     ["problem", inv.story.problem],
@@ -26,7 +27,7 @@ export function InventionPage({ t, inv }: { t: Copy; inv: LiveInvention }) {
     <article className="ipage" data-accent={inv.accent}>
       {/* Hero */}
       <header className="ipage-hero wrap">
-        <Link href="/inventions" className="link-quiet ipage-back">
+        <Link href={lp(t.locale, "/inventions")} className="link-quiet ipage-back">
           <ArrowLeft size={16} strokeWidth={2} aria-hidden="true" />
           {c.back}
         </Link>
@@ -45,7 +46,7 @@ export function InventionPage({ t, inv }: { t: Copy; inv: LiveInvention }) {
             {t.inventions.live}
           </span>
           <Magnetic>
-            <a href={inv.url} target="_blank" rel="noopener" className="btn-primary">
+            <a href={inv.url} target="_blank" rel="noopener" className="btn-primary" data-track="try_product" data-product={inv.slug}>
               {inv.tryLabel}
               <ArrowUpRight size={18} strokeWidth={2} aria-hidden="true" />
               <span className="sr-only">{t.inventions.newTab}</span>
@@ -167,7 +168,7 @@ export function InventionPage({ t, inv }: { t: Copy; inv: LiveInvention }) {
         {next.slug !== inv.slug && (
           <Reveal className="iend-card lift" accent={next.accent}>
             <p className="eyebrow">{c.next}</p>
-            <Link href={`/inventions/${next.slug}`} className="iend-link iend-next">
+            <Link href={lp(t.locale, `/inventions/${next.slug}`)} className="iend-link iend-next">
               {next.name}
               <ArrowRight size={20} strokeWidth={2} aria-hidden="true" />
             </Link>

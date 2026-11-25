@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { InventionCard, type CardSize } from "./InventionCard";
-import { INVENTIONS, inventionNumber, type Invention } from "@/content/inventions";
+import { inventionNumber, inventionsFor, type Invention } from "@/content/inventions";
+import { lp } from "@/lib/i18n";
 import type { Copy } from "@/content/i18n/en";
 
 /**
@@ -11,7 +12,8 @@ import type { Copy } from "@/content/i18n/en";
  * column. Scales to any number of inventions without changing the layout code.
  */
 export function InventionGrid({ t, limit }: { t: Copy; limit?: number }) {
-  const all: Invention[] = limit ? INVENTIONS.slice(0, limit) : INVENTIONS;
+  const source = inventionsFor(t.locale);
+  const all: Invention[] = limit ? source.slice(0, limit) : source;
   const live = all.filter((i) => i.status === "live");
   const lab = all.filter((i) => i.status === "lab");
   const ordered = [...live, ...lab];
@@ -24,13 +26,13 @@ export function InventionGrid({ t, limit }: { t: Copy; limit?: number }) {
         const size = sizeOf(inv, i);
         return (
           <li key={inv.slug} className={`bento-${size}`}>
-            <InventionCard inv={inv} number={inventionNumber(inv.slug)} labels={labels} size={size} />
+            <InventionCard inv={inv} number={inventionNumber(inv.slug)} labels={labels} size={size} href={lp(t.locale, `/inventions/${inv.slug}`)} />
           </li>
         );
       })}
       {limit && (
         <li className="bento-sm">
-          <Link href="/inventions" className="bento-all">
+          <Link href={lp(t.locale, "/inventions")} className="bento-all">
             <span className="bento-all-sky" aria-hidden="true">
               {Array.from({ length: 7 }, (_, i) => (
                 <span key={i} style={{ "--i": i } as React.CSSProperties} />

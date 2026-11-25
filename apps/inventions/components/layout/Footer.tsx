@@ -4,13 +4,13 @@ import { NanaHoshi } from "@/components/brand/NanaHoshi";
 import { FounderLinked } from "@/components/ui/RichText";
 import { CONTACT, SOCIAL } from "@/lib/site";
 import type { Copy } from "@/content/i18n/en";
+import { LangLink } from "./LangLink";
 
 /**
  * Footer (D-17): logo with 七星 · nana hoshi, the page links, email, GitHub, LinkedIn,
  * "Founded by Michael Kimeison" (linked, founder rule) and the EN/ID switch.
- * Indonesian pages (/id) are not built yet: links to them use prefetch={false} so they log no 404s.
  */
-export function Footer({ t, switchHref }: { t: Copy; switchHref: string }) {
+export function Footer({ t }: { t: Copy }) {
   const id = t.locale === "id";
   const base = id ? "/id" : "";
   const f = t.footer;
@@ -33,13 +33,16 @@ export function Footer({ t, switchHref }: { t: Copy; switchHref: string }) {
           <h2 className="footer-h">{f.pages}</h2>
           <ul>
             <li>
-              <Link prefetch={false} href={`${base}/inventions`} className="footer-link">{t.nav.inventions}</Link>
+              <Link href={`${base}/inventions`} className="footer-link">{t.nav.inventions}</Link>
             </li>
             <li>
               <Link href="/engineering" className="footer-link">{t.nav.engineering}</Link>
             </li>
             <li>
               <Link href={`${base}/about`} className="footer-link">{t.nav.about}</Link>
+            </li>
+            <li>
+              <Link href={`${base}/privacy`} className="footer-link">{f.privacy}</Link>
             </li>
             <li>
               <Link href="/press" className="footer-link">{f.press}</Link>
@@ -64,10 +67,18 @@ export function Footer({ t, switchHref }: { t: Copy; switchHref: string }) {
           <h2 className="footer-h">{f.language}</h2>
           <ul>
             <li>
-              <span className="footer-current" aria-current="true">{f.english}</span>
+              {id ? (
+                <LangLink to="en" className="footer-link">{f.english}</LangLink>
+              ) : (
+                <span className="footer-current" aria-current="true">{f.english}</span>
+              )}
             </li>
             <li>
-              <Link prefetch={false} href={switchHref} hrefLang="id" lang="id" className="footer-link">{f.indonesian}</Link>
+              {id ? (
+                <span className="footer-current" aria-current="true" lang="id">{f.indonesian}</span>
+              ) : (
+                <LangLink to="id" className="footer-link">{f.indonesian}</LangLink>
+              )}
             </li>
           </ul>
         </div>
