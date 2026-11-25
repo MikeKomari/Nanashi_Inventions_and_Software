@@ -68,20 +68,24 @@ export const INVENTIONS_ID: Record<string, InventionText> = {
     ],
     changelog: [
       {
-        title: "Ubah tampilan situs sungguhan.",
-        body: "Tempel alamat publik, dan CHROMIQ memuat salinannya tanpa script lewat servernya sendiri. Alamat privat ditolak, dan setiap pengambilan berhenti setelah 8 detik atau 1,5 MB.",
+        title: "Sanitizer yang lebih aman untuk pratinjau situs.",
+        body: "Tanda > di dalam atribut yang dikutip bisa meloloskan sebuah tag dari sanitizer HTML. Pratinjau sudah berjalan tanpa script, jadi tidak ada yang bisa dieksploitasi, dan celahnya kini sudah ditutup.",
       },
       {
-        title: "Cek kontras selagi Anda mengedit.",
-        body: "Setiap pasangan warna dinilai terhadap WCAG, lengkap dengan perbaikan sekali klik dan lima simulasi buta warna.",
+        title: "Proyek cloud di ruang kerja.",
+        body: "Sinkronkan proyek ke akunmu, dan setiap perubahan sesudahnya tersimpan sendiri. Sinkronisasi yang gagal menampilkan tombol coba lagi, dan saat ada konflik kamu yang memilih versi mana yang disimpan.",
       },
       {
-        title: "Lebih banyak pilihan ekspor.",
-        body: "Ekspor ke CSS, tema Tailwind v4, variabel shadcn/ui, W3C design token, atau DESIGN.md tertulis. Pasangan yang gagal ditandai sebelum apa pun diunduh.",
+        title: "Masukan dan changelog publik.",
+        body: "Laporkan situs yang tidak mau dimuat tanpa keluar dari aplikasi; alamat yang gagal sudah terisi otomatis. Setiap perubahan tercatat di changelog publik di dalam aplikasinya.",
       },
       {
         title: "Akun opsional.",
-        body: "Proyek tetap tersimpan di browser Anda. Akun bersifat opsional dan hanya menambah sinkronisasi.",
+        body: "Masuk untuk menyinkronkan proyek antar browser. Masuk tidak pernah wajib, tautan berbagi pendek tetap bisa dipakai tanpa akun, dan kamu bisa menghapus akunmu kapan saja.",
+      },
+      {
+        title: "PRISM kini bernama CHROMIQ.",
+        body: "Ruang kerjanya punya nama baru, logo baru, dan satu set aset brand lengkap.",
       },
     ],
   },
@@ -136,20 +140,24 @@ export const INVENTIONS_ID: Record<string, InventionText> = {
     ],
     changelog: [
       {
-        title: "Akun opsional dengan sinkronisasi.",
-        body: "Masuk untuk memakai kata yang sama di perangkat lain. Selama tidak masuk, tidak ada yang keluar dari browser Anda, dan API AI tetap tidak dipakai (D-031).",
+        title: "Paket kata HSK 3.0.",
+        body: "Tambahkan satu level HSK 3.0 sekaligus, dari level 1 sampai level 7 sampai 9: 10.969 kata lengkap dengan pinyin dan arti bahasa Inggris. Kata yang sudah kamu punya tetap utuh dan hanya ikut masuk ke daftar level itu.",
       },
       {
-        title: "Kata terkait saat enrichment.",
-        body: "Prompt-nya menyertakan hingga 300 kata Mandarin yang sudah Anda punya dan meminta dua sampai lima hubungan untuk setiap kata (D-020).",
+        title: "Impor daftar kata.",
+        body: "Tempel satu daftar utuh ke inbox dan beri nama. Kata yang sudah kamu punya langsung masuk ke daftar, dan sisanya menunggu di inbox sampai di-enrich.",
       },
       {
-        title: "Prompt enrichment berbahasa biasa.",
-        body: "LEXI menulis prompt dalam bentuk kalimat, bukan JSON, lalu memeriksa jawaban yang Anda tempel kembali kolom demi kolom sebelum apa pun disimpan (D-016).",
+        title: "Pasang di layar utama.",
+        body: "Tambahkan LEXI ke layar utama ponselmu, dan aplikasinya terbuka layar penuh dengan nama dan ikonnya sendiri.",
       },
       {
-        title: "Catat satu daftar sekaligus.",
-        body: "Tempel satu kata per baris ke inbox. Kata yang sama dilewati, jadi tidak ada yang tersimpan dua kali.",
+        title: "Akun dan sinkronisasi.",
+        body: "Masuk untuk memakai kata yang sama di setiap perangkat. Selama tidak masuk, LEXI tetap berjalan dari browser kamu seperti biasa.",
+      },
+      {
+        title: "Cadangan, daftar, dan review yang lebih baik.",
+        body: "Ekspor dan pulihkan semuanya sebagai satu file, pindahkan kata lewat CSV, kelompokkan kata ke dalam daftar, dan pelajari satu daftar dalam satu waktu.",
       },
     ],
   },

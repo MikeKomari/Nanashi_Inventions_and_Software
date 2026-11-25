@@ -152,30 +152,32 @@ export const INVENTIONS: Invention[] = [
       [4, "Grades every colour pair against WCAG and offers a high-contrast reading mode."],
       [6, "Keeps architecture decision records, a runbook, a failure-modes guide and postmortems."],
     ],
-    // TODO(founder): confirm. The CHROMIQ repo was not readable when this was written, so these come
-    // from facts already on this site (above and content/engineering/chromiq-url-inspector.mdx), and
-    // every entry is dated 24 Nov 2026, the date those facts were published here. Swap in real
-    // release dates and order from CHROMIQ's own changelog.
+    // From CHROMIQ's own git history and CHANGELOG.md; each date is its feature commit.
     changelog: [
       {
-        date: "2026-11-24",
-        title: "Restyle a real site.",
-        body: "Paste a public address and CHROMIQ loads a script-free copy through its own server. Private addresses are refused, and each fetch stops after 8 seconds or 1.5 MB.",
+        date: "2026-11-06",
+        title: "A safer sanitizer for site previews.",
+        body: "A quoted > inside an attribute could slip a tag past the HTML sanitizer. Previews already ran with scripts off, so nothing was exploitable, and the gap is now closed.",
       },
       {
-        date: "2026-11-24",
-        title: "Contrast checks while you edit.",
-        body: "Every colour pair is graded against WCAG, with a one-click fix and five colour-vision simulations.",
+        date: "2026-11-04",
+        title: "Cloud projects in the workbench.",
+        body: "Sync a project to your account and every edit after that saves itself. A failed sync shows a retry button, and a conflict asks you which version to keep.",
       },
       {
-        date: "2026-11-24",
-        title: "More ways to export.",
-        body: "Export CSS, a Tailwind v4 theme, shadcn/ui variables, W3C design tokens or a written DESIGN.md. Failing pairs are flagged before anything downloads.",
+        date: "2026-11-04",
+        title: "Feedback and a public changelog.",
+        body: "Report a site that will not load without leaving the app; the address that failed is filled in for you. Every change is listed in a public changelog inside the app.",
       },
       {
-        date: "2026-11-24",
+        date: "2026-10-26",
         title: "Optional accounts.",
-        body: "Projects still save in your browser. An account is optional and only adds sync.",
+        body: "Sign in to sync projects between browsers. Signing in is never required, short share links work signed out, and you can delete your account at any time.",
+      },
+      {
+        date: "2026-10-23",
+        title: "PRISM is now CHROMIQ.",
+        body: "The workbench has a new name, a new mark and a full set of brand assets.",
       },
     ],
   },
@@ -261,30 +263,32 @@ export const INVENTIONS: Invention[] = [
       [5, "No model API: a copy and paste step does the same job, with nothing sent behind your back."],
       [6, "Its domain, storage and screens are covered by unit tests, and decisions are logged in its spec."],
     ],
-    // TODO(founder): confirm. The LEXI repo was not readable when this was written, so these come
-    // from facts already on this site (above and content/engineering/lexi-copy-paste-enrichment.mdx;
-    // decision numbers from LEXI's TSD.md), and every entry is dated 24 Nov 2026, the date those
-    // facts were published here. Swap in real release dates from LEXI's own history.
+    // From LEXI's own git history; each date is its feature commit.
     changelog: [
       {
-        date: "2026-11-24",
-        title: "Optional accounts with sync.",
-        body: "Sign in to keep the same words on another device. Signed out, nothing leaves your browser, and AI APIs stay excluded (D-031).",
+        date: "2026-11-25",
+        title: "HSK 3.0 word packs.",
+        body: "Add a whole HSK 3.0 level in one step, from level 1 to levels 7 to 9: 10,969 words with pinyin and English meanings. Words you already have keep everything and simply join the level's list.",
       },
       {
-        date: "2026-11-24",
-        title: "Related words in enrichment.",
-        body: "The prompt includes up to 300 Chinese words you already have and asks for two to five relationships per word (D-020).",
+        date: "2026-11-25",
+        title: "Import a word list.",
+        body: "Paste a whole list into the Inbox and name it. Words you already have join the list straight away, and the rest wait in the Inbox until they are enriched.",
       },
       {
-        date: "2026-11-24",
-        title: "A plain-language enrichment prompt.",
-        body: "LEXI writes the prompt as sentences, not JSON, and checks the answer you paste back field by field before anything is saved (D-016).",
+        date: "2026-11-11",
+        title: "Install it on your home screen.",
+        body: "Add LEXI to your phone's home screen and it opens full screen, with its own name and icon.",
       },
       {
-        date: "2026-11-24",
-        title: "Capture a whole list at once.",
-        body: "Paste one word per line into the inbox. Duplicates are skipped, so nothing is saved twice.",
+        date: "2026-10-28",
+        title: "Accounts and sync.",
+        body: "Sign in to keep the same words on every device. Signed out, LEXI works from your browser exactly as before.",
+      },
+      {
+        date: "2026-10-21",
+        title: "Backups, lists and better review.",
+        body: "Export and restore everything as one file, move words in and out as CSV, group words into lists, and study one list at a time.",
       },
     ],
   },
