@@ -8,6 +8,8 @@ import { SmoothScroll } from "@/components/scroll/SmoothScroll";
 import { TrackClicks } from "@/components/layout/TrackClicks";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { organization } from "@/lib/seo";
+import { Intro } from "@/components/motion/Intro";
+import { PageTransitions } from "@/components/motion/PageTransitions";
 
 const sora = Sora({ subsets: ["latin"], weight: ["600"], variable: "--font-sora", display: "swap" });
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap" });
@@ -20,9 +22,16 @@ export function RootShell({ t, children }: { t: Copy; children: React.ReactNode 
       {/* Rendered by the root layouts (app/(en), app/(id)/id), where <head> is correct. */}
       {/* eslint-disable-next-line @next/next/no-head-element */}
       <head>
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        {/* js: scripts run. intro-on: play the preloader, once per visit, only when motion is allowed. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(d){d.classList.add('js');try{if(!sessionStorage.getItem('nanashi-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('intro-on');sessionStorage.setItem('nanashi-intro','1')}}catch(e){}})(document.documentElement)",
+          }}
+        />
       </head>
       <body>
+        <Intro />
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-sm focus:bg-surface focus:px-3 focus:py-2">
           {t.nav.skip}
         </a>
@@ -31,6 +40,7 @@ export function RootShell({ t, children }: { t: Copy; children: React.ReactNode 
         <SoftwareBand t={t} />
         <Footer t={t} />
         <SmoothScroll />
+        <PageTransitions />
         <TrackClicks />
         <JsonLd data={organization()} />
         {/* Cookieless page views and the two events above; no personal data (see /privacy). */}

@@ -13,6 +13,7 @@ export function Screenshot({
   eager = false,
   className = "",
   decorative = false,
+  style,
 }: {
   name: ScreenName;
   frame?: "desktop" | "phone";
@@ -22,10 +23,11 @@ export function Screenshot({
   className?: string;
   /** Inside a link that already names it: empty alt so the link's name stays its visible text. */
   decorative?: boolean;
+  style?: React.CSSProperties;
 }) {
   const s = SCREENS[name];
   return (
-    <figure className={`shot shot-${frame} ${className}`}>
+    <figure className={`shot shot-${frame} ${className}`} style={style}>
       <div className="shot-frame">
         <Image
           src={s.src}

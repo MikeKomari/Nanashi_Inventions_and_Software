@@ -45,16 +45,18 @@ export function InventionPage({ t, inv }: { t: Copy; inv: LiveInvention }) {
       />
       {/* Hero */}
       <header className="ipage-hero wrap">
-        <Link href={lp(t.locale, "/inventions")} className="link-quiet ipage-back">
+        <Link href={lp(t.locale, "/inventions")} className="link-quiet ipage-back" data-morph>
           <ArrowLeft size={16} strokeWidth={2} aria-hidden="true" />
           {c.back}
         </Link>
+        <div className="ipage-hero-grid">
+          <div className="min-w-0">
         <p className="eyebrow">
           <span>{inventionNumber(inv.slug)}</span>
           <span className="eyebrow-rule" aria-hidden="true" />
           <span>{inv.audience}</span>
         </p>
-        <h1 className="ipage-name">
+        <h1 className="ipage-name vt-name" style={{ "--vt-name": `inv-name-${inv.slug}` } as React.CSSProperties}>
           <Words text={inv.name} />
         </h1>
         <p className="ipage-line">{inv.oneLiner}</p>
@@ -78,6 +80,16 @@ export function InventionPage({ t, inv }: { t: Copy; inv: LiveInvention }) {
               <li key={s}>{s}</li>
             ))}
           </ul>
+        </div>
+          </div>
+          {/* The same screenshot as the invention's card, so the card morph has somewhere to land. */}
+          <Screenshot
+            name={inv.cover}
+            eager
+            sizes="(min-width: 1024px) 560px, 92vw"
+            className="ipage-shot vt-shot"
+            style={{ "--vt-shot": `inv-shot-${inv.slug}` } as React.CSSProperties}
+          />
         </div>
       </header>
 

@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import type { Copy } from "@/content/i18n/en";
 import { HeaderShrink } from "./HeaderShrink";
 import { LangLink } from "./LangLink";
+import { SoundToggle } from "@/components/motion/SoundToggle";
 
 /**
  * Logo · Inventions · Engineering · About (true centre) · ID · small outlined "Nanashi Software" pill.
@@ -20,7 +21,7 @@ export function Header({ t }: { t: Copy }) {
   return (
     <>
       <HeaderShrink />
-      <header className="site-header fixed inset-x-0 top-0 z-40">
+      <header className="site-header fixed inset-x-0 top-0 z-40" style={{ viewTransitionName: "site-header" }}>
         <div className="header-bar mx-auto grid max-w-[1240px] grid-cols-[1fr_auto] items-center gap-x-4 px-4 sm:grid-cols-[1fr_auto_1fr] sm:px-8">
           <Link href={id ? "/id" : "/"} aria-label={t.nav.home} className="inline-flex min-h-11 items-center justify-self-start">
             <Image src="/brand/nanashi-horizontal-reversed.svg" alt="Nanashi" width={130} height={25} priority unoptimized className="h-[25px] w-auto" />
@@ -37,7 +38,8 @@ export function Header({ t }: { t: Copy }) {
               {t.nav.switchLabel}
             </LangLink>
           </nav>
-          <div className="flex items-center gap-4 justify-self-end">
+          <div className="flex items-center gap-2 justify-self-end sm:gap-3">
+            <SoundToggle onLabel={t.nav.soundOn} offLabel={t.nav.soundOff} />
             <LangLink to={id ? "en" : "id"} ariaLabel={t.nav.switchAria} className={`${link} hidden min-w-11 justify-center font-mono text-[13px] tracking-[0.08em] sm:inline-flex`}>
               {t.nav.switchLabel}
             </LangLink>

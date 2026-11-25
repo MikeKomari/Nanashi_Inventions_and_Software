@@ -98,7 +98,8 @@ export function InventionCard({
               frame={size === "tall" ? "phone" : "desktop"}
               decorative
               sizes={size === "hero" ? "(min-width: 1024px) 780px, 92vw" : size === "tall" ? "(min-width: 1024px) 220px, 60vw" : "(min-width: 1024px) 380px, 92vw"}
-              className="icard-cover"
+              className={`icard-cover${size === "tall" ? "" : " vt-shot"}`}
+              style={{ "--vt-shot": `inv-shot-${inv.slug}` } as React.CSSProperties}
             />
             {size !== "tall" && <video
               ref={video}
@@ -126,7 +127,7 @@ export function InventionCard({
           <span className="eyebrow-rule" aria-hidden="true" />
           <span>{inv.audience}</span>
         </p>
-        <h3 className="icard-name">
+        <h3 className="icard-name vt-name" style={{ "--vt-name": `inv-name-${inv.slug}` } as React.CSSProperties}>
           {live ? (
             <Link href={href} className="icard-link">
               {inv.name}
