@@ -106,6 +106,88 @@ On a mid-range phone: Largest Contentful Paint ≤ 2.5s, layout shift ≤ 0.1, �
 ### 02–05 (later, one at a time)
 Restaurant/warung, bakery/dessert/catering, UMKM product shop, services (laundry, barbershop, salon). Each gets its own section in this file when it is designed.
 
+### 06 Profil Pribadi (personal profile and portfolio)
+
+A one-page site about one person, with their face as the hero. It is for anyone whose name is the business: consultants, coaches, speakers, doctors, lawyers, founders, freelancers and creatives. Many of these people have no "projects" to show, so every section below the hero is optional.
+
+- **Demo person:** Kyouka Bella (made-up placeholder), a public speaking coach. The demo portrait is AI-generated for now: an original face, never a stock face without a licence, and never a face from the references. Replace it with a real photo shoot later if needed.
+- **Concept board:** "B2" on the Portfolio template concepts canvas (claude.ai/artifact/EJPhjC5x3sL5W2gavaBjAz).
+- **References:** five screenshots of a designer's personal site (`portfolio-ref-*.png`, local only). Take: the face as the hero, a very large name, an "available" pill, social links as pills, a services list, an experience list, and a closing contact band. Leave: the outlined plus solid name running across the top, the slash section labels, tilted previews that follow the cursor, the grey cloud background, the monochrome palette, and all of its copy.
+
+#### Look
+- **Colours:** a soft background colour and one accent, both chosen per client. Ink (#16183A or the client's dark colour) for text. White for every pill, card and the header bar. All pairs pass 4.5:1 and are checked at build time (`contrastPairs`, as in Toko).
+- **Type:** Bricolage Grotesque only. ExtraBold (800) for the name and section titles, Medium (500) for everything else. Body text at least 16px on phones.
+- **Signature shape:** the pill. The header is a floating white pill. Buttons, chips, the "available" tag and the logo strip are pills. Cards use a 24px radius. No borders or shadows except a faint shadow on the header.
+- Section titles are plain words in ExtraBold (for example "Program", "Panggung"), with no numbers or slashes.
+
+#### Hero (fixed)
+- **Desktop:** the first name on the left and the last name on the right, on one line, very large (about 13vw, at most 168px). The last name is in the accent colour. The cut-out portrait stands centred on the bottom edge, in front of the names, so the head sits between them. There is no frame or shape behind the portrait.
+- **Bottom left:** the "available" pill (optional), a one-line intro and one button. **Bottom right:** "Pernah tampil di" or "Dipercaya oleh" with up to three logo pills (optional).
+- **Header pill:** a short name or monogram, up to four menu links built from the sections that are on, and one main button (WhatsApp or "Undang", set in the file).
+- **Name rules:**
+  - Titles such as dr., Ir., H. or S.H. are shown as a small label above the name, not as part of the split.
+  - A single name (common in Indonesia) is centred above the portrait, in the accent colour.
+  - Three or more words: the first word goes left and the rest go right.
+  - The font size is set from the longest word, so no word is ever cut off or wrapped mid-word.
+- **Portrait file:** a transparent cut-out (WebP, shoulders up, at least 1200px tall). Removing the background is part of our service, not the client's job.
+
+#### Section library (all optional; the content file decides which ones show and in what order)
+
+| Section | What it shows | Layout |
+|---|---|---|
+| About | 2–3 short paragraphs and an optional second photo | Text left, photo right; stacked on phones |
+| Services or programs | Name, one line and an optional price for each | White cards in a 3-column grid; one column on phones |
+| Numbers | 2–4 facts, such as years or clients | Large ExtraBold numbers in a row; 2×2 on phones |
+| Work | Title, image and tag for each project, with filter chips when there are 2+ tags | 2-column card grid; one column on phones |
+| Experience | Organisation, role and years | Rows on a white panel; the newest first |
+| Ventures | Companies the person runs: logo, name, role, link | Logo pills with a line under each |
+| Speaking and events | Event, city, date and an optional photo | List rows; upcoming ones get an accent tag |
+| Press | Media logos and an optional quote | Logo strip in pills |
+| Testimonials | Quote, name, role and an optional small photo | One large quote at a time, with dots to switch; swipe on phones |
+| Gallery | 4–8 photos | Simple masonry; 2 columns on phones |
+| Contact (fixed) | A short line, a WhatsApp button, email and social pills | Full-width accent band, then the footer with the Nanashi credit |
+
+Each section has its own menu label in the file, so a coach can call Services "Program" and a lawyer can call it "Layanan Hukum".
+
+#### Phones (design at 375px first)
+- The header turns into a white pill with the monogram on the left and a menu button on the right. The menu opens as a full-screen sheet.
+- **Hero:** the title label, then the first name on the left and the last name aligned right on the next line, then the portrait below, overlapping the bottom of the last name. The intro, the "available" pill and the button come after the portrait. The logo pills move into the next section.
+- A WhatsApp button stays fixed at the bottom of the screen once the hero has scrolled away.
+- Touch targets are at least 44px. There is no horizontal scrolling except the testimonial swipe.
+
+#### Motion (calm, like the rest of Nanashi Software)
+- **On load, once:** the two name halves slide in from their own sides (24px) and fade in, then the portrait rises 24px and fades in. The whole sequence takes 0.7s at most.
+- Sections fade and rise gently when scrolled into view. Pills and cards lift 2px on hover on desktop.
+- Only transform and opacity animate. With reduced motion on, nothing moves.
+
+#### Performance
+- The portrait is the largest element on first paint. It is preloaded, at most 120 KB on phones, and has a fixed width and height so nothing shifts.
+- One font family with two weights, self-hosted. The same budget as the other templates applies: LCP ≤ 2.5s, layout shift ≤ 0.1, ≤ 150 KB of JavaScript.
+
+#### Content file (shape only; checked at build time like the other templates)
+```json
+{
+  "person": { "title": "", "name": "Kyouka Bella", "role": "Pelatih public speaking",
+              "intro": "…", "portrait": "kyouka-cutout.webp", "available": "Menerima undangan 2027" },
+  "colors": { "background": "#E6E9F5", "text": "#16183A", "accent": "#3C4FD8", "onAccent": "#FFFFFF" },
+  "headerButton": { "label": "Undang sebagai pembicara", "action": "whatsapp" },
+  "heroLogos": { "label": "Pernah tampil di", "items": [ … ] },
+  "sections": [
+    { "type": "services", "menu": "Program", "items": [ … ] },
+    { "type": "speaking", "menu": "Panggung", "items": [ … ] },
+    { "type": "testimonials", "menu": "Testimoni", "items": [ … ] },
+    { "type": "gallery", "menu": "Galeri", "items": [ … ] }
+  ],
+  "contact": { "whatsapp": "62…", "email": "…", "social": [ … ] }
+}
+```
+A section that isn't listed doesn't render, and its menu link disappears with it.
+
+#### Decided (25 Nov 2026)
+- It is template **06**, added after the existing 01–05 slots.
+- The demo uses an AI-generated portrait and the placeholder name Kyouka Bella.
+- The **Business profile** template is designed next, as a sibling of this one.
+
 ---
 
 ## 3. References
@@ -120,3 +202,4 @@ In `design-references/` on your machine only: they are other designers' work and
 | `pleurat-light-work.png` | How work is shown next to its description |
 | `pleurat-dark-themes.png` | The numbered template card grid |
 | `ridged-drink-landing.png` | The café template (01 Kafe) |
+| `portfolio-ref-*.png` | The personal profile template (06): ideas only, never copied |
