@@ -29,6 +29,8 @@ export const en = {
     software: "Need a website?",
     softwareTarget: "Nanashi Software",
     skip: "Skip to content",
+    soundOn: "Turn sound on",
+    soundOff: "Turn sound off",
     home: "Nanashi, home",
   },
   hero: {

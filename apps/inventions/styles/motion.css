@@ -1,0 +1,187 @@
+/* ── Preloader (components/motion/Intro.tsx) ─────────────────────────────── */
+@property --sweep {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --hole {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+.intro {
+  display: none;
+}
+html.intro-on .intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--color-bg);
+  /* The page shows through a circle that grows from the star (--hole). */
+  -webkit-mask: radial-gradient(
+    circle at var(--hx, 50%) var(--hy, 50%),
+    transparent var(--hole),
+    #000 calc(var(--hole) + 1px)
+  );
+  mask: radial-gradient(
+    circle at var(--hx, 50%) var(--hy, 50%),
+    transparent var(--hole),
+    #000 calc(var(--hole) + 1px)
+  );
+  /* Safety net: if the script never runs, the overlay goes away on its own. */
+  animation: intro-failsafe 0s 4s forwards;
+}
+@keyframes intro-failsafe {
+  to {
+    visibility: hidden;
+  }
+}
+.intro-sky {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.intro-line {
+  stroke: var(--color-text-muted);
+  stroke-width: 0.6;
+  opacity: 0;
+}
+.intro-dot {
+  fill: var(--color-star);
+  opacity: 0.12;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.intro-logo {
+  position: relative;
+  width: clamp(96px, 17vw, 168px);
+  height: auto;
+  overflow: visible;
+  -webkit-mask: conic-gradient(
+    from 200deg at 50% 52%,
+    #000 var(--sweep),
+    transparent 0
+  );
+  mask: conic-gradient(
+    from 200deg at 50% 52%,
+    #000 var(--sweep),
+    transparent 0
+  );
+}
+.intro-orbit {
+  fill: var(--color-text);
+  opacity: 0;
+}
+.intro-star,
+.intro-ghost {
+  fill: var(--color-star);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.intro-caption {
+  position: absolute;
+  inset: auto 0 clamp(32px, 8vh, 72px);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--color-text-muted);
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.intro-on .intro {
+    display: none;
+  }
+}
+
+/* ── Page changes (components/motion/PageTransitions.tsx) ────────────────── */
+/* Orbit wipe: the new page opens in a circle from where you clicked, with a thin gold ring;
+   the old page dims and sinks back. The header stays still. Invention cards morph instead. */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: vt-sink 500ms cubic-bezier(0.6, 0, 0.2, 1) both;
+  }
+  ::view-transition-new(root) {
+    animation: vt-wipe 500ms cubic-bezier(0.6, 0, 0.2, 1) both;
+  }
+  ::view-transition-group(site-header),
+  ::view-transition-new(site-header) {
+    animation: none;
+  }
+  ::view-transition-old(site-header) {
+    display: none;
+  }
+  ::view-transition-new(vt-ring) {
+    animation: vt-ring 500ms cubic-bezier(0.6, 0, 0.2, 1) both;
+  }
+  ::view-transition-old(vt-ring) {
+    display: none;
+  }
+  /* Card morph: the screenshot and the name travel; the rest of the page cross-fades. */
+  ::view-transition-group(*) {
+    animation-duration: 500ms;
+    animation-timing-function: cubic-bezier(0.5, 0, 0.15, 1);
+  }
+  html.vt-morph::view-transition-old(root) {
+    animation: vt-fade-out 220ms ease-in both;
+  }
+  html.vt-morph::view-transition-new(root) {
+    animation: vt-fade-in 300ms 200ms ease-out both;
+  }
+}
+@keyframes vt-sink {
+  to {
+    transform: scale(0.97);
+    filter: brightness(0.5);
+  }
+}
+@keyframes vt-wipe {
+  from {
+    clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 50%));
+  }
+  to {
+    clip-path: circle(
+      var(--vt-r, 150vmax) at var(--vt-x, 50%) var(--vt-y, 50%)
+    );
+  }
+}
+@keyframes vt-ring {
+  from {
+    transform: scale(0);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1);
+    opacity: 0.15;
+  }
+}
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+/* Names for the card morph, switched on only during a card navigation. */
+html.vt-morph .vt-shot {
+  view-transition-name: var(--vt-shot);
+}
+html.vt-morph .vt-name {
+  view-transition-name: var(--vt-name);
+}
+.vt-ring {
+  position: fixed;
+  z-index: 90;
+  border: 1.5px solid var(--color-star);
+  border-radius: 50%;
+  pointer-events: none;
+  view-transition-name: vt-ring;
+}

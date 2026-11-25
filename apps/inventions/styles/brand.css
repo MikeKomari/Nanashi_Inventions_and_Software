@@ -448,6 +448,23 @@
 .ipage-back {
   margin-bottom: 24px;
 }
+.ipage-hero-grid {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+}
+.ipage-shot {
+  margin: 0;
+}
+@media (min-width: 1024px) {
+  .ipage-hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 56px;
+  }
+  .ipage-hero-grid .ipage-name {
+    font-size: clamp(4rem, 1rem + 5.6vw, 7rem);
+  }
+}
 .ipage-name {
   margin-top: 16px;
   font-size: clamp(4rem, 2rem + 9vw, 9.5rem);

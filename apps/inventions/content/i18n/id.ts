@@ -25,6 +25,8 @@ export const id: Copy = {
     software: "Butuh website?",
     softwareTarget: "Nanashi Software",
     skip: "Langsung ke isi",
+    soundOn: "Nyalakan suara",
+    soundOff: "Matikan suara",
     home: "Nanashi, beranda",
   },
   hero: {

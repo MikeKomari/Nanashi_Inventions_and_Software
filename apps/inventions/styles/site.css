@@ -3,6 +3,7 @@
 @import "./scroll.css";
 @import "./home.css";
 @import "./brand.css";
+@import "./motion.css";
 
 /* Fonts come from next/font (see app/(en)/layout.tsx). */
 @theme inline {
