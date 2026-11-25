@@ -31,3 +31,11 @@ ${lines.join("\n")}
 `;
 writeFileSync(new URL("styles/tokens.css", root), css);
 console.log(`tokens.css: ${colors.size} colors`);
+
+// Same values for places CSS variables can't reach (generated share images).
+const ts = `// Generated from design-system/tokens.json by scripts/build-tokens.mjs. Do not edit.
+export const COLOR = {
+${[...colors.keys()].map((n) => `  ${JSON.stringify(n)}: ${JSON.stringify(light(n))},`).join("\n")}
+} as const;
+`;
+writeFileSync(new URL("styles/tokens.ts", root), ts);

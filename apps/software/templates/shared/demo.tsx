@@ -8,6 +8,8 @@ import { DemoBar } from "@/components/demo/DemoBar";
 import { TEMPLATES, type TemplateEntry } from "../registry";
 import type { LoadedTemplate, TemplateKind } from "./kind";
 import { RevealOnScroll } from "./RevealOnScroll";
+import { Analytics } from "@vercel/analytics/next";
+import { TrackClicks, TrackDemoView } from "@/components/site/TrackClicks";
 
 export type Demo = LoadedTemplate & { entry: TemplateEntry };
 
@@ -47,8 +49,12 @@ export function DemoShell({ demo, children }: { demo: Demo; children: React.Reac
       </head>
       <body style={demo.bodyStyle}>
         <DemoBar t={t} templateName={demo.entry.waName.id} />
-        {children}
+        {/* data-demo: WhatsApp clicks in here are the demo business's order buttons (whatsapp_click where=demo_order). */}
+        <div data-demo>{children}</div>
         <RevealOnScroll />
+        <TrackClicks />
+        <TrackDemoView template={demo.entry.slug} />
+        <Analytics />
       </body>
     </html>
   );

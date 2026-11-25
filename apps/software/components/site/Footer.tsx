@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { asset, CONTACT, FOUNDER, INVENTIONS_HREF } from "@/lib/site";
 import type { SiteCopy } from "@/content/site/id";
+import { href } from "@/lib/i18n";
 
 export function Footer({ t }: { t: SiteCopy }) {
-  const en = t.locale === "en";
   const link = "inline-flex min-h-11 items-center text-text-muted hover:text-text";
   return (
     <footer className="border-t border-border bg-surface/70">
@@ -23,9 +23,9 @@ export function Footer({ t }: { t: SiteCopy }) {
         <nav aria-label={t.footer.pages}>
           <h2 className="font-sans text-xs font-semibold tracking-[0.06em] text-text uppercase">{t.footer.pages}</h2>
           <ul className="mt-2">
-            <li><Link href={en ? "/en" : "/"} className={link}>{t.nav.home}</Link></li>
-            <li><Link href={en ? "/en/templates" : "/template"} className={link}>{t.nav.templates}</Link></li>
-            <li><Link href={en ? "/en/about" : "/tentang"} className={link}>{t.nav.about}</Link></li>
+            <li><Link href={href("home", t.locale)} className={link}>{t.nav.home}</Link></li>
+            <li><Link href={href("templates", t.locale)} className={link}>{t.nav.templates}</Link></li>
+            <li><Link href={href("about", t.locale)} className={link}>{t.nav.about}</Link></li>
             {/* Plain <a>: Nanashi Inventions is the domain root, outside this app's basePath. */}
             <li><a href={INVENTIONS_HREF} className={link}>{t.footer.inventions} ↗</a></li>
           </ul>

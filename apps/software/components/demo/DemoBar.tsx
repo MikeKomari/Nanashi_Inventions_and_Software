@@ -22,6 +22,7 @@ export function DemoBar({ t, templateName }: { t: SiteCopy; templateName: string
           href={waLink(CONTACT.whatsapp, t.templates.orderMessage(templateName))}
           target="_blank"
           rel="noopener noreferrer"
+          data-wa-where="demo_bar"
           className={styles.cta}
         >
           {t.demo.cta}&nbsp;→

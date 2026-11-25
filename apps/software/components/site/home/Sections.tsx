@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Plus } from "lucide-react";
 import { CONTACT } from "@/lib/site";
 import type { SiteCopy } from "@/content/site/id";
+import { href } from "@/lib/i18n";
 import { Corners, SectionLabel, TwoTone } from "../SectionLabel";
 import { StreetIllustration } from "../StreetIllustration";
 import { TemplateGrid } from "../TemplateGrid";
@@ -22,7 +23,7 @@ export function Hero({ t }: { t: SiteCopy }) {
             <WhatsAppButton where="hero" message={t.hero.ctaMessage}>
               {t.hero.cta}
             </WhatsAppButton>
-            <Link href={t.locale === "id" ? "/template" : "/en/templates"} className="ulink inline-flex min-h-11 items-center font-semibold text-primary underline decoration-primary/30 underline-offset-4 hover:text-primary-hover">
+            <Link href={href("templates", t.locale)} className="ulink inline-flex min-h-11 items-center font-semibold text-primary underline decoration-primary/30 underline-offset-4 hover:text-primary-hover">
               {t.hero.secondary}
             </Link>
           </div>

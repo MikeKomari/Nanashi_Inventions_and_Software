@@ -9,6 +9,12 @@ export const id = {
     homeTitle: "Jasa Pembuatan Website untuk Kafe dan UMKM | Nanashi Software",
     homeDescription:
       "Nanashi Software membuat website untuk kafe, warung, dan UMKM. Pilih template, kirim info usahamu lewat WhatsApp, dan website-mu siap dibagikan ke pelanggan.",
+    templatesTitle: "Template Website untuk Kafe, Warung, dan UMKM | Nanashi Software",
+    templatesDescription:
+      "Lima template website untuk kafe, restoran, bakery, toko UMKM, dan usaha jasa. Coba demonya, lalu pesan lewat WhatsApp.",
+    aboutTitle: "Tentang Nanashi Software",
+    aboutDescription:
+      "Nanashi Software membuat website untuk kafe, warung, dan UMKM di Indonesia. Bagian dari Nanashi, didirikan oleh Michael Kimeison.",
   },
   nav: {
     home: "Beranda",
@@ -17,6 +23,8 @@ export const id = {
     switchLabel: "EN",
     switchAria: "Read this page in English",
     skip: "Langsung ke isi",
+    primary: "Utama",
+    homeAria: "Nanashi Software, beranda",
   },
   hero: {
     titleA: "Website untuk kafe, warung, dan UMKM,",
@@ -66,6 +74,44 @@ export const id = {
     orderMessage: (name: string) => `Halo Nanashi Software, saya tertarik dengan template ${name}.`,
     askMessage: (name: string) =>
       `Halo Nanashi Software, saya tertarik dengan template ${name}. Tolong kabari saya kalau sudah siap, ya.`,
+  },
+  templatePage: {
+    titleA: "Lima template,",
+    titleB: "satu untuk setiap jenis usaha.",
+    intro:
+      "Buka demonya dan coba seperti pelangganmu nanti. Yang bertanda “Segera hadir” sedang kami buat; tanya lewat WhatsApp kalau kamu tertarik lebih dulu.",
+  },
+  about: {
+    label: "Tentang",
+    titleA: "Kami membuat website",
+    titleB: "untuk usaha kecil di Indonesia.",
+    intro:
+      "Nanashi Software membantu kafe, warung, dan UMKM punya website yang rapi: menu, harga, jam buka, dan lokasi di satu alamat, plus tombol pesan lewat WhatsApp.",
+    valuesLabel: "Cara kami bekerja",
+    valuesTitleA: "Sederhana untukmu,",
+    valuesTitleB: "rapi di balik layar.",
+    values: [
+      {
+        title: "Bahasa yang mudah",
+        body: "Kami menjelaskan semuanya tanpa istilah teknis. Kalau terpaksa ada, kami jelaskan artinya.",
+      },
+      {
+        title: "Cepat dibuka di HP",
+        body: "Template kami dibuat untuk layar HP lebih dulu dan dibuat ringan, supaya tetap cepat dibuka walau sinyal sedang lemah.",
+      },
+      {
+        title: "Semua lewat WhatsApp",
+        body: "Tanya, pesan, kirim info usaha, minta perubahan: cukup lewat WhatsApp. Tidak perlu akun atau aplikasi baru.",
+      },
+    ],
+    peopleLabel: "Di balik Nanashi Software",
+    partOfTitle: "Bagian dari Nanashi.",
+    partOfBody:
+      "Nanashi Software adalah bagian dari Nanashi, lab produk independen yang juga membuat produk digital seperti CHROMIQ dan LEXI. Pelajaran dari produk-produk itu ikut kami bawa ke setiap website.",
+    partOfLink: "Lihat Nanashi Inventions",
+    founderRole: "Founder",
+    founderBody: "Mendirikan Nanashi dan memimpin Nanashi Software.",
+    founderLink: "Kenali Michael",
   },
   steps: {
     label: "Cara kerja",
