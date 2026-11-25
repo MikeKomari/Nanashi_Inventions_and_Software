@@ -156,10 +156,12 @@ export const en = {
       {
         name: "Michael Kimeison",
         role: "Founder",
-        // TODO(founder): bio facts to follow. Photo: a placeholder image is planned (file not yet supplied).
+        // TODO(founder): bio facts to follow. The photo is a temporary placeholder (an anime still the
+        // founder chose); replace it with a real portrait before launch: it is not Nanashi's image.
         bio: "",
         initials: "MK",
-        photo: null as string | null,
+        photo: "/team/founder-placeholder.webp" as string | null,
+        photoAlt: "Placeholder portrait: an illustrated figure in a red hoodie (a real photo will replace it)",
         links: [
           { label: "Website", href: "https://michaelkimeison.com" },
           { label: "GitHub", href: "https://github.com/MikeKomari" },

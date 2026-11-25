@@ -18,6 +18,8 @@ function LetterWord({ letter, word }: { letter: string; word: string }) {
   );
 }
 
+export type CardSize = "hero" | "tall" | "lg" | "sm";
+
 type Labels = { live: string; lab: string; explore: string };
 
 /**
@@ -26,7 +28,7 @@ type Labels = { live: string; lab: string; explore: string };
  * screenshot for the real demo video, loaded only when first hovered. On touch screens, without
  * JavaScript and under reduced motion it is a calm, static card. Only transform and opacity animate.
  */
-export function InventionCard({ inv, number, labels, size = "lg" }: { inv: Invention; number: string; labels: Labels; size?: "lg" | "sm" }) {
+export function InventionCard({ inv, number, labels, size = "lg" }: { inv: Invention; number: string; labels: Labels; size?: CardSize }) {
   const ref = useRef<HTMLElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const live = inv.status === "live";
@@ -78,8 +80,14 @@ export function InventionCard({ inv, number, labels, size = "lg" }: { inv: Inven
       <div className="icard-media">
         {live ? (
           <>
-            <Screenshot name={inv.cover} decorative sizes="(min-width: 1024px) 600px, 92vw" className="icard-cover" />
-            <video
+            <Screenshot
+              name={size === "tall" ? inv.phone : inv.cover}
+              frame={size === "tall" ? "phone" : "desktop"}
+              decorative
+              sizes={size === "hero" ? "(min-width: 1024px) 780px, 92vw" : size === "tall" ? "(min-width: 1024px) 220px, 60vw" : "(min-width: 1024px) 380px, 92vw"}
+              className="icard-cover"
+            />
+            {size !== "tall" && <video
               ref={video}
               className="icard-video"
               src={inv.video.src}
@@ -89,7 +97,7 @@ export function InventionCard({ inv, number, labels, size = "lg" }: { inv: Inven
               preload="none"
               aria-hidden="true"
               tabIndex={-1}
-            />
+            />}
           </>
         ) : (
           <div className="icard-sky" aria-hidden="true">

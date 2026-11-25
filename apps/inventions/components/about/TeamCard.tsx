@@ -8,6 +8,7 @@ type Member = {
   bio: string;
   initials: string;
   photo: string | null;
+  photoAlt?: string;
   links: { label: string; href: string }[];
 };
 
@@ -17,7 +18,7 @@ export function TeamCard({ m, bioPending }: { m: Member; bioPending: string }) {
     <article className="team-card lift">
       <div className="team-photo">
         {m.photo ? (
-          <Image src={m.photo} alt={m.name} fill sizes="(min-width: 900px) 360px, 92vw" className="object-cover" />
+          <Image src={m.photo} alt={m.photoAlt ?? m.name} fill sizes="(min-width: 900px) 360px, 92vw" className="object-cover" />
         ) : (
           <span className="team-monogram" aria-hidden="true">
             {m.initials}

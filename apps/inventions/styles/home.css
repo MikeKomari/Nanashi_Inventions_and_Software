@@ -754,20 +754,15 @@
 }
 
 /* ── Seven stars ─────────────────────────────────────────────────────────── */
+/* Unpinned (no JS, reduced motion, before hydration): a plain list beside the constellation.
+   Pinned ([data-pinned]): a tall track with a sticky full-screen scene; one principle at a time. */
 .stars {
   padding-top: clamp(160px, 24vh, 280px);
 }
 .stars-grid {
   display: grid;
+  gap: 32px;
   margin-top: clamp(40px, 8vh, 96px);
-}
-.stars-sticky {
-  position: sticky;
-  top: 64px;
-  z-index: 5;
-  align-self: start;
-  padding: 8px 0 36px;
-  background: linear-gradient(to bottom, var(--color-bg) calc(100% - 28px), transparent);
 }
 .dipper {
   margin: 0;
@@ -808,7 +803,7 @@
   opacity: 1;
 }
 .dipper-star[data-active] {
-  --s: 1.3;
+  --s: 1.35;
 }
 .dipper-num {
   font-family: var(--font-mono);
@@ -816,6 +811,7 @@
   fill: var(--color-text-muted);
 }
 .dipper-caption {
+  min-height: 1.5em;
   margin-top: 12px;
   text-align: center;
   font-family: var(--font-mono);
@@ -830,15 +826,7 @@
   list-style: none;
 }
 .principle {
-  display: flex;
-  min-height: 46svh;
-  flex-direction: column;
-  justify-content: center;
-  padding-block: 32px;
-  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-.principle[data-state="future"] {
-  transform: translateX(10px);
+  padding-block: 28px;
 }
 .principle-num {
   display: flex;
@@ -852,34 +840,27 @@
 }
 .principle-star {
   text-transform: uppercase;
+  color: var(--color-star);
 }
 .principle-title {
   margin: 14px 0 0;
-  max-width: 18ch;
-  font-size: clamp(1.85rem, 1.25rem + 2.2vw, 3.1rem);
-  line-height: 1.06;
+  max-width: 16ch;
+  font-size: clamp(2rem, 1.2rem + 3vw, 3.75rem);
+  line-height: 1.04;
   color: var(--color-text);
-  transition: color 500ms ease-out;
-}
-.principle[data-state="future"] .principle-title {
-  color: var(--color-text-muted);
 }
 .principle-proof {
   margin: 18px 0 0;
-  max-width: 46ch;
-  font-size: 17px;
-  line-height: 1.65;
+  max-width: 44ch;
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  line-height: 1.6;
   color: var(--color-text-muted);
 }
 @media (min-width: 1024px) {
   .stars-grid {
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: center;
     gap: clamp(48px, 6vw, 96px);
-  }
-  .stars-sticky {
-    top: calc(50svh - 230px);
-    padding: 0;
-    background: none;
   }
   .dipper svg {
     max-width: 580px;
@@ -887,8 +868,99 @@
   .dipper-caption {
     margin-top: 28px;
   }
-  .principle {
-    min-height: 64svh;
+}
+
+/* Pinned scene. ~80svh of scroll per principle; the scene itself never leaves the screen. */
+.stars-track[data-pinned] {
+  height: calc(var(--n) * 80svh + 100svh);
+}
+.stars-track[data-pinned] .stars-pin {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100svh;
+  padding-top: 72px;
+}
+.stars-track[data-pinned] .stars-grid {
+  margin-top: 0;
+}
+/* Parallax: the constellation drifts slowly as the whole scene is scrolled through. */
+.stars-track[data-pinned] .dipper-drift {
+  transform: translateY(calc((0.5 - var(--p, 0)) * 48px)) scale(calc(0.97 + var(--p, 0) * 0.06));
+  will-change: transform;
+}
+/* All principles share one grid cell; only the active one is shown. */
+.stars-track[data-pinned] .principles {
+  display: grid;
+}
+.stars-track[data-pinned] .principle {
+  grid-area: 1 / 1;
+  align-self: center;
+  padding-block: 0;
+  transition: opacity 650ms ease-out;
+}
+.stars-track[data-pinned] .principle > * {
+  transition: transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.stars-track[data-pinned] .principle-title {
+  transition-delay: 40ms;
+}
+.stars-track[data-pinned] .principle-proof,
+.stars-track[data-pinned] .principle-seen {
+  transition-delay: 110ms;
+}
+.stars-track[data-pinned] .principle[data-state="future"] {
+  opacity: 0;
+  pointer-events: none;
+}
+.stars-track[data-pinned] .principle[data-state="future"] > * {
+  transform: translateY(70px);
+}
+.stars-track[data-pinned] .principle[data-state="future"] .principle-proof,
+.stars-track[data-pinned] .principle[data-state="future"] .principle-seen {
+  transform: translateY(120px);
+}
+.stars-track[data-pinned] .principle[data-state="past"] {
+  opacity: 0;
+  pointer-events: none;
+}
+.stars-track[data-pinned] .principle[data-state="past"] > * {
+  transform: translateY(-70px);
+}
+.stars-track[data-pinned] .principle[data-state="past"] .principle-proof,
+.stars-track[data-pinned] .principle[data-state="past"] .principle-seen {
+  transform: translateY(-120px);
+}
+/* Progress: seven short bars, filled up to the current principle. */
+.stars-steps {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.stars-steps li {
+  width: 28px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-border);
+  transition: background-color 400ms ease-out;
+}
+.stars-steps li[data-on] {
+  background: var(--color-star);
+}
+@media (max-width: 1023px) {
+  .stars-track[data-pinned] .dipper svg {
+    max-width: 240px;
+  }
+  .stars-track[data-pinned] .stars-grid {
+    gap: 8px;
+  }
+  .stars-track[data-pinned] .dipper-caption {
+    margin-top: 4px;
   }
 }
 
