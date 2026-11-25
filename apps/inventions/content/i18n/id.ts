@@ -1,5 +1,5 @@
-// Bahasa Indonesia for Nanashi Inventions (B-09, W-10): Home, Inventions, each invention, About and
-// Privacy. Engineering and the press kit stay English. Written naturally, not word for word; the
+// Bahasa Indonesia for Nanashi Inventions (B-09, W-10): every page, including Engineering (each
+// article has its own .id.mdx body) and the press kit. Written naturally, not word for word; the
 // founder reviews it. Audience is investors and recruiters, so the polite "Anda" is used (the
 // Nanashi Software site uses "kamu" for business owners).
 // Same shape as en.ts (typed as Copy), so a missing or extra key fails the build.
@@ -130,8 +130,13 @@ export const id: Copy = {
   engineering: {
     label: "Engineering",
     title: "Bagaimana penemuannya dibangun.",
-    lead: "Bahasan mendalam tentang keputusan di balik setiap penemuan, dalam bahasa Inggris. Tidak ada jadwal terbit: artikel ditulis saat ada hal yang layak dijelaskan.",
+    lead: "Bahasan mendalam tentang keputusan di balik setiap penemuan. Tidak ada jadwal terbit: artikel ditulis saat ada hal yang layak dijelaskan.",
     read: "Baca selengkapnya",
+    metaTitle: "Engineering · Nanashi",
+    contents: "Daftar isi",
+    minRead: "menit baca",
+    inventionLabel: "Penemuannya",
+    dateLocale: "id-ID",
   },
   founder: {
     label: "Pendiri",
@@ -218,10 +223,10 @@ export const id: Copy = {
   // The press kit is English only; this block mirrors en.ts so the shape matches.
   press: {
     metaTitle: "Press kit · Nanashi",
-    metaDescription: "Logo Nanashi, deskripsi siap pakai, cerita nama, warna brand, dan kontak.",
+    metaDescription: "Logo Nanashi, deskripsi siap pakai, cerita di balik nama, warna brand, dan kontak.",
     label: "Press kit",
     title: "Nanashi, dalam satu tempat.",
-    lead: "Logo, deskripsi, dan fakta yang Anda perlukan untuk menulis tentang Nanashi.",
+    lead: "Logo, deskripsi, dan fakta yang Anda perlukan untuk menulis tentang Nanashi atau memperkenalkannya. Silakan dipakai; aturan logo di bawah menjaganya tetap mudah dikenali.",
     descriptionsLabel: "Deskripsi",
     descriptions: [
       { name: "Satu kalimat", text: "Nanashi adalah lab produk independen." },
@@ -231,15 +236,15 @@ export const id: Copy = {
       },
       {
         name: "Panjang",
-        text: "Nanashi adalah lab produk independen yang didirikan oleh Michael Kimeison. Namanya berasal dari bahasa Jepang nana hoshi, 七星, tujuh bintang, dan setiap bintang mewakili satu prinsip. Dua penemuan sudah berjalan: CHROMIQ dan LEXI. Nanashi Studio dan Nanashi Home masih di lab.",
+        text: "Nanashi adalah lab produk independen yang didirikan oleh Michael Kimeison. Namanya berasal dari bahasa Jepang nana hoshi, 七星, tujuh bintang, dan setiap bintang mewakili satu prinsip yang dipegang setiap penemuannya, mulai dari berangkat dari masalah nyata sampai menjaga data Anda tetap milik Anda. Dua penemuan sudah berjalan: CHROMIQ, meja kerja desain untuk developer frontend, dan LEXI, ruang kerja kosakata untuk bahasa Mandarin, Jepang, dan Korea. Nanashi Studio dan Nanashi Home masih di lab.",
       },
     ],
     copy: "Salin",
     copied: "Tersalin",
     nameLabel: "Nama",
-    nameText: "Nanashi berasal dari nana hoshi (七星), bahasa Jepang untuk “tujuh bintang”. Diucapkan na-na-shi. Bukan 名無し, “tanpa nama”.",
+    nameText: "Nanashi berasal dari nana hoshi (七星), bahasa Jepang untuk “tujuh bintang”. Diucapkan na-na-shi, semua suku kata sama rata. Bukan 名無し, “tanpa nama”, yang bunyinya sama.",
     logosLabel: "Logo",
-    logosLead: "File SVG dari design system Nanashi.",
+    logosLead: "File SVG dari design system Nanashi. Pakai versi reversed di latar gelap dan versi warna di latar terang.",
     logos: [
       { file: "nanashi-horizontal-reversed.svg", name: "Horizontal, reversed", tone: "dark" },
       { file: "nanashi-horizontal-color.svg", name: "Horizontal, warna", tone: "light" },
@@ -249,7 +254,12 @@ export const id: Copy = {
     ],
     download: "Unduh SVG",
     rulesLabel: "Aturan logo",
-    rules: ["Bintangnya selalu emas.", "Jangan meregangkan, memutar, atau mengubah warna logo."],
+    rules: [
+      "Bintangnya selalu emas.",
+      "Jangan meregangkan, memutar, mengubah warna, atau menambahkan glow atau bayangan pada logo. Cahaya di sekitarnya boleh.",
+      "Sisakan ruang kosong selebar seperempat lebar simbol di setiap sisi.",
+      "Ukuran minimum: lebar 120 px untuk logo horizontal, 24 px untuk simbol. Di bawah 24 px, pakai simbol ukuran kecil.",
+    ],
     colorsLabel: "Warna brand",
     colors: [
       { token: "brand-indigo", name: "Nanashi Indigo" },
@@ -258,7 +268,7 @@ export const id: Copy = {
       { token: "night", name: "Night" },
     ],
     contactLabel: "Kontak",
-    contactText: "Satu email langsung sampai ke pendirinya.",
+    contactText: "Untuk wawancara, perkenalan, atau keperluan lain: satu email langsung sampai ke pendirinya.",
   },
   privacy: {
     metaTitle: "Privasi · Nanashi",
