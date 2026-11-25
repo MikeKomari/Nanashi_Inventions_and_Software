@@ -1,0 +1,152 @@
+{
+  "template": "profil",
+  "lang": "id",
+  "person": {
+    "name": "Kyouka Bella",
+    "short": "kyouka.",
+    "role": "Pelatih public speaking",
+    "intro": "Saya melatih tim penjualan dan pemimpin muda supaya berani bicara, jelas, dan meyakinkan di depan siapa pun.",
+    "portrait": {
+      "src": "/demo/kyouka-bella/kyouka-cutout.webp",
+      "alt": "Kyouka Bella tersenyum, memakai blazer biru tua",
+      "width": 1024,
+      "height": 1211
+    },
+    "available": "Menerima undangan 2027"
+  },
+  "colors": {
+    "background": "#E6E9F5",
+    "text": "#16183A",
+    "textMuted": "#4A4F70",
+    "panel": "#FFFFFF",
+    "accent": "#3446C9",
+    "onAccent": "#FFFFFF"
+  },
+  "seo": {
+    "title": "Kyouka Bella, pelatih public speaking",
+    "description": "Pelatihan public speaking untuk tim penjualan dan pemimpin muda: workshop, coaching pribadi, dan pembicara acara."
+  },
+  "labels": {
+    "skipLink": "Langsung ke isi",
+    "menu": "Menu",
+    "close": "Tutup",
+    "whatsapp": "Chat lewat WhatsApp",
+    "email": "Email"
+  },
+  "cta": {
+    "label": "Undang sebagai pembicara",
+    "short": "Undang"
+  },
+  "heroLogos": {
+    "label": "Pernah tampil di",
+    "items": ["Forum Penjualan Nusantara", "Kabar Kota", "Kampus Harapan"]
+  },
+  "sections": [
+    {
+      "type": "about",
+      "title": "Bicara di depan orang itu bisa dilatih",
+      "body": [
+        "Sepuluh tahun lalu saya gemetar setiap kali harus presentasi. Sekarang saya berdiri di depan ratusan orang hampir setiap minggu.",
+        "Bedanya bukan bakat, tapi latihan yang tepat. Itu yang saya bagikan di setiap kelas: cara menyusun pesan, mengatur napas, dan membaca ruangan."
+      ]
+    },
+    {
+      "type": "services",
+      "menu": "Program",
+      "title": "Program",
+      "intro": "Bisa untuk tim di kantor kamu, atau satu lawan satu secara online.",
+      "items": [
+        {
+          "name": "Workshop tim penjualan",
+          "body": "Satu hari penuh: menyusun pitch, menjawab keberatan, dan latihan langsung dengan umpan balik.",
+          "price": "Mulai Rp 12.000.000 per sesi"
+        },
+        {
+          "name": "Coaching pribadi",
+          "body": "Enam pertemuan online untuk persiapan presentasi penting, wawancara, atau peran baru sebagai pemimpin.",
+          "price": "Rp 4.500.000 per paket"
+        },
+        {
+          "name": "Pembicara acara",
+          "body": "Sesi 30 sampai 60 menit tentang percaya diri dan komunikasi untuk konferensi, kampus, dan acara perusahaan.",
+          "price": "Hubungi untuk jadwal"
+        }
+      ]
+    },
+    {
+      "type": "numbers",
+      "items": [
+        { "value": "10 thn", "label": "melatih public speaking" },
+        { "value": "4.000+", "label": "peserta kelas" },
+        { "value": "120+", "label": "acara sebagai pembicara" },
+        { "value": "4,9", "label": "nilai rata-rata peserta" }
+      ]
+    },
+    {
+      "type": "speaking",
+      "menu": "Panggung",
+      "title": "Panggung",
+      "upcomingLabel": "Akan datang",
+      "items": [
+        { "event": "Forum Penjualan Nusantara", "city": "Jakarta", "date": "Feb 2027", "upcoming": true },
+        { "event": "Temu Pemimpin Muda", "city": "Bandung", "date": "Jan 2027", "upcoming": true },
+        { "event": "Pekan Karier Kampus Harapan", "city": "Yogyakarta", "date": "Okt 2026" },
+        { "event": "Konferensi Layanan Pelanggan", "city": "Surabaya", "date": "Agu 2026" }
+      ]
+    },
+    {
+      "type": "experience",
+      "title": "Perjalanan",
+      "items": [
+        { "org": "Kelas Bicara Kyouka", "role": "Pendiri dan pelatih utama", "years": "2019 – sekarang" },
+        { "org": "Perusahaan ritel nasional", "role": "Manajer pelatihan penjualan", "years": "2015 – 2019" },
+        { "org": "Radio Suara Muda", "role": "Penyiar pagi", "years": "2012 – 2015" }
+      ]
+    },
+    {
+      "type": "press",
+      "title": "Diliput oleh",
+      "items": ["Kabar Kota", "Majalah Karier", "Radio Suara Muda", "Podcast Kerja Pintar"],
+      "quote": {
+        "text": "Kelasnya praktis. Peserta langsung latihan, bukan cuma mendengar teori.",
+        "source": "Majalah Karier"
+      }
+    },
+    {
+      "type": "testimonials",
+      "menu": "Testimoni",
+      "title": "Kata peserta",
+      "items": [
+        {
+          "quote": "Tim saya sekarang lebih tenang saat presentasi ke klien. Angka penjualan kuartal ini ikut naik.",
+          "name": "Raka",
+          "role": "Kepala penjualan"
+        },
+        {
+          "quote": "Dulu saya selalu menghindari rapat besar. Setelah coaching, saya yang memimpin rapat itu.",
+          "name": "Dinda",
+          "role": "Manajer produk"
+        },
+        {
+          "quote": "Materinya ringan, contohnya dekat dengan pekerjaan sehari-hari, dan latihannya bikin berani.",
+          "name": "Yusuf",
+          "role": "Mahasiswa tingkat akhir"
+        }
+      ]
+    }
+  ],
+  "contact": {
+    "menu": "Kontak",
+    "title": "Punya acara atau tim yang perlu berani bicara?",
+    "body": "Ceritakan acaranya atau kebutuhan tim kamu. Saya balas dalam satu hari kerja.",
+    "whatsapp": {
+      "number": "6282283058878",
+      "message": "Halo, saya coba tombol di demo Kyouka Bella."
+    },
+    "email": "halo@example.com",
+    "social": [
+      { "label": "Instagram", "href": "https://www.instagram.com/" },
+      { "label": "LinkedIn", "href": "https://www.linkedin.com/" }
+    ]
+  }
+}

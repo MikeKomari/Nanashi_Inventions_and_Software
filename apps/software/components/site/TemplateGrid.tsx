@@ -1,12 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ArrowUpRight, Coffee, Croissant, Scissors, Store, UtensilsCrossed } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Coffee, Croissant, Scissors, Store, UserRound, UtensilsCrossed } from "lucide-react";
 import { TEMPLATES, type TemplateEntry } from "@/templates/registry";
 import type { SiteCopy } from "@/content/site/id";
 import { asset } from "@/lib/site";
 import { WhatsAppButton } from "./WhatsAppButton";
 
-const ICONS = { Coffee, Croissant, Scissors, Store, UtensilsCrossed } as const;
+const ICONS = { Coffee, Croissant, Scissors, Store, UserRound, UtensilsCrossed } as const;
 
 /** Real screenshot of the live demo (made by `npm run screens`). */
 function Screenshot({ src, alt }: { src: string; alt: string }) {
@@ -82,7 +82,7 @@ function TemplateCard({ entry, t, i }: { entry: TemplateEntry; t: SiteCopy; i: n
   );
 }
 
-/** Numbered grid of the five templates, cells divided by hairlines (Pleurat "Themes"). */
+/** Numbered grid of the templates, cells divided by hairlines (Pleurat "Themes"). */
 export function TemplateGrid({ t }: { t: SiteCopy }) {
   return (
     <div className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">

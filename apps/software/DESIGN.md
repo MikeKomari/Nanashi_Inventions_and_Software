@@ -121,7 +121,7 @@ A one-page site about one person, with their face as the hero. It is for anyone 
 - Section titles are plain words in ExtraBold (for example "Program", "Panggung"), with no numbers or slashes.
 
 #### Hero (fixed)
-- **Desktop:** the first name on the left and the last name on the right, on one line, very large (about 13vw, at most 168px). The last name is in the accent colour. The cut-out portrait stands centred on the bottom edge, in front of the names, so the head sits between them. There is no frame or shape behind the portrait.
+- **Desktop:** the first name on the left and the last name on the right, on one line, very large (sized so each half fits beside the head, at most 168px). The last name is in the accent colour. The cut-out portrait stands centred on the bottom edge, in front of the names, so the head sits between them. There is no frame or shape behind the portrait.
 - **Bottom left:** the "available" pill (optional), a one-line intro and one button. **Bottom right:** "Pernah tampil di" or "Dipercaya oleh" with up to three logo pills (optional).
 - **Header pill:** a short name or monogram, up to four menu links built from the sections that are on, and one main button (WhatsApp or "Undang", set in the file).
 - **Name rules:**
@@ -143,7 +143,7 @@ A one-page site about one person, with their face as the hero. It is for anyone 
 | Ventures | Companies the person runs: logo, name, role, link | Logo pills with a line under each |
 | Speaking and events | Event, city, date and an optional photo | List rows; upcoming ones get an accent tag |
 | Press | Media logos and an optional quote | Logo strip in pills |
-| Testimonials | Quote, name, role and an optional small photo | One large quote at a time, with dots to switch; swipe on phones |
+| Testimonials | Quote, name, role and an optional small photo | Three cards in a row on desktop; a swipeable row on phones |
 | Gallery | 4–8 photos | Simple masonry; 2 columns on phones |
 | Contact (fixed) | A short line, a WhatsApp button, email and social pills | Full-width accent band, then the footer with the Nanashi credit |
 
@@ -156,7 +156,7 @@ Each section has its own menu label in the file, so a coach can call Services "P
 - Touch targets are at least 44px. There is no horizontal scrolling except the testimonial swipe.
 
 #### Motion (calm, like the rest of Nanashi Software)
-- **On load, once:** the two name halves slide in from their own sides (24px) and fade in, then the portrait rises 24px and fades in. The whole sequence takes 0.7s at most.
+- **On load, once:** the two name halves slide in from their own sides (24px) and fade in, then the portrait rises 24px. The portrait never fades, because it is the largest element on first paint. The whole sequence takes 0.7s at most.
 - Sections fade and rise gently when scrolled into view. Pills and cards lift 2px on hover on desktop.
 - Only transform and opacity animate. With reduced motion on, nothing moves.
 

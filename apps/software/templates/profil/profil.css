@@ -1,0 +1,160 @@
+/* 06 Profil Pribadi template: its own Tailwind build and theme. Loaded only by the profil demo route's root
+   layout, never with styles/site.css or another template's CSS. Only this folder is scanned for classes.
+   Colours come from the person's content file as CSS variables (--profil-*) set on <body> (see theme.ts).
+   Theme names carry a "profil-" prefix so they can never collide with another template's build. */
+@import "tailwindcss" source(none);
+@source "./";
+
+@theme inline {
+  --color-*: initial;
+  --color-profil-bg: var(--profil-background);
+  --color-profil-text: var(--profil-text);
+  --color-profil-muted: var(--profil-text-muted);
+  --color-profil-panel: var(--profil-panel);
+  --color-profil-accent: var(--profil-accent);
+  --color-profil-on-accent: var(--profil-on-accent);
+
+  --font-profil: var(--profil-font);
+
+  --radius-profil: 24px;
+}
+
+:root {
+  --profil-font: var(--font-bricolage), system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--profil-background);
+    color: var(--profil-text);
+    font-family: var(--profil-font);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 2px solid var(--profil-accent);
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+  [id] {
+    scroll-margin-top: 96px;
+  }
+}
+
+/* The name. Its size comes from its own length (set per page) so no word is ever cut or wrapped.
+   Phones: two lines, sized by the longest word. Desktop: each half must fit beside the head (about a third
+   of the width each), sized by the longer half. Bricolage 800 averages ~0.6em a letter. */
+.profil-name {
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  font-size: min(5.25rem, calc(88vw / (var(--chars-mobile) * 0.62)));
+}
+@media (min-width: 768px) {
+  .profil-name[data-single] {
+    font-size: min(10.5rem, calc(80vw / (var(--chars-desktop) * 0.6)));
+  }
+  .profil-name {
+    font-size: min(10.5rem, calc(31vw / (var(--chars-desktop) * 0.6)));
+  }
+}
+
+.profil-title {
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+}
+
+@utility profil-scroll-x {
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & > * {
+    scroll-snap-align: start;
+  }
+}
+
+/* Fixed WhatsApp button on phones: shown once the hero has scrolled away (see StickyCta). */
+.profil-sticky {
+  transform: translateY(140%);
+  transition: transform 300ms ease-out;
+}
+.profil-sticky[data-shown="true"] {
+  transform: none;
+}
+
+/* Motion: calm. Transform and opacity only, nothing under reduced motion. Content is hidden only once JS
+   has marked the page (html.js), with a 3s fallback. The portrait (the LCP image) only moves, never fades. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal] {
+    transition:
+      opacity 600ms ease-out,
+      transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: calc(var(--i, 0) * 70ms);
+  }
+  html.js [data-reveal]:not(.is-in) {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: profil-show 0s 3s forwards;
+  }
+  @keyframes profil-show {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* On load, once: the name halves slide in from their own sides, then the portrait rises. 0.7s in all. */
+  .profil-in-left {
+    animation: profil-in-left 500ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .profil-in-right {
+    animation: profil-in-right 500ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .profil-rise {
+    animation: profil-rise 500ms 200ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  @keyframes profil-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-24px);
+    }
+  }
+  @keyframes profil-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(24px);
+    }
+  }
+  @keyframes profil-rise {
+    from {
+      transform: translateY(24px);
+    }
+  }
+
+  @media (hover: hover) {
+    .profil-lift {
+      transition: transform 200ms ease-out;
+    }
+    .profil-lift:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
