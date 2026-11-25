@@ -2,7 +2,7 @@
 import type { SiteCopy } from "@/content/site/id";
 import { abs, CONTACT, FOUNDER, SITE_ORIGIN } from "./site";
 
-const ORG_ID = `${abs("/")}#organization`;
+export const ORG_ID = `${abs("/")}#organization`;
 
 /** Nanashi Software, part of Nanashi. */
 export function organization() {
