@@ -44,6 +44,8 @@ export type LiveInvention = Base & {
   story: { problem: string; whatItDoes: string; underTheHood: string; result: string };
   points: InventionPoint[];
   gallery: { screen: ScreenName; frame?: "desktop" | "phone" }[];
+  /** A live, interactive demo on its page (components/invention/InspectorDemo.tsx for CHROMIQ). */
+  liveDemo?: "chromiq-inspector";
   /** Slug of its Engineering deep dive. */
   engineering?: { slug: string; title: string };
   /** schema.org applicationCategory, for structured data. */
@@ -143,6 +145,7 @@ export const INVENTIONS: Invention[] = [
       { screen: "chromiq-landing-mobile", frame: "phone" },
       { screen: "chromiq-workspace-mobile", frame: "phone" },
     ],
+    liveDemo: "chromiq-inspector",
     engineering: { slug: "chromiq-url-inspector", title: "How CHROMIQ's URL inspector loads other websites safely" },
     category: "DeveloperApplication",
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS v4", "Motion", "Lucide", "Postgres (optional accounts)", "Vitest"],
