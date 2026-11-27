@@ -1,11 +1,11 @@
 // English is the default at "/", Indonesian lives under "/id" (B-09, W-10). Home, Inventions, each
-// invention, About and Privacy exist in both languages; Engineering and the press kit are English only.
+// invention, About, Privacy, Engineering (each article) and the press kit exist in both languages.
 import { abs } from "@/lib/site";
 
 export type Locale = "en" | "id";
 
 /** Paths that have an Indonesian version. */
-const LOCALIZED = /^\/(?:inventions(?:\/[^/]+)?|about|privacy)?$/;
+const LOCALIZED = /^\/(?:inventions(?:\/[^/]+)?|engineering(?:\/[^/]+)?|about|privacy|press)?$/;
 
 export const isLocalized = (path: string) => LOCALIZED.test(path);
 

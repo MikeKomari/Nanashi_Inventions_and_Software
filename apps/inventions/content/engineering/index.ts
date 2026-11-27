@@ -3,6 +3,9 @@
 import type { ComponentType } from "react";
 import ChromiqUrlInspector from "./chromiq-url-inspector.mdx";
 import LexiCopyPaste from "./lexi-copy-paste-enrichment.mdx";
+import ChromiqUrlInspectorId from "./chromiq-url-inspector.id.mdx";
+import LexiCopyPasteId from "./lexi-copy-paste-enrichment.id.mdx";
+import type { Locale } from "@/lib/i18n";
 
 export type Article = {
   slug: string;
@@ -16,6 +19,8 @@ export type Article = {
   minutes: number;
   toc: string[];
   Body: ComponentType;
+  /** The Indonesian version (/id/engineering/<slug>): same facts, its own MDX body. */
+  id: Pick<Article, "title" | "summary" | "topic" | "toc" | "Body">;
 };
 
 export const ARTICLES: Article[] = [
@@ -40,6 +45,22 @@ export const ARTICLES: Article[] = [
       "What is still open",
     ],
     Body: ChromiqUrlInspector,
+    id: {
+      title: "Cara inspector URL CHROMIQ memuat website lain dengan aman",
+      summary:
+        "CHROMIQ mengambil halaman yang Anda sebut dari servernya sendiri. Begini caranya menolak alamat privat, hanya menyambung ke alamat yang sudah diperiksa, berhenti setelah 8 detik atau 1,5 MB, dan mematikan script sebelum apa pun ditampilkan.",
+      topic: "Keamanan",
+      toc: [
+        "Fiturnya, dan risiko di dalamnya",
+        "Aturan pertama: hanya alamat publik",
+        "Celah antara memeriksa dan menyambung",
+        "Redirect diperlakukan sama",
+        "Batas waktu dan ukuran",
+        "Menampilkan halaman tanpa menjalankannya",
+        "Yang masih terbuka",
+      ],
+      Body: ChromiqUrlInspectorId,
+    },
   },
   {
     slug: "lexi-copy-paste-enrichment",
@@ -61,7 +82,29 @@ export const ARTICLES: Article[] = [
       "What it costs",
     ],
     Body: LexiCopyPaste,
+    id: {
+      title: "Kenapa LEXI tidak terhubung ke AI dan memakai langkah salin/tempel",
+      summary:
+        "LEXI tidak pernah memanggil model. LEXI menulis prompt berbahasa biasa yang bisa Anda bawa ke alat AI mana pun, lalu memvalidasi JSON yang Anda tempel kembali, kolom demi kolom, sebelum apa pun disimpan. Inilah kompromi dan cara kerja batasnya.",
+      topic: "Desain produk",
+      toc: [
+        "Tugasnya: mengubah kata menjadi entri",
+        "Kenapa tidak langsung memanggil model",
+        "Batasnya, langkah demi langkah",
+        "Prompt yang ditulis untuk manusia dan model",
+        "Memeriksa jawaban yang kembali",
+        "Harganya",
+      ],
+      Body: LexiCopyPasteId,
+    },
   },
 ];
 
 export const getArticle = (slug: string) => ARTICLES.find((a) => a.slug === slug);
+
+/** An article with its reader-facing text in the given language (slug, dates and links unchanged). */
+export const localArticle = (a: Article, locale: Locale): Article => (locale === "id" ? { ...a, ...a.id } : a);
+
+/** Articles in the given language, newest first. */
+export const articlesFor = (locale: Locale) =>
+  [...ARTICLES].sort((a, b) => b.date.localeCompare(a.date)).map((a) => localArticle(a, locale));

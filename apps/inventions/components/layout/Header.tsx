@@ -31,8 +31,7 @@ export function Header({ t }: { t: Copy }) {
             className="header-links col-span-2 row-start-2 flex items-center gap-5 sm:col-span-1 sm:row-start-auto sm:gap-8"
           >
             <Link href={`${base}/inventions`} className={link}>{t.nav.inventions}</Link>
-            {/* Engineering is English only (W-10). Not built yet: no prefetch, so no 404 noise. */}
-            <Link href="/engineering" className={link}>{t.nav.engineering}</Link>
+            <Link href={`${base}/engineering`} className={link}>{t.nav.engineering}</Link>
             <Link href={`${base}/about`} className={link}>{t.nav.about}</Link>
             <LangLink to={id ? "en" : "id"} ariaLabel={t.nav.switchAria} className={`${link} ml-auto min-w-11 justify-center font-mono text-[13px] tracking-[0.08em] sm:hidden`}>
               {t.nav.switchLabel}

@@ -1,0 +1,81 @@
+LEXI membantu pelajar bahasa Mandarin, Jepang, dan Korea membangun kosakata mereka sendiri. Anda mencatat sebuah kata dalam sedetik; nanti, LEXI mengubahnya menjadi entri lengkap dalam tiga bahasa. Model bahasa sangat pandai untuk langkah kedua itu. Meski begitu, LEXI tidak pernah memanggilnya. Artikel ini menjelaskan alasannya, dan bagaimana langkah salin/tempel yang menggantikan panggilan model itu bekerja.
+
+Nama file di bawah ada di repositori LEXI; keputusan diberi nomor seperti di spesifikasi teknisnya, `TSD.md`.
+
+## Tugasnya: mengubah kata menjadi entri
+
+LEXI sengaja bekerja dalam dua tahap. Pertama, mencatat: ketik atau tempel 咖啡, 图书馆, 朋友 ke Inbox, satu per baris, lalu lanjutkan kegiatan Anda. Nanti, memperkaya: LEXI mengubah setiap catatan menjadi sebuah **konsep** yang berisi entri Mandarin, Jepang, dan Korea, masing-masing dengan bentuk tulisannya, cara bacanya (pinyin dengan tanda nada, kana, Revised Romanisation), arti, catatan, contoh kalimat, dan tautan ke kata-kata terkait.
+
+Menulis semua itu dengan tangan itu lambat. Model bahasa besar bisa membuat drafnya dalam hitungan detik. Pertanyaannya adalah di mana panggilan model itu seharusnya terjadi.
+
+## Kenapa tidak langsung memanggil model
+
+Desain yang paling jelas adalah sebuah tombol: "Perkaya", yang mengirim kata-kata ke API AI dan menyimpan jawabannya. Spesifikasi LEXI menolaknya sejak halaman pertama: LEXI "harus tetap berguna tanpa server, akun, atau API model."
+
+Ada tiga hal yang mengikuti aturan itu.
+
+- **Kata-kata Anda milik Anda.** Kosakata bisa mengungkap banyak hal tentang seseorang: pekerjaannya, bahasa pasangannya, ke mana ia akan pindah. Spesifikasinya tegas bahwa data ini "bisa bersifat pribadi dan tidak boleh dikirim diam-diam". Tombol yang diam-diam mengirim daftar Anda ke pihak ketiga justru yang dilarang kalimat itu.
+- **Tidak ada kunci yang harus dijaga.** API model membutuhkan kunci rahasia. Di aplikasi yang hanya berjalan di browser, kunci itu akan terlihat oleh setiap pengunjung atau butuh server untuk menyembunyikannya, sedangkan data LEXI dirancang untuk tinggal di browser Anda, di IndexedDB, tanpa perlu server.
+- **Model apa pun yang Anda suka.** Para pelajar sudah memakai alat AI yang berbeda-beda. Batas yang bisa bekerja dengan semuanya tidak mengikat LEXI pada harga, batasan, atau gangguan satu penyedia.
+
+Saat akun opsional ditambahkan belakangan (keputusan D-031), aturannya ditegaskan lagi: akun menambahkan sinkronisasi antarperangkat, dan "API AI tetap dikecualikan".
+
+## Batasnya, langkah demi langkah
+
+Alih-alih panggilan API, LEXI menarik garis yang terlihat antara data Anda dan alat AI mana pun, dan membiarkan Anda sendiri yang membawa pekerjaannya menyeberang.
+
+<Flow
+  label="Batas pengayaan. Hanya langkah 2 dan 4 yang menyeberanginya, dan keduanya Anda sendiri yang melakukan."
+  steps={[
+    { title: "Pilih satu kelompok", body: "pilih kata yang sudah dicatat di Inbox" },
+    { title: "Salin prompt-nya", body: "LEXI yang menulis; Anda yang memilih tujuannya" },
+    { title: "Jalankan di mana saja", body: "alat AI apa pun, atau tanpa AI sama sekali" },
+    { title: "Tempel jawabannya", body: "JSON kembali masuk ke LEXI" },
+    { title: "Validasi dan pratinjau", body: "setiap kolom diperiksa, belum ada yang disimpan", kind: "stop" },
+    { title: "Terapkan", body: "satu transaksi, setelah Anda konfirmasi", kind: "ok" },
+  ]}
+/>
+
+Satu-satunya yang keluar dari LEXI adalah kata-kata yang Anda pilih, dan itu pun karena Anda menyalinnya. Tidak ada yang dikirim di belakang layar.
+
+## Prompt yang ditulis untuk manusia dan model
+
+Prompt yang ditulis LEXI berupa kalimat biasa, bukan gumpalan JSON (keputusan D-016). Prompt itu menjelaskan tugasnya dalam kalimat, mendaftar kata-kata beserta ID catatannya, menyebut setiap kolom yang dibutuhkan, menentukan aksara pelafalan untuk setiap bahasa, mendaftar jenis hubungan yang diizinkan, dan diakhiri dengan bentuk JSON yang harus dipakai jawabannya.
+
+Ada dua alasan yang dicatat untuk pilihan itu. Model lebih andal mengikuti tugas yang dijelaskan dan daftar kata daripada data yang diserialisasi, dan menempel satu halaman JSON ke kotak chat itu merepotkan bagi manusia. Hanya jawabannya yang berupa JSON, karena jawabannya harus diurai.
+
+Prompt itu juga meminta kejujuran. Salah satu aturannya: "Jangan pernah mengarang arti. Kalau tidak tahu, masukkan ke uncertain." Apa pun yang tidak diyakini model kembali dalam daftar `uncertain`, bukan disajikan sebagai fakta.
+
+Supaya tautan antarkata berguna, prompt menyertakan hingga 300 kata Mandarin yang sudah Anda miliki dan meminta dua sampai lima hubungan per kata, mengutamakan kata dalam kelompok itu, lalu kata yang sudah tersimpan (D-020).
+
+## Memeriksa jawaban yang kembali
+
+Apa pun yang Anda tempel diperlakukan sebagai masukan yang tidak tepercaya. Spesifikasinya menyatakan hal itu dengan jelas, dan `domain/enrichment.ts` melakukan pemeriksaannya sebelum apa pun ditulis.
+
+1. **Amplopnya.** Jawabannya harus menyatakan dirinya dokumen `lexi-enrichment`, `schemaVersion` 1. Format lain atau versi yang lebih baru ditolak dengan pesan galat yang spesifik (`LEXI-JSON-001`, `LEXI-JSON-002`), bukan ditebak-tebak.
+2. **Catatannya.** Setiap hasil harus menunjuk ke ID catatan yang ada di LEXI Anda. Sebuah jawaban tidak bisa mengarang kata yang tidak pernah Anda catat.
+3. **Setiap kolom.** Setiap hasil butuh minimal satu entri bahasa; kode bahasanya harus yang didukung; jenis hubungannya harus ada di registri LEXI. Pemeriksaannya ditulis dengan zod, jadi kegagalan menyebut kolom dan baris yang persis.
+
+Satu keputusan kecil menunjukkan banyak hal tentang merancang bersama model, bukan melawannya:
+
+```ts
+// A model writes an explicit null for "nothing to say" far more often than it omits
+// the field, and the two mean the same thing to us. Null is therefore read as absent,
+// or as empty text where the field is expected to be present. Rejecting it would fail
+// a whole batch over a field that carries no information either way.
+const modelText = z.preprocess((value) => (value === null ? "" : value), z.string());
+```
+
+Ketat di bagian yang melindungi data Anda, longgar di bagian yang tidak merugikan apa pun.
+
+Kalau jawabannya lolos, LEXI menampilkan pratinjau: berapa konsep, entri, contoh, dan tautan yang akan dibuat. Tidak ada yang disimpan sampai Anda menekan Terapkan. Setelah itu `applyEnrichment` di `application/enrichment.ts` menulis semuanya dalam satu transaksi `readwrite` IndexedDB, jadi satu kelompok tersimpan utuh atau tidak sama sekali.
+
+<Note title="Mencocokkan kata tanpa menggabungkan yang salah">
+Saat kata yang sudah diperkaya tiba, LEXI menentukan apakah kata itu baru atau sudah Anda miliki. Pencocokannya berdasarkan bentuk tulisan, per bahasa, tidak pernah hanya dari arti bahasa Inggrisnya: sinonim bisa punya arti yang sama seperti "to know", dan 丈夫 berarti "suami" dalam bahasa Mandarin tetapi "kokoh" dalam bahasa Jepang. LEXI juga tidak pernah menambahkan entri kedua dalam bahasa yang sudah dimiliki sebuah konsep (D-019).
+</Note>
+
+## Harganya
+
+Langkah salin/tempel ini tidak gratis. Ada tambahan beberapa detik: salin, pindah ke alat AI Anda, tempel, lalu kembali. Kualitas drafnya tergantung alat yang Anda pilih, dan LEXI tidak bisa mencoba ulang secara otomatis saat jawabannya salah. LEXI hanya bisa memberi tahu Anda dengan tepat apa yang salah.
+
+Sebagai gantinya, LEXI tidak butuh kunci API, server untuk pengayaan, ataupun penyedia. LEXI tetap bekerja saat salah satu layanan AI sedang mati atau mengubah syaratnya. Dan di setiap titik, Anda bisa melihat persis apa yang keluar dari perangkat Anda, karena Anda sendiri yang membawanya.

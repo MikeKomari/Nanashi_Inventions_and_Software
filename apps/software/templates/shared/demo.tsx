@@ -48,7 +48,7 @@ export function DemoShell({ demo, children }: { demo: Demo; children: React.Reac
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>
       <body style={demo.bodyStyle}>
-        <DemoBar t={t} templateName={demo.entry.waName.id} />
+        <DemoBar t={t} templateName={demo.entry.waName.id} demoName={demo.name} demoAccent={demo.accent} tryIt={demo.tryIt} />
         {/* data-demo: WhatsApp clicks in here are the demo business's order buttons (whatsapp_click where=demo_order). */}
         <div data-demo>{children}</div>
         <RevealOnScroll />
