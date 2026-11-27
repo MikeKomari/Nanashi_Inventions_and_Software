@@ -16,7 +16,7 @@ export const en = {
     homeTitle: "Nanashi Inventions: an independent product lab",
     homeDescription:
       "Nanashi is an independent product lab founded by Michael Kimeison. Its name comes from nana hoshi, seven stars, and every invention is built by seven principles.",
-    inventionsTitle: "Inventions · Nanashi",
+    inventionsTitle: "Inventions · Nanashi Inventions",
     inventionsDescription: "Every product Nanashi has built, live and in the lab, each with its story, a demo and real screenshots.",
   },
   nav: {
@@ -140,7 +140,7 @@ export const en = {
     title: "How the inventions are built.",
     lead: "Deep dives into the decisions behind each invention. No posting schedule: an article is written when there is something worth explaining.",
     read: "Read the deep dive",
-    metaTitle: "Engineering · Nanashi",
+    metaTitle: "Engineering · Nanashi Inventions",
     contents: "Contents",
     minRead: "min read",
     inventionLabel: "The invention",
@@ -154,7 +154,7 @@ export const en = {
     about: "About Nanashi",
   },
   about: {
-    metaTitle: "About · Nanashi",
+    metaTitle: "About · Nanashi Inventions",
     metaDescription: "The team behind Nanashi, an independent product lab founded by Michael Kimeison, and the seven principles every invention is built by.",
     label: "About",
     title: "The people behind Nanashi.",
@@ -231,7 +231,7 @@ export const en = {
     ] as { q: string; a: Rich }[],
   },
   press: {
-    metaTitle: "Press kit · Nanashi",
+    metaTitle: "Press kit · Nanashi Inventions",
     metaDescription: "Nanashi logos, ready-to-use descriptions, the story of the name, brand colours and contact.",
     label: "Press kit",
     title: "Nanashi, in one place.",
@@ -280,7 +280,7 @@ export const en = {
     contactText: "For interviews, introductions or anything else: one email reaches the founder directly.",
   },
   privacy: {
-    metaTitle: "Privacy · Nanashi",
+    metaTitle: "Privacy · Nanashi Inventions",
     metaDescription: "What the Nanashi Inventions website collects about you: very little. Cookieless visit counts, no accounts, no forms.",
     label: "Privacy",
     title: "What this site knows about you.",

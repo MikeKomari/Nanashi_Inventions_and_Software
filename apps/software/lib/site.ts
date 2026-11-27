@@ -27,5 +27,8 @@ export const CONTACT = {
 
 export const FOUNDER = { name: "Michael Kimeison", url: "https://michaelkimeison.com" } as const;
 
-/** Nanashi Inventions lives at the root of the same domain, outside this app's basePath. */
-export const INVENTIONS_HREF = "/";
+/**
+ * Nanashi Inventions lives at the root of the main domain. Absolute so the link also works on this
+ * app's own address, where "/" just redirects back to /software.
+ */
+export const INVENTIONS_HREF = `${SITE_ORIGIN}/`;
