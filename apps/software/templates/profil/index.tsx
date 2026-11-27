@@ -17,6 +17,7 @@ export const profil: TemplateKind = {
       onAccent: content.colors.onAccent,
       fontClassName: profilFontClassName,
       bodyStyle: profilThemeStyle(content.colors),
+      tryIt: { accentVar: "--profil-accent", onAccentVar: "--profil-on-accent", contrastAgainst: [content.colors.background, content.colors.panel] },
       page: <ProfilTemplate content={content} credit={credit} />,
     };
   },
