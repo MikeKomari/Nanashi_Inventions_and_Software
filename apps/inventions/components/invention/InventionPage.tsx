@@ -8,6 +8,7 @@ import type { Copy } from "@/content/i18n/en";
 import { lp, type Locale } from "@/lib/i18n";
 import { getArticle, localArticle } from "@/content/engineering";
 import { Points } from "./Points";
+import { InspectorDemo } from "./InspectorDemo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbs, softwareApplication } from "@/lib/seo";
 
@@ -144,6 +145,24 @@ export function InventionPage({ t, inv }: { t: Copy; inv: LiveInvention }) {
             <figcaption className="idemo-caption">{inv.video.caption}</figcaption>
           </figure>
         </Reveal>
+        {inv.liveDemo === "chromiq-inspector" && (
+          <div className="idemo-try">
+            <Reveal>
+              <p className="eyebrow">{c.liveDemo.label}</p>
+              <h2 className="ipage-h2">
+                <Words text={c.liveDemo.title} />
+              </h2>
+              <p className="section-lead">{c.liveDemo.lead}</p>
+            </Reveal>
+            <InspectorDemo
+              labels={c.liveDemo}
+              endpoint={`${new URL(inv.url).origin}/api/inspect`}
+              appUrl={inv.url}
+              locale={t.locale}
+              newTab={t.inventions.newTab}
+            />
+          </div>
+        )}
       </section>
 
       {/* Story */}

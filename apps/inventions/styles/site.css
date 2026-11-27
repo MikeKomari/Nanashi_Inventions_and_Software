@@ -310,3 +310,152 @@ html[data-scrolled] .header-bar::before {
 .ichangelog-body {
   color: var(--color-text-muted);
 }
+
+/* Live CHROMIQ inspector demo (components/invention/InspectorDemo.tsx). */
+.idemo-try {
+  margin-top: 64px;
+}
+.idemo-live {
+  display: grid;
+  gap: 20px;
+  margin-top: 28px;
+  max-width: 860px;
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg, 16px);
+  background: var(--color-surface);
+}
+.idemo-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.idemo-form {
+  display: grid;
+  gap: 8px;
+}
+.idemo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.idemo-input {
+  flex: 1 1 240px;
+  min-height: 52px;
+  padding: 0 16px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 16px;
+}
+.idemo-input::placeholder {
+  color: var(--color-text-muted);
+}
+.idemo-row .btn-primary:disabled,
+.idemo-chip:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+.idemo-examples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+}
+.idemo-chip {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  font-size: 14px;
+  color: var(--color-text);
+  transition: background-color 200ms ease-out;
+}
+.idemo-chip:hover {
+  background: var(--color-surface-raised);
+}
+.idemo-out:empty {
+  display: none;
+}
+.idemo-note {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+.idemo-error {
+  color: var(--color-danger);
+}
+.idemo-result {
+  display: grid;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+.idemo-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+.idemo-host {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+.idemo-h {
+  margin-top: 12px;
+}
+.idemo-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 10px;
+  list-style: none;
+}
+.idemo-swatches li {
+  display: grid;
+  gap: 6px;
+}
+.idemo-swatch {
+  display: block;
+  height: 44px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+.idemo-tokens {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px 16px;
+}
+.idemo-tokens dt {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+.idemo-tokens dd {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.idemo-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-strong);
+}
+.idemo-headings {
+  display: grid;
+  gap: 4px;
+  list-style: none;
+  color: var(--color-text-muted);
+}
+.idemo-open {
+  justify-self: start;
+}
+@media (max-width: 480px) {
+  .idemo-live {
+    padding: 16px;
+  }
+  .idemo-row .btn-primary {
+    width: 100%;
+  }
+}
