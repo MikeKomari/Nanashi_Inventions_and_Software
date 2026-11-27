@@ -5,7 +5,8 @@ import { Reveal, Words } from "@/components/scroll/Reveal";
 import { Screenshot } from "@/components/ui/Screenshot";
 import { inventionNumber, liveInventions, type LiveInvention } from "@/content/inventions";
 import type { Copy } from "@/content/i18n/en";
-import { lp } from "@/lib/i18n";
+import { lp, type Locale } from "@/lib/i18n";
+import { getArticle, localArticle } from "@/content/engineering";
 import { Points } from "./Points";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbs, softwareApplication } from "@/lib/seo";
@@ -16,6 +17,12 @@ import { breadcrumbs, softwareApplication } from "@/lib/seo";
  * real screenshots → traction → its Engineering deep dive → next invention.
  */
 const DATE_LOCALE = { en: "en-GB", id: "id-ID" } as const;
+
+/** The deep dive's title in the page's language (the article holds both versions). */
+function engineeringTitle(e: { slug: string; title: string }, locale: Locale) {
+  const a = getArticle(e.slug);
+  return a ? localArticle(a, locale).title : e.title;
+}
 
 export function InventionPage({ t, inv }: { t: Copy; inv: LiveInvention }) {
   const c = t.invention;
@@ -219,8 +226,8 @@ export function InventionPage({ t, inv }: { t: Copy; inv: LiveInvention }) {
         {inv.engineering && (
           <Reveal className="iend-card lift">
             <p className="eyebrow">{c.engineeringLabel}</p>
-            <Link href={`/engineering/${inv.engineering.slug}`} className="iend-link">
-              {inv.engineering.title}
+            <Link href={lp(t.locale, `/engineering/${inv.engineering.slug}`)} className="iend-link">
+              {engineeringTitle(inv.engineering, t.locale)}
             </Link>
           </Reveal>
         )}

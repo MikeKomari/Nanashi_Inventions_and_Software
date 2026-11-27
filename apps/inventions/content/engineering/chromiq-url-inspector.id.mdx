@@ -1,0 +1,118 @@
+Fitur utama CHROMIQ mudah dijelaskan: tempel alamat website publik mana pun, lalu lihat tampilannya dengan warna, huruf, dan radius pilihan Anda sendiri. Untuk itu, server CHROMIQ harus mengambil halaman tersebut untuk Anda. Artikel ini menjelaskan kenapa satu langkah itu adalah kode paling berbahaya di produk ini, dan lima lapisan yang membuatnya aman.
+
+Setiap file yang disebut di bawah ada di repositori CHROMIQ.
+
+## Fiturnya, dan risiko di dalamnya
+
+Browser tidak bisa begitu saja memuat website lain lalu membaca HTML-nya. Aturan keamanan situs lain itu mencegahnya. Jadi CHROMIQ membacanya di servernya sendiri: Anda mengetik `https://example.com`, server mengunduh halamannya, mengambil warna, judul, dan stylesheet-nya, lalu mengirim hasilnya kembali.
+
+Di situlah muncul masalah keamanan klasik bernama **server-side request forgery** (SSRF). Kalau sebuah server mau mengambil alamat apa pun yang diketik orang asing, orang itu bisa mengarahkannya ke alamat yang hanya bisa dijangkau dari server tersebut:
+
+- `http://localhost:3000/admin`, halaman yang hanya untuk server itu sendiri;
+- `http://10.0.0.5`, mesin di jaringan privat di belakangnya;
+- `http://169.254.169.254`, alamat yang dipakai penyedia cloud untuk memberikan kredensial milik server itu sendiri.
+
+Tidak satu pun bisa dijangkau dari internet terbuka. Semuanya bisa dijangkau dari dalam. Tugas inspector adalah mengambil halaman publik dan tidak ada yang lain, bahkan ketika seseorang sengaja berusaha mengelabuinya.
+
+<Flow
+  label="Setiap permintaan melewati pemeriksaan ini secara berurutan. Setiap langkah merah bisa menolaknya."
+  steps={[
+    { title: "Periksa alamatnya", body: "http atau https, tanpa login di URL, tanpa nama privat", kind: "stop" },
+    { title: "Cari IP dan kunci", body: "cari IP-nya, tolak kalau ada jawaban yang privat", kind: "stop" },
+    { title: "Sambung ke IP itu", body: "alamat yang persis sudah diperiksa" },
+    { title: "Ikuti redirect secara manual", body: "setiap lompatan mengulang langkah 1–3", kind: "stop" },
+    { title: "Baca dalam batas", body: "8 detik dan 1,5 MB, diukur setelah dekompresi", kind: "stop" },
+    { title: "Tampilkan tanpa script", body: "HTML yang sudah dibersihkan di frame sandbox", kind: "ok" },
+  ]}
+/>
+
+## Aturan pertama: hanya alamat publik
+
+Lapisan pertama ada di `lib/url-safety.ts`. Sebelum apa pun diambil, alamatnya harus lolos tiga pemeriksaan.
+
+**Skema dan bentuknya.** Hanya `http:` dan `https:` yang diizinkan, dan alamat yang berisi nama pengguna atau kata sandi (`https://user:pass@host`) langsung ditolak.
+
+**Namanya.** `localhost`, dan apa pun yang berakhiran `.localhost`, `.local` atau `.internal` ditolak. Nama-nama ini memang menunjuk ke mesin privat.
+
+**Alamat IP-nya.** Kalau alamatnya berupa IP mentah, atau setelah sebuah nama dicari IP-nya, IP itu dibandingkan dengan setiap rentang yang bukan internet publik. Untuk IPv4, artinya jaringan privat (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`), loopback (`127.0.0.0/8`), link-local (`169.254.0.0/16`, tempat alamat kredensial cloud berada), carrier-grade NAT, rentang benchmarking dan dokumentasi, multicast, dan blok yang dicadangkan. Untuk IPv6 aturannya dibalik: hanya alamat global unicast (`2000::/3`) yang diizinkan, dikurangi rentang dokumentasi dan Teredo, dan alamat 6to4 dibongkar supaya IPv4 di dalamnya ikut diperiksa.
+
+Baris terakhir pemeriksaan IP lebih penting daripada kelihatannya:
+
+```ts
+export function isPrivateIp(address: string): boolean {
+  const bare = address.trim().replace(/^\[|\]$/g, "");
+  const v4 = parseIpv4(bare);
+  if (v4) return isPrivateIpv4Octets(v4);
+  const v6 = parseIpv6(bare);
+  if (v6) return isPrivateIpv6Bytes(v6);
+  return true; // unparseable: fail closed
+}
+```
+
+Kalau sebuah alamat tidak bisa dipahami, alamat itu dianggap privat. Penyerang suka menulis alamat IP dengan cara-cara aneh; apa pun yang tidak dikenali parser akan ditolak, bukan dibiarkan lewat.
+
+## Celah antara memeriksa dan menyambung
+
+Memeriksa sebuah nama lalu menyambung ke sana terdengar aman. Ternyata tidak, dan alasannya punya nama: **DNS rebinding**.
+
+Pemilik domain mengendalikan ke mana namanya mengarah, dan bisa mengganti jawabannya setiap detik. Jadi penyerang bisa mengatur `evil.example` agar menjawab "IP publik" saat CHROMIQ memeriksanya, lalu "`127.0.0.1`" sesaat kemudian saat CHROMIQ menyambung. Pemeriksaannya lolos; sambungannya justru ke tempat privat.
+
+`lib/safe-fetch.ts` menutup celah itu dengan menjadikan pemeriksaan dan penyambungan satu langkah yang sama. Klien HTTP Node memungkinkan Anda mengganti fungsi yang dipakainya untuk mencari sebuah nama. Pengganti dari CHROMIQ mencari nama itu, menolak kalau *ada satu saja* jawaban yang privat, dan kalau tidak, mengembalikan alamat yang baru saja diperiksanya:
+
+```ts
+dnsLookup(hostname, { ...options, all: true }, (err, addresses) => {
+  if (err) return callback(err);
+  const list = addresses as LookupAddress[];
+  if (!list.length || list.some((a) => isPrivateIp(a.address))) {
+    const blocked: NodeJS.ErrnoException = new Error("Blocked non-public address");
+    blocked.code = "EBLOCKED";
+    return callback(blocked);
+  }
+  if (options.all) return callback(null, list);
+  callback(null, list[0].address, list[0].family);
+});
+```
+
+Node lalu menyambung ke alamat yang persis itu. Tidak ada pencarian kedua yang bisa diubah penyerang, jadi tidak ada jeda antara "sudah diperiksa" dan "sudah tersambung". Setiap permintaan juga memakai sambungannya sendiri (`agent: false`), sehingga socket yang dibuka untuk satu situs tidak pernah dipakai ulang untuk situs lain.
+
+<Note title="Kenapa semua jawaban diperiksa?">
+Sebuah nama bisa mengarah ke beberapa alamat sekaligus. Kalau hanya jawaban pertama yang diperiksa, nama yang menjawab "publik, privat" akan lolos dan mungkin tersambung ke yang privat.
+</Note>
+
+## Redirect diperlakukan sama
+
+Halaman publik bisa menjawab "pergi ke `http://10.0.0.5` saja". Kalau klien HTTP mengikuti redirect itu sendiri, semua pemeriksaan di atas terlewati untuk alamat kedua.
+
+Jadi `safeFetch` tidak pernah membiarkan klien mengikuti redirect. Saat responsnya berupa redirect, ia menutupnya, menentukan alamat berikutnya, lalu mengulang dari awal: pemeriksaan alamat, pencarian yang dikunci, dan penyambungan berjalan untuk setiap lompatan. Jumlah lompatan dibatasi (tiga untuk inspector, empat untuk proxy restyle), dan redirect ke alamat yang tidak bisa diurai akan ditolak.
+
+## Batas waktu dan ukuran
+
+Halaman publik tetap bisa merugikan server meski bukan privat. Ia bisa menjawab sangat lambat, atau mengirim sesuatu yang sangat besar. Jadi setiap pengambilan punya batas.
+
+- **Satu tenggat untuk semuanya.** Inspector memberi waktu 8 detik untuk sebuah halaman, dihitung sekali untuk menyambung, setiap redirect, dan membaca isinya. Timer tetap berjalan selama isi halaman mengalir, jadi server yang mengirim satu byte per detik tetap akan diputus.
+- **Batas ukuran setelah dekompresi.** Halaman dibatasi 1,5 MB. Batas itu diukur pada data yang *sudah didekompresi*: file terkompresi yang kecil bisa membengkak menjadi gigabyte (sebuah "zip bomb"), jadi menghitung byte yang lewat di jaringan tidak akan menangkapnya. Aliran data dipotong di batas itu dan ditandai terpotong.
+- **Batas per pengunjung dan keseluruhan.** Inspector menerima 30 permintaan per menit per klien dan paling banyak 4 sekaligus; lewat dari itu, ia menjawab "sibuk" dengan header `Retry-After` alih-alih menumpuk antrean. Stylesheet punya batas sendiri yang lebih kecil: paling banyak 6 file, masing-masing 600 KB dan total 2 MB.
+
+Proxy restyle, yang memuat satu halaman utuh untuk diedit langsung, punya bentuk yang sama dengan angka sedikit lebih besar: 10 detik, 2 MB, empat redirect, 20 permintaan per menit per alamat, dan 8 sekaligus.
+
+## Menampilkan halaman tanpa menjalankannya
+
+Mengambil dengan aman baru setengah pekerjaan. Setengahnya lagi adalah menampilkan HTML milik orang asing di dalam CHROMIQ tanpa membiarkannya melakukan apa pun.
+
+Tampilan restyle punya dua lapisan yang berdiri sendiri, dicatat dalam keputusan arsitektur CHROMIQ ADR-0011:
+
+1. **HTML-nya dibersihkan** (`lib/sanitize-html.ts`). Script, iframe, object, dan embed dihapus beserta isinya; setiap atribut event `on…` dan `srcdoc` dibuang; tautan `javascript:` dan `data:text/html` dihapus. Parser tag membaca nilai atribut yang berada dalam tanda kutip sebagai satu kesatuan, jadi `>` yang disembunyikan di dalam tanda kutip tidak bisa memotong tag lebih awal lalu menyelundupkan sisanya melewati pemeriksaan.
+2. **Halamannya ditampilkan di frame sandbox** dengan `sandbox="allow-same-origin"` dan, dengan sengaja, tanpa `allow-scripts`. Bahkan kalau ada yang lolos dari pembersih, browser sendiri akan menolak menjalankannya.
+
+Catatan keputusan itu tegas soal lapisan kedua: jangan pernah menambahkan `allow-scripts` ke frame tersebut. Kalau digabung dengan `allow-same-origin`, halaman bisa menjalankan script untuk keluar ke origin milik CHROMIQ sendiri. Saat tampilan restyle diaudit ulang, 24 payload cross-site scripting yang sudah dikenal dijalankan melalui pembersih dan frame yang sebenarnya, dan tidak satu pun berjalan.
+
+Kompromi ini terlihat oleh pengguna: situs yang menggambar semuanya dengan JavaScript akan tampil kosong atau sebagian. CHROMIQ mengatakannya di antarmuka ("script dinonaktifkan") alih-alih menjalankan kode mereka.
+
+## Yang masih terbuka
+
+Dua batasan ditulis terang-terangan, bukan disembunyikan.
+
+- **Aset pihak ketiga.** Gambar, font, dan stylesheet di pratinjau restyle dimuat langsung dari server situs aslinya, yang bisa melihat alamat IP pengunjung. Catatan proxy menyebutkan hal ini.
+- **Tangkapan headless opsional.** CHROMIQ bisa merender halaman di browser headless sungguhan untuk mengukur warna dari yang benar-benar digambar, tetapi fitur ini mati secara default (`CHROMIQ_CAPTURE`). Browser melakukan pencarian namanya sendiri dan tidak bisa dikunci seperti Node, jadi jawaban DNS yang sangat singkat secara teori bisa berbeda antara pemeriksaan dan penyambungan. Setiap permintaan dari browser tetap diperiksa, tetapi celah ini hanya bisa ditutup di luar aplikasi, dengan menyaring lalu lintas di jaringan. Kalau risiko itu tidak bisa diterima, inspector yang dikunci adalah pilihan default.
+
+Aturan-aturan ini dilindungi oleh tes yang berusaha membobolnya: `tests/unit/url-safety.test.ts`, `safe-fetch.test.ts` dan `sanitize-html.test.ts`, ditambah tes integrasi `tests/integration/capture-ssrf.test.ts` yang menjalankan pemeriksaan redirect dan alamat privat di Chromium sungguhan.

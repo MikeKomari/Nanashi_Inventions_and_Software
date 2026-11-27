@@ -17,6 +17,7 @@ export const kafe: TemplateKind = {
       onAccent: content.colors.onAccent,
       fontClassName: kafeFontClassName,
       bodyStyle: kafeThemeStyle(content.colors),
+      tryIt: { accentVar: "--kafe-accent", onAccentVar: "--kafe-on-accent", contrastAgainst: [content.colors.background, content.colors.panel] },
       page: <KafeTemplate content={content} credit={credit} />,
     };
   },

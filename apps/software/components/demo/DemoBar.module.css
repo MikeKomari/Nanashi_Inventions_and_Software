@@ -50,3 +50,239 @@
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+/* "Coba dengan usahamu": the toggle and the small panel under the bar. */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  margin: 4px 0;
+  padding: 0 12px;
+  border: 1px solid rgb(255 200 87 / 0.55);
+  border-radius: 999px;
+  background: transparent;
+  color: #ffc857;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.toggle:hover,
+.toggle[aria-expanded="true"] {
+  background: rgb(255 200 87 / 0.12);
+  border-color: #ffc857;
+}
+.panel {
+  border-top: 1px solid rgb(255 255 255 / 0.12);
+  font-size: 15px;
+  line-height: 1.4;
+}
+.panel[hidden] {
+  display: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .panelInner {
+    animation: tryItIn 160ms ease-out;
+  }
+}
+@keyframes tryItIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+.panelInner {
+  margin: 0 auto;
+  max-width: 1180px;
+  padding: 12px 16px 16px;
+  display: grid;
+  gap: 12px;
+}
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.title {
+  margin: 0;
+  font-weight: 700;
+}
+.headActions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+/* Phones: the toggle wraps the row onto two lines, so the dot would dangle at the end of the first. */
+@media (max-width: 559px) {
+  .sep {
+    display: none;
+  }
+}
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-right: -8px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+}
+.close:hover {
+  background: rgb(255 255 255 / 0.1);
+}
+.fields {
+  display: grid;
+  gap: 12px;
+}
+@media (min-width: 720px) {
+  .fields {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 24px;
+  }
+}
+.field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.label {
+  padding: 0;
+  color: rgb(255 255 255 / 0.8);
+  font-size: 14px;
+}
+.input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid rgb(255 255 255 / 0.25);
+  border-radius: 10px;
+  background: #ffffff;
+  color: #1f1a2b;
+  font: inherit;
+  font-size: 16px;
+}
+.input::placeholder {
+  color: #6b6478;
+}
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.swatch,
+.custom {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border: 2px solid rgb(255 255 255 / 0.35);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.swatch[aria-pressed="true"] {
+  border-color: #ffc857;
+  box-shadow:
+    0 0 0 2px #1f1a2b,
+    0 0 0 4px #ffc857;
+}
+.custom {
+  overflow: hidden;
+  background: conic-gradient(#e8473b, #f5b83d, #49a35b, #2f7fd8, #8a4fc8, #e8473b);
+}
+.custom input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.custom:focus-within {
+  outline: 2px solid #ffc857;
+  outline-offset: 2px;
+}
+.note {
+  margin: 0;
+  color: #ffc857;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+}
+.primary,
+.secondary,
+.ghost {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.primary {
+  border: 1px solid #ffc857;
+  background: #ffc857;
+  color: #1f1a2b;
+}
+.primary:hover {
+  background: #ffd47a;
+}
+.secondary {
+  border: 1px solid rgb(255 255 255 / 0.45);
+  background: transparent;
+  color: #ffffff;
+}
+.secondary:hover {
+  border-color: #ffffff;
+}
+.ghost {
+  border: 0;
+  padding: 0 8px;
+  background: transparent;
+  color: rgb(255 255 255 / 0.85);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.status {
+  color: #ffc857;
+  font-size: 14px;
+}
+.hint {
+  margin: 0;
+  color: rgb(255 255 255 / 0.7);
+  font-size: 14px;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.toggle:focus-visible,
+.close:focus-visible,
+.swatch:focus-visible,
+.primary:focus-visible,
+.secondary:focus-visible,
+.ghost:focus-visible {
+  outline: 2px solid #ffc857;
+  outline-offset: 2px;
+}
+.input:focus-visible {
+  outline: 2px solid #ffc857;
+  outline-offset: 1px;
+}

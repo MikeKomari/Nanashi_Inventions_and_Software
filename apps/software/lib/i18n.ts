@@ -3,12 +3,13 @@
 import { abs } from "./site";
 
 export type Locale = "id" | "en";
-export type PageKey = "home" | "templates" | "about";
+export type PageKey = "home" | "templates" | "about" | "brief";
 
 export const ROUTES: Record<PageKey, Record<Locale, string>> = {
   home: { id: "/", en: "/en" },
   templates: { id: "/template", en: "/en/templates" },
   about: { id: "/tentang", en: "/en/about" },
+  brief: { id: "/mulai", en: "/en/start" },
 };
 
 export const href = (page: PageKey, locale: Locale) => ROUTES[page][locale];
