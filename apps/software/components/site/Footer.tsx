@@ -3,6 +3,7 @@ import Image from "next/image";
 import { asset, CONTACT, FOUNDER, INVENTIONS_HREF } from "@/lib/site";
 import type { SiteCopy } from "@/content/site/id";
 import { href } from "@/lib/i18n";
+import { AUTOMATION } from "@/content/site/automation";
 
 export function Footer({ t }: { t: SiteCopy }) {
   const link = "inline-flex min-h-11 items-center text-text-muted hover:text-text";
@@ -35,6 +36,7 @@ export function Footer({ t }: { t: SiteCopy }) {
             <li><Link href={href("home", t.locale)} className={link}>{t.nav.home}</Link></li>
             <li><Link href={href("templates", t.locale)} className={link}>{t.nav.templates}</Link></li>
             <li><Link href={href("about", t.locale)} className={link}>{t.nav.about}</Link></li>
+            <li><Link href={href("automation", t.locale)} className={link}>{AUTOMATION[t.locale].nav}</Link></li>
             {/* Plain <a>: Nanashi Inventions is the domain root, outside this app's basePath. */}
             <li><a href={INVENTIONS_HREF} className={link}>{t.footer.inventions} ↗</a></li>
           </ul>
