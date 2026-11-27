@@ -3,7 +3,7 @@
 // as "a lab of one": the team is meant to grow (founder, 24 Nov 2026).
 // Home copy is about Nanashi itself and stays general (founder, 24 Nov 2026): product facts live in
 // content/inventions.ts and on each invention's page. No invented numbers (principle 3).
-// id.ts (later) mirrors this shape; the founder reviews both.
+// id.ts mirrors this shape; the founder reviews both.
 //
 // Rich text: a string, or a list of strings and { text, href } links. Any "Michael Kimeison" in
 // rendered copy is linked to michaelkimeison.com automatically (components/ui/RichText.tsx).
@@ -138,6 +138,11 @@ export const en = {
     title: "How the inventions are built.",
     lead: "Deep dives into the decisions behind each invention. No posting schedule: an article is written when there is something worth explaining.",
     read: "Read the deep dive",
+    metaTitle: "Engineering · Nanashi",
+    contents: "Contents",
+    minRead: "min read",
+    inventionLabel: "The invention",
+    dateLocale: "en-GB",
   },
   founder: {
     label: "Founder",
