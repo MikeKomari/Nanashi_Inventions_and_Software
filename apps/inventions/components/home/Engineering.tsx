@@ -2,7 +2,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal, Words } from "@/components/scroll/Reveal";
 import type { Copy } from "@/content/i18n/en";
-import { ARTICLES } from "@/content/engineering";
+import { ARTICLES, localArticle } from "@/content/engineering";
+import { lp } from "@/lib/i18n";
 
 /** Home: the Engineering deep dives (W-06, W-14), from content/engineering. */
 export function Engineering({ t }: { t: Copy }) {
@@ -17,7 +18,7 @@ export function Engineering({ t }: { t: Copy }) {
         <p className="section-lead">{e.lead}</p>
       </Reveal>
       <ul className="wrap articles">
-        {ARTICLES.map((a, i) => (
+        {ARTICLES.map((x) => localArticle(x, t.locale)).map((a, i) => (
           <li key={a.slug}>
             <Reveal className="article lift" accent={a.accent}>
               <p className="article-meta">
@@ -27,7 +28,7 @@ export function Engineering({ t }: { t: Copy }) {
                 <span>{a.topic}</span>
               </p>
               <h3 className="article-title">
-                <Link href={`/engineering/${a.slug}`} className="article-link">
+                <Link href={lp(t.locale, `/engineering/${a.slug}`)} className="article-link">
                   {a.title}
                 </Link>
               </h3>

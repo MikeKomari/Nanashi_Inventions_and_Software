@@ -3,12 +3,15 @@
 import { abs } from "./site";
 
 export type Locale = "id" | "en";
-export type PageKey = "home" | "templates" | "about" | "showcase";
+export type PageKey = "home" | "templates" | "about" | "showcase" | "pricing" | "automation" | "brief";
 
 export const ROUTES: Record<PageKey, Record<Locale, string>> = {
   home: { id: "/", en: "/en" },
   templates: { id: "/template", en: "/en/templates" },
   about: { id: "/tentang", en: "/en/about" },
+  brief: { id: "/mulai", en: "/en/start" },
+  automation: { id: "/otomasi", en: "/en/automation" },
+  pricing: { id: "/harga", en: "/en/pricing" },
   showcase: { id: "/karya", en: "/en/work" },
 };
 

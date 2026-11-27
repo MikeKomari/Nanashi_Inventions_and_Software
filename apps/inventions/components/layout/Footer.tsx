@@ -36,7 +36,7 @@ export function Footer({ t }: { t: Copy }) {
               <Link href={`${base}/inventions`} className="footer-link">{t.nav.inventions}</Link>
             </li>
             <li>
-              <Link href="/engineering" className="footer-link">{t.nav.engineering}</Link>
+              <Link href={`${base}/engineering`} className="footer-link">{t.nav.engineering}</Link>
             </li>
             <li>
               <Link href={`${base}/about`} className="footer-link">{t.nav.about}</Link>
@@ -45,7 +45,7 @@ export function Footer({ t }: { t: Copy }) {
               <Link href={`${base}/privacy`} className="footer-link">{f.privacy}</Link>
             </li>
             <li>
-              <Link href="/press" className="footer-link">{f.press}</Link>
+              <Link href={`${base}/press`} className="footer-link">{f.press}</Link>
             </li>
           </ul>
         </nav>

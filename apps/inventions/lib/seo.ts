@@ -43,7 +43,7 @@ export function softwareApplication(app: { name: string; description: string; ur
   };
 }
 
-export function blogPosting(a: { title: string; description: string; date: string; path: string }) {
+export function blogPosting(a: { title: string; description: string; date: string; path: string; lang?: "en" | "id" }) {
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -51,7 +51,7 @@ export function blogPosting(a: { title: string; description: string; date: strin
     description: a.description,
     datePublished: a.date,
     dateModified: a.date,
-    inLanguage: "en",
+    inLanguage: a.lang ?? "en",
     mainEntityOfPage: abs(a.path),
     url: abs(a.path),
     image: abs(`${a.path}/opengraph-image`),

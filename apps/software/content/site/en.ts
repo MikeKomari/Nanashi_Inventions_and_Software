@@ -195,5 +195,7 @@ export const en: SiteCopy = {
     pages: "Pages",
     contact: "Contact",
     inventions: "Nanashi Inventions",
+    builtBy: "Built by the team behind",
+    builtByAnd: "and",
   },
 };

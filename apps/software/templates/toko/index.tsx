@@ -17,6 +17,7 @@ export const toko: TemplateKind = {
       onAccent: content.colors.onAccent,
       fontClassName: tokoFontClassName,
       bodyStyle: tokoThemeStyle(content.colors),
+      tryIt: { accentVar: "--toko-accent", onAccentVar: "--toko-on-accent", contrastAgainst: [content.colors.background] },
       page: <TokoTemplate content={content} credit={credit} />,
     };
   },
