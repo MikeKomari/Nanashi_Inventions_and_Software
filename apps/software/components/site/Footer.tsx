@@ -6,6 +6,8 @@ import { href } from "@/lib/i18n";
 
 export function Footer({ t }: { t: SiteCopy }) {
   const link = "inline-flex min-h-11 items-center text-text-muted hover:text-text";
+  const inline = "font-medium text-text underline decoration-border-strong underline-offset-4 hover:decoration-text";
+  const inventions = t.locale === "id" ? "/id/inventions" : "/inventions";
   return (
     <footer className="border-t border-border bg-surface/70">
       <div className="mx-auto grid max-w-[1200px] gap-10 px-4 py-12 sm:grid-cols-[1.4fr_1fr_1fr] sm:px-8">
@@ -18,6 +20,13 @@ export function Footer({ t }: { t: SiteCopy }) {
               {FOUNDER.name}
             </a>
             .
+          </p>
+          {/* Plain <a>: the invention pages belong to the Inventions app at the domain root. */}
+          <p className="mt-2 text-sm text-text-muted">
+            {t.footer.builtBy}{" "}
+            <a href={`${inventions}/chromiq`} className={inline}>CHROMIQ</a>{" "}
+            {t.footer.builtByAnd}{" "}
+            <a href={`${inventions}/lexi`} className={inline}>LEXI</a>.
           </p>
         </div>
         <nav aria-label={t.footer.pages}>
