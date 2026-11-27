@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const inv = getInvention((await params).slug, "en");
   if (!inv) return {};
   return {
-    title: `${inv.name}: ${inv.audience.toLowerCase()} · Nanashi`,
+    title: `${inv.name}: ${inv.audience.toLowerCase()} · Nanashi Inventions`,
     description: inv.oneLiner,
     alternates: alternates("en", `/inventions/${inv.slug}`),
   };

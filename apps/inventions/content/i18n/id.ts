@@ -12,7 +12,7 @@ export const id: Copy = {
     homeTitle: "Nanashi Inventions: lab produk independen",
     homeDescription:
       "Nanashi adalah lab produk independen yang didirikan oleh Michael Kimeison. Namanya berasal dari nana hoshi, tujuh bintang, dan setiap penemuannya dibangun dengan tujuh prinsip.",
-    inventionsTitle: "Penemuan · Nanashi",
+    inventionsTitle: "Penemuan · Nanashi Inventions",
     inventionsDescription: "Semua produk yang dibuat Nanashi, yang sudah berjalan dan yang masih di lab, masing-masing dengan ceritanya, demo, dan tangkapan layar asli.",
   },
   nav: {
@@ -134,7 +134,7 @@ export const id: Copy = {
     title: "Bagaimana penemuannya dibangun.",
     lead: "Bahasan mendalam tentang keputusan di balik setiap penemuan. Tidak ada jadwal terbit: artikel ditulis saat ada hal yang layak dijelaskan.",
     read: "Baca selengkapnya",
-    metaTitle: "Engineering · Nanashi",
+    metaTitle: "Engineering · Nanashi Inventions",
     contents: "Daftar isi",
     minRead: "menit baca",
     inventionLabel: "Penemuannya",
@@ -148,7 +148,7 @@ export const id: Copy = {
     about: "Tentang Nanashi",
   },
   about: {
-    metaTitle: "Tentang · Nanashi",
+    metaTitle: "Tentang · Nanashi Inventions",
     metaDescription: "Tim di balik Nanashi, lab produk independen yang didirikan oleh Michael Kimeison, dan tujuh prinsip yang dipegang setiap penemuannya.",
     label: "Tentang",
     title: "Orang-orang di balik Nanashi.",
@@ -224,7 +224,7 @@ export const id: Copy = {
   },
   // The press kit is English only; this block mirrors en.ts so the shape matches.
   press: {
-    metaTitle: "Press kit · Nanashi",
+    metaTitle: "Press kit · Nanashi Inventions",
     metaDescription: "Logo Nanashi, deskripsi siap pakai, cerita di balik nama, warna brand, dan kontak.",
     label: "Press kit",
     title: "Nanashi, dalam satu tempat.",
@@ -273,7 +273,7 @@ export const id: Copy = {
     contactText: "Untuk wawancara, perkenalan, atau keperluan lain: satu email langsung sampai ke pendirinya.",
   },
   privacy: {
-    metaTitle: "Privasi · Nanashi",
+    metaTitle: "Privasi · Nanashi Inventions",
     metaDescription: "Apa yang dikumpulkan website Nanashi Inventions tentang Anda: sangat sedikit. Hitungan kunjungan tanpa cookie, tanpa akun, tanpa formulir.",
     label: "Privasi",
     title: "Apa yang diketahui situs ini tentang Anda.",

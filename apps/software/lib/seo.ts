@@ -15,7 +15,9 @@ export function organization() {
     logo: abs("/brand/nanashi-symbol-small-color.svg"),
     email: CONTACT.email,
     founder: { "@type": "Person", name: FOUNDER.name, url: FOUNDER.url },
-    parentOrganization: { "@type": "Organization", name: "Nanashi", url: SITE_ORIGIN },
+    alternateName: "Nanashi",
+    // Same @id as the Organization on Nanashi Inventions, so Google links the two brands.
+    parentOrganization: { "@type": "Organization", "@id": `${SITE_ORIGIN}/#organization`, name: "Nanashi Inventions", url: SITE_ORIGIN },
     contactPoint: { "@type": "ContactPoint", contactType: "customer service", telephone: `+${CONTACT.whatsapp}`, availableLanguage: ["id", "en"] },
   };
 }

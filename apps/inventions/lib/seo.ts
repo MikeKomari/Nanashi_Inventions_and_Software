@@ -1,5 +1,5 @@
 // Structured data (JSON-LD) for search engines. Facts only: nothing here that the pages don't say.
-import { abs, CONTACT, FOUNDER, SOCIAL } from "@/lib/site";
+import { abs, CONTACT, FOUNDER, SITE_NAME, SOCIAL } from "@/lib/site";
 
 export const ORG_ID = abs("/#organization");
 
@@ -8,14 +8,28 @@ export function organization() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": ORG_ID,
-    name: "Nanashi",
-    alternateName: "Nanashi Inventions",
+    name: SITE_NAME,
+    alternateName: ["Nanashi", "Nanashi Lab"],
     url: abs("/"),
     logo: abs("/brand/nanashi-symbol-color.svg"),
     description: "An independent product lab. Its name comes from the Japanese nana hoshi, seven stars.",
     email: CONTACT.email,
     founder: { "@type": "Person", name: FOUNDER.name, url: FOUNDER.url },
     sameAs: [SOCIAL.github, SOCIAL.linkedin],
+  };
+}
+
+/** Tells Google the site's name, so results read "Nanashi Inventions" and not the bare address. */
+export function website() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": abs("/#website"),
+    name: SITE_NAME,
+    alternateName: "Nanashi",
+    url: abs("/"),
+    inLanguage: ["en", "id"],
+    publisher: { "@id": ORG_ID },
   };
 }
 

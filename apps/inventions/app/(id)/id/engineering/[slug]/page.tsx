@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { SITE_NAME } from "@/lib/site";
 import { id as t } from "@/content/i18n/id";
 import { alternates } from "@/lib/i18n";
 import { ARTICLES, getArticle, localArticle } from "@/content/engineering";
@@ -18,10 +19,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!found) return {};
   const a = localArticle(found, "id");
   return {
-    title: `${a.title} · Nanashi Engineering`,
+    title: `${a.title} · Nanashi Inventions`,
     description: a.summary,
     alternates: alternates("id", `/engineering/${a.slug}`),
-    openGraph: { type: "article", publishedTime: a.date },
+    openGraph: { type: "article", siteName: SITE_NAME, publishedTime: a.date },
   };
 }
 

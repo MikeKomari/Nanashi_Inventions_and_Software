@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
-import { abs } from "@/lib/site";
+import { abs, SOFTWARE_ON } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [{ userAgent: "*", allow: "/", disallow: ["/dev/"] }],
-    // The Nanashi Software sitemap too: on the main domain /software is that app, behind a rewrite.
-    sitemap: [abs("/sitemap.xml"), abs("/software/sitemap.xml")],
+    // The Nanashi Software sitemap too, but only when /software is actually served here (a dead sitemap is an error in Search Console).
+    sitemap: SOFTWARE_ON ? [abs("/sitemap.xml"), abs("/software/sitemap.xml")] : abs("/sitemap.xml"),
     host: abs("/"),
   };
 }

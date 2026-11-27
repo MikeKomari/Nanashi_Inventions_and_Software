@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
       { source: "/", destination: "/software", basePath: false, permanent: false },
       // Crawlers only read /robots.txt at the root and follow redirects. (A rewrite can't leave the basePath.)
       { source: "/robots.txt", destination: "/software/robots.txt", basePath: false, permanent: false },
+      { source: "/sitemap.xml", destination: "/software/sitemap.xml", basePath: false, permanent: false },
     ];
   },
 };

@@ -9,6 +9,15 @@ export const SITE_ORIGIN = (
   process.env.NEXT_PUBLIC_SITE_URL ?? (vercelProd ? `https://${vercelProd}` : "http://localhost:3000")
 ).replace(/\/$/, "");
 
+/** The brand name Google should show. Full name on purpose: "Nanashi" alone is a common anime term. */
+export const SITE_NAME = "Nanashi Inventions";
+
+/** Google Search Console "HTML tag" code (only the content="…" value). Unset: no tag. */
+export const GOOGLE_SITE_VERIFICATION = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined;
+
+/** True when /software is served on this domain (SOFTWARE_ORIGIN set, see next.config.ts). */
+export const SOFTWARE_ON = Boolean(process.env.SOFTWARE_ORIGIN);
+
 export const abs = (path = "/") => `${SITE_ORIGIN}${path === "/" ? "" : path}`;
 
 export const CONTACT = { email: "michaelk.projects@gmail.com" } as const;
