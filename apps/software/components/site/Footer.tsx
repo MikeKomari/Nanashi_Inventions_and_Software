@@ -5,6 +5,7 @@ import type { SiteCopy } from "@/content/site/id";
 import { href } from "@/lib/i18n";
 import { AUTOMATION } from "@/content/site/automation";
 import { PRICING, PRICING_PAGE } from "@/content/site/pricing";
+import { SHOWCASE, SHOWCASE_READY } from "@/content/site/showcase";
 
 export function Footer({ t }: { t: SiteCopy }) {
   const link = "inline-flex min-h-11 items-center text-text-muted hover:text-text";
@@ -36,6 +37,8 @@ export function Footer({ t }: { t: SiteCopy }) {
           <ul className="mt-2">
             <li><Link href={href("home", t.locale)} className={link}>{t.nav.home}</Link></li>
             <li><Link href={href("templates", t.locale)} className={link}>{t.nav.templates}</Link></li>
+            {/* Karya shows only once it has a real client (content/site/showcase.ts). */}
+            {SHOWCASE_READY && <li><Link href={href("showcase", t.locale)} className={link}>{SHOWCASE[t.locale].nav}</Link></li>}
             <li><Link href={href("about", t.locale)} className={link}>{t.nav.about}</Link></li>
             <li><Link href={href("automation", t.locale)} className={link}>{AUTOMATION[t.locale].nav}</Link></li>
             {/* Hidden while the pricing page is a draft; Mike reviews it at its URL directly. */}
