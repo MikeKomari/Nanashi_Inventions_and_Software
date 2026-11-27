@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { CONTACT } from "@/lib/site";
+import { BRIEF } from "@/content/site/brief";
 import type { SiteCopy } from "@/content/site/id";
 import { href } from "@/lib/i18n";
 import { Corners, SectionLabel, TwoTone } from "../SectionLabel";
@@ -168,6 +169,9 @@ export function Band({ t }: { t: SiteCopy }) {
           <WhatsAppButton where="band" message={t.band.ctaMessage}>
             {t.band.cta}
           </WhatsAppButton>
+          <Link href={href("brief", t.locale)} className="ulink inline-flex min-h-11 items-center font-semibold text-primary underline decoration-primary/30 underline-offset-4 hover:text-primary-hover">
+            {BRIEF[t.locale].bandLink}
+          </Link>
           <p className="text-sm text-text-muted">
             {t.band.emailLead}{" "}
             <a href={`mailto:${CONTACT.email}`} className="font-medium text-text underline decoration-border-strong underline-offset-4">
