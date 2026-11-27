@@ -55,7 +55,14 @@ export type LiveInvention = Base & {
    * Shown when a visitor opens a star in the Big Dipper. Facts from the product's own docs only.
    */
   shows: [number, string][];
+  /**
+   * "What's new": dated entries, newest first. Facts from the product's own repo, docs or this
+   * site's articles only (principle 3). Dates are ISO (yyyy-mm-dd).
+   */
+  changelog?: ChangelogEntry[];
 };
+
+export type ChangelogEntry = { date: string; title: string; body: string };
 
 export type LabInvention = Base & { status: "lab" };
 
@@ -145,6 +152,34 @@ export const INVENTIONS: Invention[] = [
       [4, "Grades every colour pair against WCAG and offers a high-contrast reading mode."],
       [6, "Keeps architecture decision records, a runbook, a failure-modes guide and postmortems."],
     ],
+    // From CHROMIQ's own git history and CHANGELOG.md; each date is its feature commit.
+    changelog: [
+      {
+        date: "2026-11-06",
+        title: "A safer sanitizer for site previews.",
+        body: "A quoted > inside an attribute could slip a tag past the HTML sanitizer. Previews already ran with scripts off, so nothing was exploitable, and the gap is now closed.",
+      },
+      {
+        date: "2026-11-04",
+        title: "Cloud projects in the workbench.",
+        body: "Sync a project to your account and every edit after that saves itself. A failed sync shows a retry button, and a conflict asks you which version to keep.",
+      },
+      {
+        date: "2026-11-04",
+        title: "Feedback and a public changelog.",
+        body: "Report a site that will not load without leaving the app; the address that failed is filled in for you. Every change is listed in a public changelog inside the app.",
+      },
+      {
+        date: "2026-10-26",
+        title: "Optional accounts.",
+        body: "Sign in to sync projects between browsers. Signing in is never required, short share links work signed out, and you can delete your account at any time.",
+      },
+      {
+        date: "2026-10-23",
+        title: "PRISM is now CHROMIQ.",
+        body: "The workbench has a new name, a new mark and a full set of brand assets.",
+      },
+    ],
   },
   {
     slug: "lexi",
@@ -228,6 +263,34 @@ export const INVENTIONS: Invention[] = [
       [5, "No model API: a copy and paste step does the same job, with nothing sent behind your back."],
       [6, "Its domain, storage and screens are covered by unit tests, and decisions are logged in its spec."],
     ],
+    // From LEXI's own git history; each date is its feature commit.
+    changelog: [
+      {
+        date: "2026-11-25",
+        title: "HSK 3.0 word packs.",
+        body: "Add a whole HSK 3.0 level in one step, from level 1 to levels 7 to 9: 10,969 words with pinyin and English meanings. Words you already have keep everything and simply join the level's list.",
+      },
+      {
+        date: "2026-11-25",
+        title: "Import a word list.",
+        body: "Paste a whole list into the Inbox and name it. Words you already have join the list straight away, and the rest wait in the Inbox until they are enriched.",
+      },
+      {
+        date: "2026-11-11",
+        title: "Install it on your home screen.",
+        body: "Add LEXI to your phone's home screen and it opens full screen, with its own name and icon.",
+      },
+      {
+        date: "2026-10-28",
+        title: "Accounts and sync.",
+        body: "Sign in to keep the same words on every device. Signed out, LEXI works from your browser exactly as before.",
+      },
+      {
+        date: "2026-10-21",
+        title: "Backups, lists and better review.",
+        body: "Export and restore everything as one file, move words in and out as CSV, group words into lists, and study one list at a time.",
+      },
+    ],
   },
   {
     slug: "studio",
@@ -265,6 +328,7 @@ export function inventionsFor(locale: Locale = "en"): Invention[] {
       story: tr.story ?? inv.story,
       points: inv.points.map((pt, i) => ({ ...pt, ...tr.points?.[i], facts: tr.points?.[i]?.facts ?? pt.facts })),
       shows: inv.shows.map(([p, line], i) => [p, tr.shows?.[i] ?? line] as [number, string]),
+      changelog: inv.changelog?.map((e, i) => ({ ...e, ...tr.changelog?.[i] })),
     } as LiveInvention;
   });
 }

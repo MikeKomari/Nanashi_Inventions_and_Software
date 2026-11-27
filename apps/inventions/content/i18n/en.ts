@@ -132,6 +132,8 @@ export const en = {
     engineeringLabel: "Engineering deep dive",
     next: "Next invention",
     videoFallback: "Your browser can't play this video. The screenshots below show the same screens.",
+    changelogLabel: "What's new",
+    changelogTitle: "Recent changes to the live app.",
   },
   engineering: {
     label: "Engineering",

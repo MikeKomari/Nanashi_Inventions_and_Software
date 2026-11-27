@@ -126,6 +126,8 @@ export const id: Copy = {
     engineeringLabel: "Bahasan engineering (dalam bahasa Inggris)",
     next: "Penemuan berikutnya",
     videoFallback: "Browser Anda tidak bisa memutar video ini. Tangkapan layar di bawah menampilkan layar yang sama.",
+    changelogLabel: "Yang baru",
+    changelogTitle: "Perubahan terbaru di aplikasinya.",
   },
   engineering: {
     label: "Engineering",

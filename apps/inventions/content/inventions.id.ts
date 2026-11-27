@@ -13,6 +13,8 @@ export type InventionText = {
   story?: { problem: string; whatItDoes: string; underTheHood: string; result: string };
   points?: PointText[];
   shows?: string[];
+  /** Same order as the English changelog; the date comes from there. */
+  changelog?: { title: string; body: string }[];
 };
 
 export const INVENTIONS_ID: Record<string, InventionText> = {
@@ -64,6 +66,28 @@ export const INVENTIONS_ID: Record<string, InventionText> = {
       "Menilai setiap pasangan warna terhadap WCAG dan punya mode baca kontras tinggi.",
       "Menyimpan catatan keputusan arsitektur, runbook, panduan mode kegagalan, dan postmortem.",
     ],
+    changelog: [
+      {
+        title: "Sanitizer yang lebih aman untuk pratinjau situs.",
+        body: "Tanda > di dalam atribut yang dikutip bisa meloloskan sebuah tag dari sanitizer HTML. Pratinjau sudah berjalan tanpa script, jadi tidak ada yang bisa dieksploitasi, dan celahnya kini sudah ditutup.",
+      },
+      {
+        title: "Proyek cloud di ruang kerja.",
+        body: "Sinkronkan proyek ke akunmu, dan setiap perubahan sesudahnya tersimpan sendiri. Sinkronisasi yang gagal menampilkan tombol coba lagi, dan saat ada konflik kamu yang memilih versi mana yang disimpan.",
+      },
+      {
+        title: "Masukan dan changelog publik.",
+        body: "Laporkan situs yang tidak mau dimuat tanpa keluar dari aplikasi; alamat yang gagal sudah terisi otomatis. Setiap perubahan tercatat di changelog publik di dalam aplikasinya.",
+      },
+      {
+        title: "Akun opsional.",
+        body: "Masuk untuk menyinkronkan proyek antar browser. Masuk tidak pernah wajib, tautan berbagi pendek tetap bisa dipakai tanpa akun, dan kamu bisa menghapus akunmu kapan saja.",
+      },
+      {
+        title: "PRISM kini bernama CHROMIQ.",
+        body: "Ruang kerjanya punya nama baru, logo baru, dan satu set aset brand lengkap.",
+      },
+    ],
   },
   lexi: {
     audience: "Untuk pelajar bahasa",
@@ -113,6 +137,28 @@ export const INVENTIONS_ID: Record<string, InventionText> = {
       "Kata tersimpan di IndexedDB di perangkatmu; tidak ada yang keluar sampai kamu memilih untuk masuk.",
       "Tanpa API model: satu langkah salin dan tempel mengerjakan hal yang sama, tanpa ada yang terkirim diam-diam.",
       "Domain, penyimpanan, dan layarnya diuji dengan unit test, dan keputusannya dicatat di spesifikasinya.",
+    ],
+    changelog: [
+      {
+        title: "Paket kata HSK 3.0.",
+        body: "Tambahkan satu level HSK 3.0 sekaligus, dari level 1 sampai level 7 sampai 9: 10.969 kata lengkap dengan pinyin dan arti bahasa Inggris. Kata yang sudah kamu punya tetap utuh dan hanya ikut masuk ke daftar level itu.",
+      },
+      {
+        title: "Impor daftar kata.",
+        body: "Tempel satu daftar utuh ke inbox dan beri nama. Kata yang sudah kamu punya langsung masuk ke daftar, dan sisanya menunggu di inbox sampai di-enrich.",
+      },
+      {
+        title: "Pasang di layar utama.",
+        body: "Tambahkan LEXI ke layar utama ponselmu, dan aplikasinya terbuka layar penuh dengan nama dan ikonnya sendiri.",
+      },
+      {
+        title: "Akun dan sinkronisasi.",
+        body: "Masuk untuk memakai kata yang sama di setiap perangkat. Selama tidak masuk, LEXI tetap berjalan dari browser kamu seperti biasa.",
+      },
+      {
+        title: "Cadangan, daftar, dan review yang lebih baik.",
+        body: "Ekspor dan pulihkan semuanya sebagai satu file, pindahkan kata lewat CSV, kelompokkan kata ke dalam daftar, dan pelajari satu daftar dalam satu waktu.",
+      },
     ],
   },
   studio: {
