@@ -3,7 +3,7 @@
 import { abs } from "./site";
 
 export type Locale = "id" | "en";
-export type PageKey = "home" | "templates" | "about" | "automation" | "brief";
+export type PageKey = "home" | "templates" | "about" | "pricing" | "automation" | "brief";
 
 export const ROUTES: Record<PageKey, Record<Locale, string>> = {
   home: { id: "/", en: "/en" },
@@ -11,6 +11,7 @@ export const ROUTES: Record<PageKey, Record<Locale, string>> = {
   about: { id: "/tentang", en: "/en/about" },
   brief: { id: "/mulai", en: "/en/start" },
   automation: { id: "/otomasi", en: "/en/automation" },
+  pricing: { id: "/harga", en: "/en/pricing" },
 };
 
 export const href = (page: PageKey, locale: Locale) => ROUTES[page][locale];
